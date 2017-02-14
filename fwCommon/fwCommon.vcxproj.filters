@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{9ee25d25-62af-47b6-838e-ce7abd8f5150}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\main">
+      <UniqueIdentifier>{40bccd24-00f8-4e16-97fb-87d9448a3579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\fw">
+      <UniqueIdentifier>{ccbe7108-4f6f-48d8-8e26-c35170dac00c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\fw\gui">
+      <UniqueIdentifier>{4ed776ea-a986-4396-b59c-74c8275450f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\fw\debug">
+      <UniqueIdentifier>{0453667b-12e1-4271-8f33-ccf970417cd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\fw\core">
+      <UniqueIdentifier>{675ddea9-c738-4e2f-8024-15da37f9e873}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main\fwcommon.cpp">
+      <Filter>src\main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\fwCommon_pch.cpp">
+      <Filter>src\main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fw\debug\fwlog.cpp">
+      <Filter>src\fw\debug</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\main\fwcommon.h">
+      <Filter>src\main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\fwCommon_pch.h">
+      <Filter>src\main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\Resource.h">
+      <Filter>src\main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\targetver.h">
+      <Filter>src\main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\gui\fwgui.h">
+      <Filter>src\fw\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\debug\fwlog.h">
+      <Filter>src\fw\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwcore.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
