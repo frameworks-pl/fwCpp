@@ -66,8 +66,8 @@ TEST(LogTest, twoLevelsSameFile)
     fw::debug::Logger::SetLogDateTime(LEVEL_GATE_CREATE, false, false);
     fw::debug::Logger::SetLogDateTime(LEVEL_GATE_ADD_PIN, false, false);
 
-    CString sGateName = "gate";
-    fw::debug::Logger::Log(LEVEL_GATE_CREATE, "%s", sGateName);
+    std::string sGateName = "gate";
+    fw::debug::Logger::Log(LEVEL_GATE_CREATE, "%s", sGateName.c_str());
     for (int i = 0; i < 26; i++)
     {
         fw::debug::Logger::Log(LEVEL_GATE_ADD_PIN, "%d %s %s %s",i+1, "", "", "");
