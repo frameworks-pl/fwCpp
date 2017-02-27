@@ -1,11 +1,10 @@
 #include "gtest.h"
-#include <src/et/core/etcore.h>
+#include <src/fw/core/fwcore.h>
 
-#define _USING_V110_SDK71_
 
 TEST(NullableVarTest, dereferencingValueNotSetThrowsException) {
 
-    et::core::NullableVar<int> nullableInt;
+    fw::core::NullableVar<int> nullableInt;
     try
     {
         nullableInt();
@@ -19,6 +18,6 @@ TEST(NullableVarTest, dereferencingValueNotSetThrowsException) {
 }
 
 TEST(NullableVarTest, intInitialization) {
-    et::core::NullableVar<int> nullableInt(10);
+    fw::core::NullableVar<int> nullableInt(10);
     EXPECT_EQ(10, nullableInt());
 }

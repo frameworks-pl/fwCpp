@@ -76,7 +76,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions);GTEST_HAS_PARAM_TEST</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;GTEST_HAS_PARAM_TEST;_USING_V110_SDK71_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>./;./include;./include/gtest;./src;./tests/et;./tests/et/core;$(DEPS_ROOT)/include/build_scripts;$(ProjectDir)../;$(ProjectDir)../src/main</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -84,7 +84,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(DEPS_ROOT)/lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ETCommond.lib</AdditionalDependencies>
+      <AdditionalDependencies>fwCommon.lib</AdditionalDependencies>
     </Link>
     <Lib>
       <AdditionalOptions>/ignore:4006 %(AdditionalOptions)</AdditionalOptions>
@@ -130,7 +130,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>ETCommon.lib</AdditionalDependencies>
+      <AdditionalDependencies>fwCommon.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(DEPS_ROOT)/lib</AdditionalLibraryDirectories>
     </Link>
     <Lib>

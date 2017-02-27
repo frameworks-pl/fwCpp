@@ -13,7 +13,7 @@ TEST(ComboFillerTest, GUIItemShouldReturnTitle) {
 TEST(ComboFillerTest, ComboFillerTest) {
 
     MyCombo combo;
-    et::gui::ComboFiller<MyCombo> cf(&combo);
+    fw::gui::ComboFiller<MyCombo> cf(&combo);
     std::vector<MyItem*> collection;
     collection.push_back(new MyItem(1, "one"));
     collection.push_back(new MyItem(2, "two"));

@@ -6,8 +6,8 @@
 #include <basetsd.h>
 #include "gtest.h"
 #include "ettest.h"
-#include <src/et/core/etcore.h>
-#include <src/et/gui/etgui.h>
+#include <src/fw/core/fwcore.h>
+#include <src/fw/gui/fwgui.h>
 
 struct ComboItem
 {
@@ -78,7 +78,7 @@ class MyCombo
         int m_iCurSel;
 };
 
-class MyItem : public et::gui::Item
+class MyItem : public fw::gui::Item
 {
     public:
         MyItem(int id, const std::string& title) : m_id(id), m_title(title) { }

@@ -1,5 +1,3 @@
-#define _USING_V110_SDK71_
-
 #include "gtest.h"
 #include "ettest.h"
 #include <list>
@@ -7,7 +5,7 @@
 #include <map>
 #include <fstream>
 #include <iostream>
-#include <src/et/debug/etlog.h>
+#include <src/fw/debug/fwlog.h>
 
 #define DEBUG_LEVEL 1
 #define LEVEL_GATE_CREATE 2
@@ -49,11 +47,11 @@ std::vector<std::string> ReadFromFile(const char* pPath)
 
 TEST(LogTest, addLogLevel) {
 
-    et::debug::Logger::AddLogLevel(DEBUG_LEVEL, "c:\\temp\\log1.log", "DEBUG");
-    et::debug::Logger::SetLogDateTime(DEBUG_LEVEL, false, false);
-    et::debug::Logger::SetLogLevel(DEBUG_LEVEL, false);
-    et::debug::Logger::Log(DEBUG_LEVEL, "This is just a test");
-    et::debug::Logger::Destroy();
+    fw::debug::Logger::AddLogLevel(DEBUG_LEVEL, "c:\\temp\\log1.log", "DEBUG");
+    fw::debug::Logger::SetLogDateTime(DEBUG_LEVEL, false, false);
+    fw::debug::Logger::SetLogLevel(DEBUG_LEVEL, false);
+    fw::debug::Logger::Log(DEBUG_LEVEL, "This is just a test");
+    fw::debug::Logger::Destroy();
 
 	std::vector<std::string> content = ReadFromFile("c:\\temp\\log1.log");
     EXPECT_EQ(1, content.size());
@@ -63,16 +61,16 @@ TEST(LogTest, addLogLevel) {
 
 TEST(LogTest, twoLevelsSameFile)
 {
-    et::debug::Logger::AddLogLevel(LEVEL_GATE_CREATE, "c:\\temp\\TestPDBEditor.log", "GATE_CREATE");
-    et::debug::Logger::AddLogLevel(LEVEL_GATE_ADD_PIN, "c:\\temp\\TestPDBEditor.log", "LEVEL_GATE_ADD_PIN");
-    et::debug::Logger::SetLogDateTime(LEVEL_GATE_CREATE, false, false);
-    et::debug::Logger::SetLogDateTime(LEVEL_GATE_ADD_PIN, false, false);
+    fw::debug::Logger::AddLogLevel(LEVEL_GATE_CREATE, "c:\\temp\\TestPDBEditor.log", "GATE_CREATE");
+    fw::debug::Logger::AddLogLevel(LEVEL_GATE_ADD_PIN, "c:\\temp\\TestPDBEditor.log", "LEVEL_GATE_ADD_PIN");
+    fw::debug::Logger::SetLogDateTime(LEVEL_GATE_CREATE, false, false);
+    fw::debug::Logger::SetLogDateTime(LEVEL_GATE_ADD_PIN, false, false);
 
     CString sGateName = "gate";
-    et::debug::Logger::Log(LEVEL_GATE_CREATE, "%s", sGateName);
+    fw::debug::Logger::Log(LEVEL_GATE_CREATE, "%s", sGateName);
     for (int i = 0; i < 26; i++)
     {
-        et::debug::Logger::Log(LEVEL_GATE_ADD_PIN, "%d %s %s %s",i+1, "", "", "");
+        fw::debug::Logger::Log(LEVEL_GATE_ADD_PIN, "%d %s %s %s",i+1, "", "", "");
     }
 
 	std::vector<std::string> content = ReadFromFile("c:\\temp\\TestPDBEditor.log");
@@ -89,8 +87,8 @@ TEST(LogTest, twoLevelsSameFile)
 TEST(LogTest, dontLogAnythingWhenLevelNotAdded)
 {
 #ifdef WIN32
-    et::debug::Logger::Destroy();
-    ASSERT_NO_THROW(et::debug::Logger::Log(LEVEL_GATE_CREATE, "%s", "GATE_CREATE"));  
+    fw::debug::Logger::Destroy();
+    ASSERT_NO_THROW(fw::debug::Logger::Log(LEVEL_GATE_CREATE, "%s", "GATE_CREATE"));  
 #else
     FAIL(); //TODO: write implemntation of this test for platform other than windows
 #endif
@@ -98,14 +96,14 @@ TEST(LogTest, dontLogAnythingWhenLevelNotAdded)
 
 TEST(LogTest, oneLevelWithDateOtherWithout)
 {
-    et::debug::Logger::AddLogLevel(LEVEL_WITH_DATETIME, "c:\\temp\\datenodate.log", "DEBUG");
-    et::debug::Logger::AddLogLevel(LEVEL_WITHOUT_DATETIME, "c:\\temp\\datenodate.log", "DEBUG");
-    et::debug::Logger::SetLogDateTime(LEVEL_WITHOUT_DATETIME, false, false);    
+    fw::debug::Logger::AddLogLevel(LEVEL_WITH_DATETIME, "c:\\temp\\datenodate.log", "DEBUG");
+    fw::debug::Logger::AddLogLevel(LEVEL_WITHOUT_DATETIME, "c:\\temp\\datenodate.log", "DEBUG");
+    fw::debug::Logger::SetLogDateTime(LEVEL_WITHOUT_DATETIME, false, false);    
 
-    et::debug::Logger::Log(LEVEL_WITH_DATETIME, "%s", "This one has date and time");
-    et::debug::Logger::Log(LEVEL_WITHOUT_DATETIME, "%s", "This one does not have date time");
+    fw::debug::Logger::Log(LEVEL_WITH_DATETIME, "%s", "This one has date and time");
+    fw::debug::Logger::Log(LEVEL_WITHOUT_DATETIME, "%s", "This one does not have date time");
 
-    et::debug::Logger::Destroy();
+    fw::debug::Logger::Destroy();
 
 	std::vector<std::string> content = ReadFromFile("c:\\temp\\datenodate.log");
 
@@ -117,10 +115,10 @@ TEST(LogTest, oneLevelWithDateOtherWithout)
 
 TEST(LogTest, openLogMultipleTimesInOneSession)
 {
-	et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING, "c:\\temp\\looplog.log", "TESTING1");
-	et::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING, false, false);
-	et::debug::Logger::Log(LEVEL_LOOP_LOGGING, "%s", "First entry in first loop");
-	et::debug::Logger::RemoveLogLevel(LEVEL_LOOP_LOGGING, "c:\\temp\\looplog.log"); //this should close file!
+	fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING, "c:\\temp\\looplog.log", "TESTING1");
+	fw::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING, false, false);
+	fw::debug::Logger::Log(LEVEL_LOOP_LOGGING, "%s", "First entry in first loop");
+	fw::debug::Logger::RemoveLogLevel(LEVEL_LOOP_LOGGING, "c:\\temp\\looplog.log"); //this should close file!
 
 	std::vector<std::string> content1 = ReadFromFile("c:\\temp\\looplog.log");
 	ASSERT_EQ(1, content1.size());
@@ -129,15 +127,15 @@ TEST(LogTest, openLogMultipleTimesInOneSession)
 	//this should reopen file again
 	try
 	{
-		et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING, "c:\\temp\\looplog.log", "TESTING2");
-		et::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING, false, false);
+		fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING, "c:\\temp\\looplog.log", "TESTING2");
+		fw::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING, false, false);
 	}
 	catch (std::string e)
 	{
 		FAIL(); 
 	}
-	et::debug::Logger::Log(LEVEL_LOOP_LOGGING, "%s", "First entry in second loop");
-	et::debug::Logger::RemoveLogLevel(LEVEL_LOOP_LOGGING, "c:\\temp\\looplog.log"); //this should close file!
+	fw::debug::Logger::Log(LEVEL_LOOP_LOGGING, "%s", "First entry in second loop");
+	fw::debug::Logger::RemoveLogLevel(LEVEL_LOOP_LOGGING, "c:\\temp\\looplog.log"); //this should close file!
 
 	std::vector<std::string> content2 = ReadFromFile("c:\\temp\\looplog.log");
 	ASSERT_EQ(1, content2.size());
@@ -148,34 +146,34 @@ TEST(LogTest, openLogMultipleTimesInOneSession)
 
 TEST(LogTest, closeAllTargetsForAFileAtOnce)
 {
-	et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_1, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS");
-	et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_2, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS");
-	et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_3, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS");
-	et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_4, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS");
-	et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_5, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS");
+	fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_1, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS");
+	fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_2, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS");
+	fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_3, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS");
+	fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_4, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS");
+	fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_5, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS");
 
-	et::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING_1, false, false);
-	et::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING_2, false, false);
-	et::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING_3, false, false);
-	et::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING_4, false, false);
-	et::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING_5, false, false);
+	fw::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING_1, false, false);
+	fw::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING_2, false, false);
+	fw::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING_3, false, false);
+	fw::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING_4, false, false);
+	fw::debug::Logger::SetLogDateTime(LEVEL_LOOP_LOGGING_5, false, false);
 
-	et::debug::Logger::Log(LEVEL_LOOP_LOGGING_1, "%s", "First entry in first loop");
-	et::debug::Logger::Log(LEVEL_LOOP_LOGGING_2, "%s", "First entry in first loop");
-	et::debug::Logger::Log(LEVEL_LOOP_LOGGING_3, "%s", "First entry in first loop");
-	et::debug::Logger::Log(LEVEL_LOOP_LOGGING_4, "%s", "First entry in first loop");
-	et::debug::Logger::Log(LEVEL_LOOP_LOGGING_5, "%s", "First entry in first loop");
+	fw::debug::Logger::Log(LEVEL_LOOP_LOGGING_1, "%s", "First entry in first loop");
+	fw::debug::Logger::Log(LEVEL_LOOP_LOGGING_2, "%s", "First entry in first loop");
+	fw::debug::Logger::Log(LEVEL_LOOP_LOGGING_3, "%s", "First entry in first loop");
+	fw::debug::Logger::Log(LEVEL_LOOP_LOGGING_4, "%s", "First entry in first loop");
+	fw::debug::Logger::Log(LEVEL_LOOP_LOGGING_5, "%s", "First entry in first loop");
 
-	et::debug::Logger::RemoveAllLogLevels("c:\\temp\\looplog_many_levels.log");
+	fw::debug::Logger::RemoveAllLogLevels("c:\\temp\\looplog_many_levels.log");
 
 	//if RemoveAllLogLevels did not remove all levels any of he lines below should throw exception!
-	ASSERT_NO_THROW(et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_1, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS"));
-	ASSERT_NO_THROW(et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_2, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS"));
-	ASSERT_NO_THROW(et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_3, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS"));
-	ASSERT_NO_THROW(et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_4, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS"));
-	ASSERT_NO_THROW(et::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_5, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS"));
+	ASSERT_NO_THROW(fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_1, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS"));
+	ASSERT_NO_THROW(fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_2, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS"));
+	ASSERT_NO_THROW(fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_3, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS"));
+	ASSERT_NO_THROW(fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_4, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS"));
+	ASSERT_NO_THROW(fw::debug::Logger::AddLogLevel(LEVEL_LOOP_LOGGING_5, "c:\\temp\\looplog_many_levels.log", "MANYLEVELS"));
 
-	et::debug::Logger::Destroy();
+	fw::debug::Logger::Destroy();
 
 }
 
@@ -183,7 +181,7 @@ void TestFormat(const char* fmt, ...)
 {
 	va_list ap;
 	va_start(ap, fmt);
-	et::debug::Logger::vLog(LEVEL_LOG_AP, fmt, ap);
+	fw::debug::Logger::vLog(LEVEL_LOG_AP, fmt, ap);
 	va_end(ap);
 }
 
@@ -191,8 +189,8 @@ void TestFormat(const char* fmt, ...)
 TEST(LogTest, vLog_Test)
 {
 
-	et::debug::Logger::AddLogLevel(LEVEL_LOG_AP, "c:\\temp\\logging_ap.log", "MANYLEVELS");
-	et::debug::Logger::SetLogDateTime(LEVEL_LOG_AP, false, false);
+	fw::debug::Logger::AddLogLevel(LEVEL_LOG_AP, "c:\\temp\\logging_ap.log", "MANYLEVELS");
+	fw::debug::Logger::SetLogDateTime(LEVEL_LOG_AP, false, false);
 	TestFormat("Testing %s", "AP_LOGGING");
 
 	std::vector<std::string> content2 = ReadFromFile("c:\\temp\\logging_ap.log");

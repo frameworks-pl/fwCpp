@@ -8,7 +8,7 @@ TEST(ComboSelectionKeeperTest, SelKeeperShouldRememberCurrentSelection) {
     combo.AddString("three");
     combo.SetCurSel(1); //two
     {
-        et::gui::ComboSelectionKeeper<MyCombo> csk(&combo);
+        fw::gui::ComboSelectionKeeper<MyCombo> csk(&combo);
         combo.ResetContent();
         combo.AddString("three");
         combo.AddString("one");
@@ -34,7 +34,7 @@ TEST(ComboSelectionKeeperTest, SelKeeperShouldRestoreSelectionBasedOnString) {
     {
         CString sStringToSelect;
         sStringToSelect = "12";
-        et::gui::ComboSelectionKeeper<MyCombo> csk(&combo, sStringToSelect);
+        fw::gui::ComboSelectionKeeper<MyCombo> csk(&combo, sStringToSelect);
     }
 
     CString s;
@@ -56,7 +56,7 @@ TEST(ComboSelectionKeeperTest, SelKeeperShouldRestoreSelectionBasedOnData) {
 
     {
         DWORD_PTR pData = 102;
-        et::gui::ComboSelectionKeeper<MyCombo> csk(&combo, pData);
+        fw::gui::ComboSelectionKeeper<MyCombo> csk(&combo, pData);
     }
 
     CString s;
