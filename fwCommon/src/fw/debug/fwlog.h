@@ -9,6 +9,15 @@ namespace fw
 {
     namespace debug
     {
+
+		//available logging modes
+		enum LoggingModeEnum
+		{
+			LOGGING_MODE_APPEND = 1, //if file exists, log will be appended at the end
+			LOGGING_MODE_OVERWRITE,  //if file exists it will be overwritten
+			LOGGING_MODE_UNIQUE,     //logs will be created with unique dates
+		};
+		typedef LoggingModeEnum LoggingMode;
     
         class Logger
         {
@@ -18,7 +27,7 @@ namespace fw
                 static void Log(int iLogLevel, const char* pLogValue, ...); 
 				static void vLog(int iLogLevel, const char* pLogValue, va_list ap);
 
-                static void AddLogLevel(int iLogLevel, const char* sFilePath, const char* sLevelName);
+                static void AddLogLevel(int iLogLevel, const char* sFilePath, const char* sLevelName, LoggingMode eMode = LOGGING_MODE_OVERWRITE);
 				static void RemoveLogLevel(int iLogLevel, const char* sFilePath);
 				static void RemoveAllLogLevels(const char* sFilePath);
                 static void SetLogDateTime(int iLogLevel, bool bLogTime, bool bLogDate);
@@ -41,7 +50,7 @@ namespace fw
                 Logger();
                 virtual ~Logger();
 
-                void InternalAddLogLevel(int iLogLevel, const char* sFilePath, const char* sLevelName);
+				void InternalAddLogLevel(int iLogLevel, const char* sFilePath, const char* sLevelName, LoggingMode eMode);
 				void InternalRemoveLogLevel(int iLogLevel, const char* sFilePath);
 				void InternalRemoveAllLogLevels(const char* sFilePath);
                 void InternalSetLogDateTime(int iLogLevel, bool bLogDate, bool bLogTime);

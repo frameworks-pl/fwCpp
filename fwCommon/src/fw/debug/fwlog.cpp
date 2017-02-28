@@ -47,9 +47,9 @@ namespace fw
             m_pLogger = NULL;
         }
 
-        void Logger::AddLogLevel(int iLogLevel, const char* sFilePath, const char* sLevelName)
+		void Logger::AddLogLevel(int iLogLevel, const char* sFilePath, const char* sLevelName, LoggingMode eMode)
         {
-            Logger::Get()->InternalAddLogLevel(iLogLevel, sFilePath, sLevelName);
+			Logger::Get()->InternalAddLogLevel(iLogLevel, sFilePath, sLevelName, eMode);
         }
 
 		void Logger::RemoveLogLevel(int iLogLevel, const char* sFilePath)
@@ -104,7 +104,7 @@ namespace fw
 		}
 
 
-        void Logger::InternalAddLogLevel(int iLogLevel, const char* sFilePath, const char* sLevelName)
+		void Logger::InternalAddLogLevel(int iLogLevel, const char* sFilePath, const char* sLevelName, LoggingMode eMode)
         {
             if (m_LevelToLevelStructMap.find(iLogLevel) != m_LevelToLevelStructMap.end())
             {
@@ -119,7 +119,21 @@ namespace fw
             FILE* pFile = NULL;
             if (m_FilePathToFileHandle.find(sFilePath) == m_FilePathToFileHandle.end())
             {
-                pFile = fopen(sFilePath, "w+");
+				//first open file for writting
+				switch (eMode)
+				{
+					case LOGGING_MODE_OVERWRITE:
+						pFile = fopen(sFilePath, "w+");
+						break;
+					case LOGGING_MODE_UNIQUE:
+						ASSERT(0);
+						//Needs to figure out how to generate unique names in standard C++
+						break;
+					case LOGGING_MODE_APPEND:
+						pFile = fopen(sFilePath, "a+");
+						break;
+				}
+
                 if (pFile)
                     m_FilePathToFileHandle.insert(std::map<std::string, FILE*>::value_type(sFilePath, pFile));
             }

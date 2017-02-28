@@ -23,6 +23,8 @@
 
 #define LEVEL_LOG_AP  11
 
+#define LEVEL_APPEND 12
+
 
 //TODO Add set up step that will make sure log files from previous run are not there
 
@@ -196,5 +198,25 @@ TEST(LogTest, vLog_Test)
 	std::vector<std::string> content2 = ReadFromFile("c:\\temp\\logging_ap.log");
 	ASSERT_EQ(1, content2.size());
 	ASSERT_STREQ("[MANYLEVELS] Testing AP_LOGGING", content2[0].c_str());
+
+}
+
+
+TEST(LogTest, logWithAppend)
+{
+	fw::debug::Logger::AddLogLevel(LEVEL_APPEND, "c:\\temp\\append.log", "APPEND", fw::debug::LOGGING_MODE_APPEND);
+	fw::debug::Logger::SetLogDateTime(LEVEL_APPEND, false, false);
+	fw::debug::Logger::Log(LEVEL_APPEND, "row 1");
+
+	fw::debug::Logger::Destroy();
+
+	fw::debug::Logger::AddLogLevel(LEVEL_APPEND, "c:\\temp\\append.log", "APPEND", fw::debug::LOGGING_MODE_APPEND);
+	fw::debug::Logger::SetLogDateTime(LEVEL_APPEND, false, false);
+	fw::debug::Logger::Log(LEVEL_APPEND, "row 2");
+
+	std::vector<std::string> content = ReadFromFile("c:\\temp\\append.log");
+	EXPECT_EQ(2, content.size());
+	ASSERT_STREQ("[APPEND] row 1", content[0].c_str());
+	ASSERT_STREQ("[APPEND] row 2", content[1].c_str());
 
 }
