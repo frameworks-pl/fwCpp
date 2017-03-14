@@ -37,6 +37,24 @@
     <ClCompile Include="src\fw\debug\fwlog.cpp">
       <Filter>src\fw\debug</Filter>
     </ClCompile>
+    <ClCompile Include="src\fw\core\fwversion.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fw\core\fwapputils.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fw\core\fwfileutils.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fw\core\fwbytebuffer.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fw\core\fwnumbers.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fw\core\fwexception.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\fwcommon.h">
@@ -58,6 +76,24 @@
       <Filter>src\fw\debug</Filter>
     </ClInclude>
     <ClInclude Include="src\fw\core\fwcore.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwversion.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwapputils.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwfileutils.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwbytebuffer.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwnumbers.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwexception.h">
       <Filter>src\fw\core</Filter>
     </ClInclude>
   </ItemGroup>

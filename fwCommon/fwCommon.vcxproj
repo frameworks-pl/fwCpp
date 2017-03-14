@@ -105,6 +105,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\fw\core\fwapputils.cpp" />
+    <ClCompile Include="src\fw\core\fwbytebuffer.cpp" />
+    <ClCompile Include="src\fw\core\fwexception.cpp" />
+    <ClCompile Include="src\fw\core\fwfileutils.cpp" />
+    <ClCompile Include="src\fw\core\fwnumbers.cpp" />
+    <ClCompile Include="src\fw\core\fwversion.cpp" />
     <ClCompile Include="src\fw\debug\fwlog.cpp" />
     <ClCompile Include="src\main\fwcommon.cpp" />
     <ClCompile Include="src\main\fwCommon_pch.cpp">
@@ -114,7 +120,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\fw\core\fwapputils.h" />
+    <ClInclude Include="src\fw\core\fwbytebuffer.h" />
     <ClInclude Include="src\fw\core\fwcore.h" />
+    <ClInclude Include="src\fw\core\fwexception.h" />
+    <ClInclude Include="src\fw\core\fwfileutils.h" />
+    <ClInclude Include="src\fw\core\fwnumbers.h" />
+    <ClInclude Include="src\fw\core\fwversion.h" />
     <ClInclude Include="src\fw\debug\fwlog.h" />
     <ClInclude Include="src\fw\gui\fwgui.h" />
     <ClInclude Include="src\main\fwcommon.h" />
