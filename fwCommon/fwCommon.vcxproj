@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -19,14 +19,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
@@ -109,6 +109,7 @@
     <ClCompile Include="src\fw\core\fwbytebuffer.cpp" />
     <ClCompile Include="src\fw\core\fwexception.cpp" />
     <ClCompile Include="src\fw\core\fwfileutils.cpp" />
+    <ClCompile Include="src\fw\core\fwgenericnotifier.cpp" />
     <ClCompile Include="src\fw\core\fwnumbers.cpp" />
     <ClCompile Include="src\fw\core\fwversion.cpp" />
     <ClCompile Include="src\fw\debug\fwlog.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="src\fw\core\fwcore.h" />
     <ClInclude Include="src\fw\core\fwexception.h" />
     <ClInclude Include="src\fw\core\fwfileutils.h" />
+    <ClInclude Include="src\fw\core\fwgenericnotifier.h" />
     <ClInclude Include="src\fw\core\fwnumbers.h" />
     <ClInclude Include="src\fw\core\fwversion.h" />
     <ClInclude Include="src\fw\debug\fwlog.h" />

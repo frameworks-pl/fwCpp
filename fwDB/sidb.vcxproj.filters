@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{768def12-c9f9-4bfc-92b8-91cfef3363cd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="si_sqlt3_connection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SIBlobCollection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sidbexception.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sidbtoolkit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SIGenericConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="simaxid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SIMaxIDDataSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sisqlobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SISQLObjectDataSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SISQLParam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sisqlrow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SISQLRowDataSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sisqlxmldataitem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sidb.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="si_sqlt3_connection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SIBlobCollection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sidbexception.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sidbtoolkit.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SIGenericConnection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="simaxid.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SIMaxIDDataSet.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sisqlobject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SISQLObjectDataSet.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SISQLParam.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sisqlrow.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SISQLRowDataSet.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sisqlxmldataitem.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="sidb.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="sidbpi.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="sidb.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\sidb.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sidb.def">
+      <Filter>Main</Filter>
+    </None>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>
