@@ -51,7 +51,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)sqlite3;$(SolutionDir)fwCommon;$(LIBS_ROOT)\boost\include\boost-1_33_1;$(SolutionDir)\xmlparser;$(DEV_ROOT)\sicrypt;$(LIBS_ROOT)\crypto5\include;$(DEV_ROOT)\silog\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sqlite3;$(SolutionDir)fwCommon;$(LIBS_ROOT)\boost\include\boost-1_33_1;$(SolutionDir)xmlparser;$(SolutionDir)\fwCrypt;$(LIBS)\crypto5\include;$(DEV_ROOT)\silog\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_AFXEXT;SIDB;TIXML_USE_STL;USE_UNICODE_XML;_USING_V110_SDK71_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>

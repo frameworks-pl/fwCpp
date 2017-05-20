@@ -296,7 +296,7 @@ SQL_ID SISQLObjectDataSet::set(const SISQLObject* pSQLObject, SISQLObject::State
                 }
 #ifdef ALLOW_PERFORMANCE_ISSUES
                 CString sClassName(getRuntimeClass().m_lpszClassName);
-                SILog::Log(LEVEL_SIDB, "{SISQLObjectDataSet::set (STATE_NEW)} collection:%s, sql_id:%d, current items cnt:%d", Unicode2UTF8(sClassName).c_str(), (int)sqlID, (int)m_ObjectList.size());
+                fw::debug::Logger::Log(LEVEL_SIDB, "{SISQLObjectDataSet::set (STATE_NEW)} collection:%s, sql_id:%d, current items cnt:%d", fw::core::TextConv::Unicode2UTF8(sClassName).c_str(), (int)sqlID, (int)m_ObjectList.size());
 #endif //ALLOW_PERFORMANCE_ISSUES
               }
               else
@@ -369,7 +369,7 @@ SQL_ID SISQLObjectDataSet::set(const SISQLObject* pSQLObject, SISQLObject::State
             sqlID = it->second->getSQLID();
 #ifdef ALLOW_PERFORMANCE_ISSUES
             CString sClassName(getRuntimeClass().m_lpszClassName);
-            SILog::Log(LEVEL_SIDB, "{SISQLObjectDataSet::set (STATE_UPDATE)} collection:%s, sql_id:%d, state:%s", Unicode2UTF8(sClassName).c_str(), sqlID, Unicode2UTF8(SISQLObject::stateToString(it->second->getState())).c_str()); 
+            fw::debug::Logger::Log(LEVEL_SIDB, "{SISQLObjectDataSet::set (STATE_UPDATE)} collection:%s, sql_id:%d, state:%s", fw::core::TextConv::Unicode2UTF8(sClassName).c_str(), sqlID, fw::core::TextConv::Unicode2UTF8(SISQLObject::stateToString(it->second->getState())).c_str()); 
 #endif //ALLOW_PERFORMANCE_ISSUES
           }
           else
@@ -417,8 +417,8 @@ SQL_ID SISQLObjectDataSet::set(const SISQLObject* pSQLObject, SISQLObject::State
 						sqlID = pSQLObjectOk->getSQLID();
 	#ifdef ALLOW_PERFORMANCE_ISSUES
 						CString sClassName(getRuntimeClass().m_lpszClassName);
-						SILog::Log(LEVEL_SIDB, "{SISQLObjectDataSet::set (STATE_OK_LOADED)} Collection:%s [count: %d], sql_id:%d",
-						Unicode2UTF8(sClassName).c_str(), (int)m_ObjectList.size(), (int)sqlID);
+						fw::debug::Logger::Log(LEVEL_SIDB, "{SISQLObjectDataSet::set (STATE_OK_LOADED)} Collection:%s [count: %d], sql_id:%d",
+						fw::core::TextConv::Unicode2UTF8(sClassName).c_str(), (int)m_ObjectList.size(), (int)sqlID);
 	#endif //ALLOW_PEFORMANCE_ISSUES
 					}
 					else

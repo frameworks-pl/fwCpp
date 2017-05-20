@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fwDB", "fwDB\fwDB.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xmlParserUnicode", "xmlparser\xmlParserUnicode.vcxproj", "{4391F146-0445-49EE-B3B9-257B367C3734}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fwCrypt", "fwCrypt\fwcrypt.vcxproj", "{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Unicode|x86 = Debug_Unicode|x86
@@ -51,6 +53,14 @@ Global
 		{4391F146-0445-49EE-B3B9-257B367C3734}.Release_Unicode|x86.Build.0 = Release_Unicode|Win32
 		{4391F146-0445-49EE-B3B9-257B367C3734}.Release|x86.ActiveCfg = Release|Win32
 		{4391F146-0445-49EE-B3B9-257B367C3734}.Release|x86.Build.0 = Release|Win32
+		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}.Debug_Unicode|x86.ActiveCfg = Debug_Unicode|Win32
+		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}.Debug_Unicode|x86.Build.0 = Debug_Unicode|Win32
+		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}.Debug|x86.ActiveCfg = Debug|Win32
+		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}.Debug|x86.Build.0 = Debug|Win32
+		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}.Release_Unicode|x86.ActiveCfg = Release_Unicode|Win32
+		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}.Release_Unicode|x86.Build.0 = Release_Unicode|Win32
+		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}.Release|x86.ActiveCfg = Release|Win32
+		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

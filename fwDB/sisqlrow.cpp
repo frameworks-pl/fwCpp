@@ -18,8 +18,8 @@ void SISQLRow::addValue(const char* pColName, const char* pColValue)
   if (NULL == pColName)
     throw SIDBException(_T("Unknown column name when parsing a row."));
 
-  CString sColName = UTF82Unicode(pColName);
-  CString sColValue = UTF82Unicode(pColValue);
+  CString sColName = fw::core::TextConv::UTF82Unicode(pColName);
+  CString sColValue = fw::core::TextConv::UTF82Unicode(pColValue);
 
   m_ValuesMap.insert(NameValueMap::value_type(sColName, sColValue));
   

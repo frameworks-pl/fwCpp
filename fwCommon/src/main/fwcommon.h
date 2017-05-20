@@ -70,17 +70,17 @@ based on the total and current values
 #define PROC_PROGRESS(current, total)  ((current*100)/total)
 
 /**
-This is wrapper to sicommon::SITextConv::Unicode2UTF8
+This is wrapper to fw::core::TextConv::Unicode2UTF8
 (just to simplyfiy the code)
 */
 //extern std::string DLLEXPORT Unicode2UTF8(const CString& pUnicodeStr);
 
 
 /**
-This is wrapper to sicommon::SITextConv::UTF82Unicode
+This is wrapper to fw::core::TextConv::UTF82Unicode
 (just to simplify the code)
 */
-//extern CString DLLEXPORT UTF82Unicode(const char* pUTF8Str);
+//extern CString DLLEXPORT fw::core::TextConv::UTF82Unicode(const char* pUTF8Str);
 
 //----------------------------------------------------------------UNICODE-BEGIN
 //Defines in this section are made to simplyfy code

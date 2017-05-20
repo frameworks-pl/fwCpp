@@ -76,7 +76,7 @@ bool SIMaxID::initialize()
 bool SIMaxID::initialize(const SISQLObject* pObject)
 {
   SISQLXMLDataItem::initialize(pObject);
-  ASSERT(sicommon::SIAppUtils::runtimeObjectsHaveTheSameClass((CObject*)pObject, this));
+  ASSERT(fw::core::AppUtils::runtimeObjectsHaveTheSameClass((CObject*)pObject, this));
 
   *this = *(const SIMaxID*)pObject;
   return initialize();
@@ -93,8 +93,8 @@ XMLNode SIMaxID::toUnicodeXML() const
   SIXMLNode::addAttribute(el, _T("unique_id"), m_iUniqueID);
 
 #ifdef ALLOW_PERFORMANCE_ISSUES
-  SILog::Log(LEVEL_SIDB_MAXID, "{SIMaxID::toUnicodeXML} m_sName=%s, m_iUniqueID=%d",
-    Unicode2UTF8(m_sName).c_str(), (int)m_iUniqueID);
+  fw::debug::Logger::Log(LEVEL_SIDB_MAXID, "{SIMaxID::toUnicodeXML} m_sName=%s, m_iUniqueID=%d",
+    fw::core::TextConv::Unicode2UTF8(m_sName).c_str(), (int)m_iUniqueID);
 #endif
 
   return el;
@@ -117,8 +117,8 @@ bool SIMaxID::fromUnicodeXML(const XMLNode* pXmlElement)
   m_iUniqueID = (Identifier)iID;
 
 #ifdef ALLOW_PERFORMANCE_ISSUES
-  SILog::Log(LEVEL_SIDB_MAXID, "{SIMaxID::fromUnicodeXML} m_sName=%s, m_iUniqueID=%d", 
-    Unicode2UTF8(m_sName).c_str(), (int)m_iUniqueID);
+  fw::debug::Logger::Log(LEVEL_SIDB_MAXID, "{SIMaxID::fromUnicodeXML} m_sName=%s, m_iUniqueID=%d", 
+    fw::core::TextConv::Unicode2UTF8(m_sName).c_str(), (int)m_iUniqueID);
 #endif
 
   return true;
@@ -140,7 +140,7 @@ int SIMaxID::getUpdateQuery(CString& pQuery, bool bWrite, bool bCountQuery)
       TiXmlElement xmlEntity = toXML();
       std::string utf8Xml;
       utf8Xml << xmlEntity;
-      CString xmlData = UTF82Unicode(utf8Xml.c_str());
+      CString xmlData = fw::core::TextConv::UTF82Unicode(utf8Xml.c_str());
 #endif
       m_sql_maxid_data = encryptChunk(xmlData);
     }
@@ -154,7 +154,7 @@ int SIMaxID::getUpdateQuery(CString& pQuery, bool bWrite, bool bCountQuery)
 #if defined(_DEBUG) && defined(ALLOW_PERFORMANCE_ISSUES)
 void SIMaxID::dumpMaxID()
 {
-  SILog::Log(LEVEL_SIDB, "m_sName=%s, m_iUniqueID=%d", Unicode2UTF8(m_sName).c_str(), (int)m_iUniqueID);
+  fw::debug::Logger::Log(LEVEL_SIDB, "m_sName=%s, m_iUniqueID=%d", fw::core::TextConv::Unicode2UTF8(m_sName).c_str(), (int)m_iUniqueID);
 
 }
 #endif

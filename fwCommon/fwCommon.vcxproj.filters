@@ -58,6 +58,12 @@
     <ClCompile Include="src\fw\core\fwgenericnotifier.cpp">
       <Filter>src\fw\core</Filter>
     </ClCompile>
+    <ClCompile Include="src\fw\core\fwdatetime.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fw\core\fwtextconv.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\fwcommon.h">
@@ -100,6 +106,12 @@
       <Filter>src\fw\core</Filter>
     </ClInclude>
     <ClInclude Include="src\fw\core\fwgenericnotifier.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwdatetime.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwtextconv.h">
       <Filter>src\fw\core</Filter>
     </ClInclude>
   </ItemGroup>

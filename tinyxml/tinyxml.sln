@@ -1,0 +1,59 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyXmlTest", "tinyXmlTest.vcproj", "{A5609343-79C6-45E3-8B89-EE9AE44335F2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{11A0D6E5-2376-49E6-BED6-5166C0E25894} = {11A0D6E5-2376-49E6-BED6-5166C0E25894}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyXmlTestSTL", "tinyXmlTestSTL.vcproj", "{018FD56C-4AFD-4830-82D6-C2995958740C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5} = {11C27A99-9496-47C6-94A0-E26AC9B4EEC5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyxml", "tinyxml_lib.vcproj", "{11A0D6E5-2376-49E6-BED6-5166C0E25894}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyxmlSTL", "tinyxmlSTL.vcproj", "{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_Unicode|Win32 = Debug_Unicode|Win32
+		Debug|Win32 = Debug|Win32
+		Release_Unicode|Win32 = Release_Unicode|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5609343-79C6-45E3-8B89-EE9AE44335F2}.Debug_Unicode|Win32.ActiveCfg = Debug|Win32
+		{A5609343-79C6-45E3-8B89-EE9AE44335F2}.Debug_Unicode|Win32.Build.0 = Debug|Win32
+		{A5609343-79C6-45E3-8B89-EE9AE44335F2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A5609343-79C6-45E3-8B89-EE9AE44335F2}.Debug|Win32.Build.0 = Debug|Win32
+		{A5609343-79C6-45E3-8B89-EE9AE44335F2}.Release_Unicode|Win32.ActiveCfg = Release|Win32
+		{A5609343-79C6-45E3-8B89-EE9AE44335F2}.Release_Unicode|Win32.Build.0 = Release|Win32
+		{A5609343-79C6-45E3-8B89-EE9AE44335F2}.Release|Win32.ActiveCfg = Release|Win32
+		{A5609343-79C6-45E3-8B89-EE9AE44335F2}.Release|Win32.Build.0 = Release|Win32
+		{018FD56C-4AFD-4830-82D6-C2995958740C}.Debug_Unicode|Win32.ActiveCfg = Debug|Win32
+		{018FD56C-4AFD-4830-82D6-C2995958740C}.Debug_Unicode|Win32.Build.0 = Debug|Win32
+		{018FD56C-4AFD-4830-82D6-C2995958740C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{018FD56C-4AFD-4830-82D6-C2995958740C}.Debug|Win32.Build.0 = Debug|Win32
+		{018FD56C-4AFD-4830-82D6-C2995958740C}.Release_Unicode|Win32.ActiveCfg = Release|Win32
+		{018FD56C-4AFD-4830-82D6-C2995958740C}.Release_Unicode|Win32.Build.0 = Release|Win32
+		{018FD56C-4AFD-4830-82D6-C2995958740C}.Release|Win32.ActiveCfg = Release|Win32
+		{018FD56C-4AFD-4830-82D6-C2995958740C}.Release|Win32.Build.0 = Release|Win32
+		{11A0D6E5-2376-49E6-BED6-5166C0E25894}.Debug_Unicode|Win32.ActiveCfg = Debug|Win32
+		{11A0D6E5-2376-49E6-BED6-5166C0E25894}.Debug_Unicode|Win32.Build.0 = Debug|Win32
+		{11A0D6E5-2376-49E6-BED6-5166C0E25894}.Debug|Win32.ActiveCfg = Debug|Win32
+		{11A0D6E5-2376-49E6-BED6-5166C0E25894}.Debug|Win32.Build.0 = Debug|Win32
+		{11A0D6E5-2376-49E6-BED6-5166C0E25894}.Release_Unicode|Win32.ActiveCfg = Release|Win32
+		{11A0D6E5-2376-49E6-BED6-5166C0E25894}.Release_Unicode|Win32.Build.0 = Release|Win32
+		{11A0D6E5-2376-49E6-BED6-5166C0E25894}.Release|Win32.ActiveCfg = Release|Win32
+		{11A0D6E5-2376-49E6-BED6-5166C0E25894}.Release|Win32.Build.0 = Release|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Debug_Unicode|Win32.ActiveCfg = Debug_Unicode|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Debug_Unicode|Win32.Build.0 = Debug_Unicode|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Release_Unicode|Win32.ActiveCfg = Release_Unicode|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Release_Unicode|Win32.Build.0 = Release_Unicode|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

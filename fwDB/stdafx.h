@@ -58,6 +58,12 @@
 #include <src/fw/core/fwbytebuffer.h>
 #include <src/fw/core/fwexception.h>
 #include <src/fw/core/fwgenericnotifier.h>
+#include <src/fw/debug/fwlog.h>
+#include <src/fw/core/fwtextconv.h>
+#include <src/fw/core/fwnumbers.h>
+#include <src/fw/core/fwapputils.h>
+#include <src/fw/core/fwfileutils.h>
+#include <SIXMLNode.h>
 #include <xmlParser.h>
 #include "sidbpi.h"
 

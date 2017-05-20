@@ -22,7 +22,7 @@ SIDBException::SIDBException(sqlite3* pDBHandle)
   {
     m_iDBErrorCode = sqlite3_errcode(pDBHandle);
     const char* pErrorMsg = sqlite3_errmsg(pDBHandle);
-    mMessage = UTF82Unicode(pErrorMsg);
+    mMessage = fw::core::TextConv::UTF82Unicode(pErrorMsg);
   }
 
 

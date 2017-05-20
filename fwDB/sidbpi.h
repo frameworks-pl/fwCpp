@@ -25,7 +25,7 @@
 #include "SISQLXMLDataItem.h"
 #include "sidbtoolkit.h"
 
-extern void SIDB_DLLEXPORT SIDBSetLogPointer(SILog* pLog);
+//extern void SIDB_DLLEXPORT SIDBSetLogPointer(fw::debug::Logger* pLog);
 
 
 #endif //SIDBPI_H_INCLUDED

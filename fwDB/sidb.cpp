@@ -54,10 +54,10 @@ DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 
 
 
-void SIDB_DLLEXPORT SIDBSetLogPointer(SILog* pLog)
-{
-  SILog::Init(pLog);
-}
+//void SIDB_DLLEXPORT SIDBSetLogPointer(fw::debug::Logger* pLog)
+//{
+//  fw::debug::LogInit(pLog);
+//}
 
 
 const std::string sqlBEGIN_TRANSACTION("BEGIN TRANSACTION");

@@ -24,7 +24,7 @@ bool SISQLXMLDataItem::chunkToRootXML(const fw::core::ByteBuffer& pBuffer, XMLNo
 
   CString xmlEntity = m_pArchive->decryptChunk(pBuffer);
 #ifdef ALLOW_PERFORMANCE_ISSUES
-  SILog::Log(LEVEL_SIDB_XML, "{SISQLXMLDataItem::chunkToRootXML} %s", Unicode2UTF8(xmlEntity).c_str());
+  fw::debug::Logger::Log(LEVEL_SIDB_XML, "{SISQLXMLDataItem::chunkToRootXML} %s", fw::core::TextConv::Unicode2UTF8(xmlEntity).c_str());
 #endif //ALLOW_PERFORMANCE_ISSUES
   pXmlDocument = XMLNode::parseString((LPCTSTR)xmlEntity);
   return true;

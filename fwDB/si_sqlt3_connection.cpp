@@ -21,7 +21,7 @@ void SI_SQLT3_Connection::query(const CString& pQuery)
 {
 	if (NULL != m_pCnnHandle)
 	{
-		std::string utf8Query = Unicode2UTF8(pQuery);
+		std::string utf8Query = fw::core::TextConv::Unicode2UTF8(pQuery);
         beginTransaction();
 		if (SQLITE_OK != sqlite3_exec(m_pCnnHandle, utf8Query.c_str(), NULL, NULL, NULL))
 		{
@@ -39,7 +39,7 @@ void SI_SQLT3_Connection::query(const CString& pQuery)
 
 void SI_SQLT3_Connection::createDatabase(const CString& pFilePath, const CString& pScript)
 {
-  std::string utfPath = Unicode2UTF8(pFilePath);
+  std::string utfPath = fw::core::TextConv::Unicode2UTF8(pFilePath);
   if (SQLITE_OK != sqlite3_open_v2(utfPath.c_str(), &m_pCnnHandle, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL))
   {
     //throw SIDBException(_T("Failed to open/create database."));
@@ -55,9 +55,9 @@ void SI_SQLT3_Connection::createDatabase(const CString& pFilePath, const CString
 void SI_SQLT3_Connection::openConnection(const CString& pFilePath)
 {
 
-  if (sicommon::SIFileUtils::fileExists(pFilePath))
+  if (fw::core::FileUtils::fileExists(pFilePath))
   {
-    std::string stdPath = Unicode2UTF8(pFilePath);
+    std::string stdPath = fw::core::TextConv::Unicode2UTF8(pFilePath);
     //sqlite3_open_v2 is used to do not allow creation of database if 
     //it does not exists!
     if (SQLITE_OK != sqlite3_open_v2(stdPath.c_str(), &m_pCnnHandle, SQLITE_OPEN_READWRITE, NULL))
@@ -108,7 +108,7 @@ void SI_SQLT3_Connection::query(SISQLRowDataSet& pRowDataset)
     if (sQuery.IsEmpty())
       throw SIDBException(_T("Query string is empty."));
 
-    std::string utf8Query = Unicode2UTF8(sQuery);
+    std::string utf8Query = fw::core::TextConv::Unicode2UTF8(sQuery);
     char szErrorMsg[1024];
     char* p = szErrorMsg;
 
@@ -156,10 +156,10 @@ void SI_SQLT3_Connection::query(SISQLObject* pObject, bool bWrite, SQL_ID sqlID)
 
             if (sReadQuery.IsEmpty())
                 throw SIDBException(_T("Query string is empty."));
-            utf8Query = Unicode2UTF8(sReadQuery);
+            utf8Query = fw::core::TextConv::Unicode2UTF8(sReadQuery);
 
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} prepare (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} prepare (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
             rc = sqlite3_prepare(m_pCnnHandle, utf8Query.c_str(), (int)utf8Query.size(), &pStmt, NULL);
             if (SQLITE_OK != rc)
@@ -190,7 +190,7 @@ void SI_SQLT3_Connection::query(SISQLObject* pObject, bool bWrite, SQL_ID sqlID)
                 throw SIDBException(m_pCnnHandle);
             } 
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
             rc = sqlite3_finalize(pStmt);
         }
@@ -204,9 +204,9 @@ void SI_SQLT3_Connection::query(SISQLObject* pObject, bool bWrite, SQL_ID sqlID)
             sWhere.Format(_T(" WHERE sql_id = %d"), (int)pObject->getSQLID());
             sWriteQuery += sWhere;
 
-            utf8Query = Unicode2UTF8(sWriteQuery); 
+            utf8Query = fw::core::TextConv::Unicode2UTF8(sWriteQuery); 
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} prepare (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} prepare (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
             rc = sqlite3_prepare(m_pCnnHandle, utf8Query.c_str(), (int)utf8Query.size(), &pStmt, NULL);
 
@@ -222,14 +222,14 @@ void SI_SQLT3_Connection::query(SISQLObject* pObject, bool bWrite, SQL_ID sqlID)
                     throw SIDBException(_T("Non select query returned row(s)."));
 
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
                 rc = sqlite3_finalize(pStmt);
             }
             catch (SIDBException& ex)
             {
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
                 sqlite3_finalize(pStmt);
                 throw ex;
@@ -250,7 +250,7 @@ void SI_SQLT3_Connection::readRecord(sqlite3_stmt* pStmt, SISQLObject* pSQLObjec
         int iColType = sqlite3_column_type(pStmt, iCol);
         const char* pColName = sqlite3_column_name(pStmt, iCol);
 
-        CString sColName = UTF82Unicode(pColName);
+        CString sColName = fw::core::TextConv::UTF82Unicode(pColName);
 
         switch (iColType)
         {
@@ -339,14 +339,14 @@ int SI_SQLT3_Connection::query(SISQLObjectDataSet& pObjectDataset, bool bWrite, 
             }
 
 
-            utf8Query = Unicode2UTF8(sReadQuery);
+            utf8Query = fw::core::TextConv::Unicode2UTF8(sReadQuery);
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} prepare (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} prepare (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
             rc = sqlite3_prepare(m_pCnnHandle, utf8Query.c_str(), (int)utf8Query.size(), &pStmt, NULL);
             bFinalized = false;
 #ifdef ALLOW_PERFORMANCE_ISSUES
-                SILog::Log(LEVEL_SIDB_SQLITE, "{SI_SQLT3_Connection::query} sqlite_prepare (result=%d)\n", rc);
+                fw::debug::Logger::Log(LEVEL_SIDB_SQLITE, "{SI_SQLT3_Connection::query} sqlite_prepare (result=%d)\n", rc);
 #endif //ALLOW_PERFORMANCE_ISSUES
             if (SQLITE_OK != rc)
             {
@@ -420,11 +420,11 @@ int SI_SQLT3_Connection::query(SISQLObjectDataSet& pObjectDataset, bool bWrite, 
 
             bFinalized = true;
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
             rc = sqlite3_finalize(pStmt);
     #ifdef ALLOW_PERFORMANCE_ISSUES
-                    SILog::Log(LEVEL_SIDB_SQLITE, "{SI_SQLT3_Connection::query} sqlite_finalize (result=%d)\n", rc);
+                    fw::debug::Logger::Log(LEVEL_SIDB_SQLITE, "{SI_SQLT3_Connection::query} sqlite_finalize (result=%d)\n", rc);
     #endif //ALLOW_PERFORMANCE_ISSUES
 
         }
@@ -432,7 +432,7 @@ int SI_SQLT3_Connection::query(SISQLObjectDataSet& pObjectDataset, bool bWrite, 
         {
     #ifdef ALLOW_PERFORMANCE_ISSUES
                     CString sClassName(pObjectDataset.getRuntimeClass().m_lpszClassName);
-                    SILog::Log(LEVEL_SIDB, "{SI_SQLT3_Connection::query} Entering write mode for collection %s\n", Unicode2UTF8(sClassName).c_str());
+                    fw::debug::Logger::Log(LEVEL_SIDB, "{SI_SQLT3_Connection::query} Entering write mode for collection %s\n", fw::core::TextConv::Unicode2UTF8(sClassName).c_str());
     #endif //ALLOW_PERFORMANCE_ISSUES
             SQLObjectList objects_to_update;        
             if (pObjectDataset.getObjectsToUpdate(objects_to_update) > 0)
@@ -444,14 +444,14 @@ int SI_SQLT3_Connection::query(SISQLObjectDataSet& pObjectDataset, bool bWrite, 
                 CString sQuery;
 
                 iParamsCount = pSQLObject->getUpdateQuery(sQuery, bWrite, false);
-                utf8Query = Unicode2UTF8(sQuery);                        
+                utf8Query = fw::core::TextConv::Unicode2UTF8(sQuery);
     #ifdef ALLOW_PERFORMANCE_ISSUES
-                SILog::Log(LEVEL_SIDB, "{SI_SQLT3_Connection::query} iParamsCount:%d, sQuery:%s", iParamsCount, utf8Query.c_str());
+                fw::debug::Logger::Log(LEVEL_SIDB, "{SI_SQLT3_Connection::query} iParamsCount:%d, sQuery:%s", iParamsCount, utf8Query.c_str());
     #endif //ALLOW_PERFORMANCE_ISSUES
                 do
                 {
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} prepare (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} prepare (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
                 rc = sqlite3_prepare(m_pCnnHandle, utf8Query.c_str(), (int)utf8Query.size(), &pStmt, NULL);
                 bFinalized = false;
@@ -469,7 +469,7 @@ int SI_SQLT3_Connection::query(SISQLObjectDataSet& pObjectDataset, bool bWrite, 
 
                 bFinalized = true;
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
                 rc = sqlite3_finalize(pStmt);
 
@@ -508,7 +508,7 @@ int SI_SQLT3_Connection::query(SISQLObjectDataSet& pObjectDataset, bool bWrite, 
             
         }
     /*
-        std::string sQuery = Unicode2UTF8(sSQLQueries);
+        std::string sQuery = fw::core::TextConv::UTF82Unicode(sSQLQueries);
         char szErrorMsg[1024];
         char* p = szErrorMsg;
 
@@ -525,7 +525,7 @@ int SI_SQLT3_Connection::query(SISQLObjectDataSet& pObjectDataset, bool bWrite, 
       if (false == bFinalized)
       {
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
           sqlite3_finalize(pStmt);
       }
@@ -653,7 +653,7 @@ void SI_SQLT3_Connection::beginTransaction()
     int iResult = sqlite3_exec(m_pCnnHandle, sqlBEGIN_TRANSACTION.c_str(), NULL, NULL, &p);
     if (SQLITE_OK != iResult)
     { 
-      CString sErr = UTF82Unicode(p);
+      CString sErr = fw::core::TextConv::UTF82Unicode(p);
       CString sMsg;
       if (sErr.IsEmpty())
         sMsg.Format(_T("Cannot start transaction."));
@@ -702,11 +702,11 @@ bool SI_SQLT3_Connection::tableExists(const char* pTableName)
         sQuery.append(pTableName);
         sQuery.append("';");
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} prepare (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} prepare (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
         int rc = sqlite3_prepare(m_pCnnHandle, sQuery.c_str(), (int)sQuery.size(), &pStmt, NULL);
 #ifdef ALLOW_PERFORMANCE_ISSUES
-                SILog::Log(LEVEL_SIDB_SQLITE, "{SI_SQLT3_Connection::tableExists} sqlite_prepare(result=%d)\n", rc);
+                fw::debug::Logger::Log(LEVEL_SIDB_SQLITE, "{SI_SQLT3_Connection::tableExists} sqlite_prepare(result=%d)\n", rc);
 #endif //ALLOW_PERFORMANCE_ISSUES
         if (SQLITE_OK != rc)
           throw SIDBException(m_pCnnHandle);
@@ -727,11 +727,11 @@ bool SI_SQLT3_Connection::tableExists(const char* pTableName)
 			}
         }
 #ifdef ALLOW_PERFORMANCE_ISSUES
-            SILog::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
+            fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
         rc = sqlite3_finalize(pStmt);
 #ifdef ALLOW_PERFORMANCE_ISSUES
-                SILog::Log(LEVEL_SIDB_SQLITE, "{SI_SQLT3_Connection::tableExists} sqlite_finalize (result=%d)\n", rc);
+                fw::debug::Logger::Log(LEVEL_SIDB_SQLITE, "{SI_SQLT3_Connection::tableExists} sqlite_finalize (result=%d)\n", rc);
 #endif //ALLOW_PERFORMANCE_ISSUES
     }
 
