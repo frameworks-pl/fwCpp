@@ -8,6 +8,8 @@
 //#define new DEBUG_NEW
 #endif
 
+extern "C" { int _afxForceUSRDLL; }
+
 static AFX_EXTENSION_MODULE sidbDLL = { NULL, NULL };
 
 extern "C" int APIENTRY

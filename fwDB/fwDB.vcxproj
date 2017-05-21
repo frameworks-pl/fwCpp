@@ -51,7 +51,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)sqlite3;$(SolutionDir)fwCommon;$(SolutionDir)xmlparser;$(SolutionDir)\fwCrypt;$(LIBS)\crypto5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sqlite3;$(SolutionDir)fwCommon;$(SolutionDir)xmlparser;$(SolutionDir)\fwCrypt;$(LIBS)\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_AFXEXT;SIDB;TIXML_USE_STL;USE_UNICODE_XML;_USING_V110_SDK71_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -63,9 +63,9 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Wininet.lib;sqlite3.lib;xmlParser.lib;crypto5\lib\cryptlibd.lib;fwCrypt.lib;fwCommon.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Wininet.lib;sqlite3.lib;xmlParser.lib;cryptlib.lib;fwCrypt.lib;fwCommon.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)sidb.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(BOOST_LIBS)\lib_vs2015;../sqlite3/$(ConfigurationName);../xmlParser/$(ConfigurationName);$(LIBS)/;../fwCrypt/$(ConfigurationName);../fwCommon/$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_LIBS)\lib_vs2015;../sqlite3/$(ConfigurationName);../xmlParser/$(ConfigurationName);$(LIBS)\crypto5\Win32\Output\Debug;../fwCrypt/$(ConfigurationName);../fwCommon/$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\sidb.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
