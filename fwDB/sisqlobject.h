@@ -3,146 +3,149 @@
 
 #include "SISQLParam.h"
 
-namespace sidb
+namespace fw
 {
+	namespace db
+	{
 
-class SISQLObjectDataSet;
-class SI_SQLT3_Connection;
-
-
-//an abstract class of an entity that
-//knows how to serialize itself from/to SQL database
-class SIDB_DLLEXPORT SISQLObject : public CObject
-{
-
-  
-  friend class SISQLObjectDataSet;
-  friend class SI_SQLT3_Connection;
+		class SISQLObjectDataSet;
+		class SI_SQLT3_Connection;
 
 
-  public:
-
-    //one of the states in which the SQL object can be
-    enum StateEnum
-    {
-      STATE_NEW = 1,
-      STATE_OK_LOADED, //the object has been just loaded from a database
-      STATE_OK,
-      STATE_DELETE,
-      STATE_UPDATE
-    };
-
-    //initializes all static stuctures of the SISQLObject class
-    static void init();
-
-    //returns string representation of the object's state
-    static CString stateToString(int iState);
-
-    static const CString m_sSQLID_FieldName;
-
-    SISQLObject();
-    virtual ~SISQLObject() { }
-
-    //need to define custom copy constructor due to overriding CObject
-    //(see C2558 for details)
-    SISQLObject(const SISQLObject& pObject);
-
-    //need to define custom copy constructor due to overriding CObject
-    //(see C2558 for details)
-    const SISQLObject& operator=(const SISQLObject& pObject);
-
-    //initializes itself from the external copy of an object
-    virtual bool initialize(const SISQLObject* pObject);
-
-    //initializes itself after loading/saving
-    virtual bool initialize() = 0;
-
-    //returns unique SQL identifier of the object
-    const SQL_ID& getSQLID() const { return m_SQLID; }
-
-    //sets object as deleted
-    void setDeleted();
-    bool isDeleted() const;
-
-    //true if object has just been loaded from database
-    bool isLoaded() const;
-
-    //returns true if object has one of states that require update
-    bool needsUpdate() const;
+		//an abstract class of an entity that
+		//knows how to serialize itself from/to SQL database
+		class SIDB_DLLEXPORT SISQLObject : public CObject
+		{
 
 
-    //force the object to be UPDATED
-    virtual void setUpdated();
-
-    //force the object to be NEW with invalid SQLID
-    virtual void setNew();
-    bool isNew() const;
-
-    //get state in which the object is
-    StateEnum getState() const { return m_eState; }
-
-    //adds new param to the object
-    void addParam(const SISQLParam& pParam);
-
-	//removes param identified by the column name
-	//returns true if the param has been removed as expected
-	bool removeParam(const CString& pName);
-
-    //prepares the insert/update/delete query for execution
-    //the returned value is number of variables to be bound
-     virtual int getUpdateQuery(CString& pQuery, bool bWrite, bool bCountQuery);
-
-     //returns the n-th param to be bound to the compiled sql query
-     //if there is no param with such index, returns false
-     const SISQLParam& getParamToBind(int iIndex);
-
-     
-     void updateFromBLOB(const CString& pColName, const fw::core::ByteBuffer& pBLOB);
-     void updateFromInt(const CString& pColName, int iValue);
-     void updateFromString(const CString& pColName, const CString sValue);
+			friend class SISQLObjectDataSet;
+			friend class SI_SQLT3_Connection;
 
 
-  protected:
+		public:
+
+			//one of the states in which the SQL object can be
+			enum StateEnum
+			{
+				STATE_NEW = 1,
+				STATE_OK_LOADED, //the object has been just loaded from a database
+				STATE_OK,
+				STATE_DELETE,
+				STATE_UPDATE
+			};
+
+			//initializes all static stuctures of the SISQLObject class
+			static void init();
+
+			//returns string representation of the object's state
+			static CString stateToString(int iState);
+
+			static const CString m_sSQLID_FieldName;
+
+			SISQLObject();
+			virtual ~SISQLObject() { }
+
+			//need to define custom copy constructor due to overriding CObject
+			//(see C2558 for details)
+			SISQLObject(const SISQLObject& pObject);
+
+			//need to define custom copy constructor due to overriding CObject
+			//(see C2558 for details)
+			const SISQLObject& operator=(const SISQLObject& pObject);
+
+			//initializes itself from the external copy of an object
+			virtual bool initialize(const SISQLObject* pObject);
+
+			//initializes itself after loading/saving
+			virtual bool initialize() = 0;
+
+			//returns unique SQL identifier of the object
+			const SQL_ID& getSQLID() const { return m_SQLID; }
+
+			//sets object as deleted
+			void setDeleted();
+			bool isDeleted() const;
+
+			//true if object has just been loaded from database
+			bool isLoaded() const;
+
+			//returns true if object has one of states that require update
+			bool needsUpdate() const;
 
 
-    //sets arbitratry state of the object    
-    void setState(StateEnum pState) { m_eState = pState; }
+			//force the object to be UPDATED
+			virtual void setUpdated();
 
-    //returns table name to which this object is bound
-    virtual CString getTableName() = 0;
+			//force the object to be NEW with invalid SQLID
+			virtual void setNew();
+			bool isNew() const;
 
-    //sets identifier for the object (this method should be called only once perf lifetime of the object)
-    void setSQLID(const SQL_ID& pSQLID);
+			//get state in which the object is
+			StateEnum getState() const { return m_eState; }
 
-    //serializes the object into a query that can be run on SQL database
-    CString serialize();
+			//adds new param to the object
+			void addParam(const SISQLParam& pParam);
 
+			//removes param identified by the column name
+			//returns true if the param has been removed as expected
+			bool removeParam(const CString& pName);
 
-    //state of the object
-    StateEnum m_eState;
+			//prepares the insert/update/delete query for execution
+			//the returned value is number of variables to be bound
+			virtual int getUpdateQuery(CString& pQuery, bool bWrite, bool bCountQuery);
 
-    //the identifier of this object in database (the sql_id)
-    SQL_ID m_SQLID;
-
-    //collection of values (params)
-    ParamMap m_ParamMap;
-
-    //map of params that should be bound when constructing a query
-    //this map is initialized by each call to getUpdateQuery
-    ParamVarsMap m_ObjectsToBind;
-
-    //maps object states into strings
-    static std::map<int, CString> m_StateToStringMap;
+			//returns the n-th param to be bound to the compiled sql query
+			//if there is no param with such index, returns false
+			const SISQLParam& getParamToBind(int iIndex);
 
 
+			void updateFromBLOB(const CString& pColName, const fw::core::ByteBuffer& pBLOB);
+			void updateFromInt(const CString& pColName, int iValue);
+			void updateFromString(const CString& pColName, const CString sValue);
 
 
-}; 
+		protected:
 
 
-typedef std::list<SISQLObject*> SQLObjectList;
-typedef std::map<SQL_ID, SISQLObject*> SQLObjectMap;
-}; //namespace
+			//sets arbitratry state of the object    
+			void setState(StateEnum pState) { m_eState = pState; }
+
+			//returns table name to which this object is bound
+			virtual CString getTableName() = 0;
+
+			//sets identifier for the object (this method should be called only once perf lifetime of the object)
+			void setSQLID(const SQL_ID& pSQLID);
+
+			//serializes the object into a query that can be run on SQL database
+			CString serialize();
+
+
+			//state of the object
+			StateEnum m_eState;
+
+			//the identifier of this object in database (the sql_id)
+			SQL_ID m_SQLID;
+
+			//collection of values (params)
+			ParamMap m_ParamMap;
+
+			//map of params that should be bound when constructing a query
+			//this map is initialized by each call to getUpdateQuery
+			ParamVarsMap m_ObjectsToBind;
+
+			//maps object states into strings
+			static std::map<int, CString> m_StateToStringMap;
+
+
+
+
+		};
+
+
+		typedef std::list<SISQLObject*> SQLObjectList;
+		typedef std::map<SQL_ID, SISQLObject*> SQLObjectMap;
+	}; //namespace 
+}
 
 
 

@@ -2,28 +2,31 @@
 #define SIDBEXCEPTION_H_INCLUDED
 
 
-namespace sidb
+namespace fw
 {
+	namespace db
+	{
 
-class SIDB_DLLEXPORT SIDBException : public fw::core::Exception
-{
+		class SIDB_DLLEXPORT SIDBException : public fw::core::Exception
+		{
 
-  public:
-    SIDBException(const CString& sMsg);
-    SIDBException(sqlite3* pDBHandle);
+		public:
+			SIDBException(const CString& sMsg);
+			SIDBException(sqlite3* pDBHandle);
 
-    //returns underling error code from the database
-    int getDBErrorCode() const { return m_iDBErrorCode; }
+			//returns underling error code from the database
+			int getDBErrorCode() const { return m_iDBErrorCode; }
 
-  protected:
+		protected:
 
-      //underling error code from the database (must be above zero)
-      int m_iDBErrorCode;
-
-
+			//underling error code from the database (must be above zero)
+			int m_iDBErrorCode;
 
 
-}; //class
+
+
+		}; //class 
+	}
 
 
 };

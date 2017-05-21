@@ -3,41 +3,44 @@
 
 
 
-namespace sidb
+namespace fw
 {
+	namespace db
+	{
 
-class SIDB_DLLEXPORT SISQLRowDataSet
-{
-  public:
-    SISQLRowDataSet(const CString& sReadQuery);
+		class SIDB_DLLEXPORT SISQLRowDataSet
+		{
+		public:
+			SISQLRowDataSet(const CString& sReadQuery);
 
-    //adds new row to the collection
-    void append(const SISQLRow& pRow);
+			//adds new row to the collection
+			void append(const SISQLRow& pRow);
 
-    //the read query
-    const CString& getReadQuery() const { return m_sReadQuery; }
+			//the read query
+			const CString& getReadQuery() const { return m_sReadQuery; }
 
-    //returns collection of rows
-    const SQLRowList& getRowList() const { return m_RowList; }
+			//returns collection of rows
+			const SQLRowList& getRowList() const { return m_RowList; }
 
-    //returns true if dataset is empty
-    bool isEmpty() const { return m_RowList.empty(); }
+			//returns true if dataset is empty
+			bool isEmpty() const { return m_RowList.empty(); }
 
-  protected:
+		protected:
 
-    //the list of raw rows (the dataset)
-    SQLRowList m_RowList;
+			//the list of raw rows (the dataset)
+			SQLRowList m_RowList;
 
-    //general read query (the SELECT query)
-    CString m_sReadQuery;
-
-
-
-
-}; //class
+			//general read query (the SELECT query)
+			CString m_sReadQuery;
 
 
-}; //namespace
+
+
+		}; //class
+
+
+	}; //namespace 
+}
 
 
 

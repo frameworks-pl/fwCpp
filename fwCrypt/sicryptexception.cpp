@@ -5,12 +5,17 @@
 //#define new DEBUG_NEW
 #endif
 
-namespace sicrypt {
+namespace fw
+{
 
-SICryptException::SICryptException(CryptoPP::Exception::ErrorType pErrorType, const std::string& pMsg)
-: CryptoPP::Exception(pErrorType, pMsg) {
+    namespace crypt {
+    
+    CryptException::CryptException(CryptoPP::Exception::ErrorType pErrorType, const std::string& pMsg)
+    : CryptoPP::Exception(pErrorType, pMsg) {
+    
+    }; //constructor
+    
+    
+    } //namespace crypt
 
-}; //constructor
-
-
-}; //namespace
+} //namespace fw

@@ -3,45 +3,48 @@
 
 #include "SISQLObjectDataSet.h"
 
-namespace sidb
+namespace fw
 {
+	namespace db
+	{
 
-class SIMaxID;
+		class SIMaxID;
 
-class SIDB_DLLEXPORT SIMaxIDDataSet : public SISQLObjectDataSet
-{
+		class SIDB_DLLEXPORT SIMaxIDDataSet : public SISQLObjectDataSet
+		{
 
-  public:
-    SIMaxIDDataSet();
+		public:
+			SIMaxIDDataSet();
 
-    SQL_ID set(const SISQLObject* pSQLObject);
+			SQL_ID set(const SISQLObject* pSQLObject);
 
-    //returns next unique identifier for the object specified by name
-    Identifier getNextID(const CString& pObjectName);
+			//returns next unique identifier for the object specified by name
+			Identifier getNextID(const CString& pObjectName);
 
-    //returns current max id for the specified object name
-    //NOTE: DO NOT use this method to assign next ID, use getNextID instead!!!
-    const Identifier& getCurrentMaxID(const CString& pObjectName);
+			//returns current max id for the specified object name
+			//NOTE: DO NOT use this method to assign next ID, use getNextID instead!!!
+			const Identifier& getCurrentMaxID(const CString& pObjectName);
 
 #if defined(_DEBUG) && defined(ALLOW_PERFORMANCE_ISSUES)
-    void dumpMaxIDs();
+			void dumpMaxIDs();
 #endif
 
-  protected:
+		protected:
 
-    //finds the object with the specified name
-    SIMaxID* findMaxObject(const CString& pObjectName);
+			//finds the object with the specified name
+			SIMaxID* findMaxObject(const CString& pObjectName);
 
-    //this data set must "manually" assign identifier to itslef
-    int m_iMaxID;
-
-
+			//this data set must "manually" assign identifier to itslef
+			int m_iMaxID;
 
 
-};
 
 
-}; //namespace
+		};
+
+
+	}; //namespace 
+}
 
 
 

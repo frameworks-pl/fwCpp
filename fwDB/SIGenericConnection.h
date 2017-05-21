@@ -2,27 +2,30 @@
 #define SIGENERICCONNECTION_H_INCLUDED
 
 
-namespace sidb
+namespace fw
 {
+	namespace db
+	{
 
-class SISQLObjectDataSet;
+		class SISQLObjectDataSet;
 
-//base class for all different types od DB connection (basically this is just an interface)
-class SIGenericConnection
-{
-  public:
-    SIGenericConnection();
+		//base class for all different types od DB connection (basically this is just an interface)
+		class SIGenericConnection
+		{
+		public:
+			SIGenericConnection();
 
-  protected:
+		protected:
 
-    //destroyes objects from dataset that have been deleted
-    void destroyDeletedObjects(SISQLObjectDataSet* pSQLObjectDataSet);
-
-
-
-}; //class
+			//destroyes objects from dataset that have been deleted
+			void destroyDeletedObjects(SISQLObjectDataSet* pSQLObjectDataSet);
 
 
-}; //namespace
+
+		}; //class
+
+
+	}; //namespace 
+}
 
 #endif //SIGENERICCONNECTION_H_INCLUDED

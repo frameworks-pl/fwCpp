@@ -47,7 +47,7 @@ SICryptTest::AESPHMTest() {
     if ((i % 5) == 0)
       pass = _T("");
 
-    sicrypt::SIAESEncDec aes;
+    fw::crypt::AESEncDec aes;
     std::string s_pass = fw::core::TextConv::Unicode2UTF8(pass);
     aes.init((BYTE*)(LPCSTR)s_pass.c_str(), (int)s_pass.size());
 
@@ -77,16 +77,16 @@ SICryptTest::AESPHMTest() {
 bool
 SICryptTest::SHA256Test() {
 
-  sicrypt::SISHA256 s1;
-  BYTE* pHash = new BYTE[sicrypt::SISHA256::getHashSize()];
-  memset(pHash, 65, sicrypt::SISHA256::getHashSize());
-  s1.init(pHash, sicrypt::SISHA256::getHashSize());
+  fw::crypt::SHA256 s1;
+  BYTE* pHash = new BYTE[fw::crypt::SHA256::getHashSize()];
+  memset(pHash, 65, fw::crypt::SHA256::getHashSize());
+  s1.init(pHash, fw::crypt::SHA256::getHashSize());
   delete[] pHash;
 
-  sicrypt::SISHA256 s2(s1);
+  fw::crypt::SHA256 s2(s1);
 
   //copy constructor should give as two exactly the same hashes!
-  for (int i=0; i < sicrypt::SISHA256::getHashSize(); i++) {
+  for (int i=0; i < fw::crypt::SHA256::getHashSize(); i++) {
     if ((BYTE)*(s1.getBuffer()+i) != (BYTE)*(s2.getBuffer()+i)) {
       TRACE(_T("SHA256 Test failed (copy constructor)!\n"));
       return false;
@@ -94,7 +94,7 @@ SICryptTest::SHA256Test() {
   }
 
   //cheking if the empty hash works
-  sicrypt::SISHA256 empty_sha256;
+  fw::crypt::SHA256 empty_sha256;
   empty_sha256.create(NULL, 0);
 
   //empty buffer

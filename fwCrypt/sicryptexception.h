@@ -5,22 +5,28 @@
 #include <crypto5/cryptlib.h>
 
 
-namespace sicrypt {
+namespace fw
+{
 
 
-/** 
-  @brief Base class for exceptions thrown by this library 
-*/
-  
-class SICryptException : public CryptoPP::Exception {
-
-  public:
-    SICryptException(CryptoPP::Exception::ErrorType pErrorType, const std::string& pMsg);
-
-
-}; //class
-
-}; //namespace
+    namespace crypt {
+    
+    
+    /** 
+      @brief Base class for exceptions thrown by this library 
+    */
+      
+    class CryptException : public CryptoPP::Exception {
+    
+      public:
+        CryptException(CryptoPP::Exception::ErrorType pErrorType, const std::string& pMsg);
+    
+    
+    }; //class
+    
+    } //namespace crypto
+    
+} //namespace fw
 
 
 #endif //SICRYPTEXCEPTION_H_INCLUDED

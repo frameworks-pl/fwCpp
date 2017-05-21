@@ -41,7 +41,7 @@ DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 		new CDynLinkLibrary(sidbDLL);
 
     //initalize static structures of the class
-    sidb::SISQLObject::init();
+    fw::db::SISQLObject::init();
 
 	}
 	else if (dwReason == DLL_PROCESS_DETACH)

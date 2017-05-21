@@ -6,26 +6,23 @@
 //#define new DEBUG_NEW
 #endif
 
-namespace sidb
+namespace fw
 {
+	namespace db
+	{
 
-SIGenericConnection::SIGenericConnection()
-{
+		SIGenericConnection::SIGenericConnection()
+		{
 
+		}
+
+		void SIGenericConnection::destroyDeletedObjects(SISQLObjectDataSet* pSQLObjectDataSet)
+		{
+			ASSERT(pSQLObjectDataSet);
+
+			pSQLObjectDataSet->destroyDeletedObjects();
+
+		}
+
+	}; //namespace 
 }
-
-
-
-void SIGenericConnection::destroyDeletedObjects(SISQLObjectDataSet* pSQLObjectDataSet)
-{
-  ASSERT(pSQLObjectDataSet);
-
-  pSQLObjectDataSet->destroyDeletedObjects();
-
-}
-
-
-
-
-
-}; //namespace

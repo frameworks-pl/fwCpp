@@ -4,33 +4,38 @@
 #include "siencdec.h"
 
 
-namespace sicrypt {
+namespace fw
+{
 
-/**
-  @brief AES PHM Encyrption/Decryption class 
-*/
-
-class SIAESEncDec : public SIEncDec {
-
-  public:
-    fw::core::ByteBuffer encrypt(const BYTE* pData, int pLen);
-    fw::core::ByteBuffer decrypt(const BYTE* pData, int pLen);
-
-    /** 
-        The AES PHM algorithm generates key from the password 
-        Note: use this method only if the pass phrase is a plain text,
-        otherwise use rather init(BYTE*, int);
+    namespace crypt {
+    
+    /**
+      @brief AES PHM Encyrption/Decryption class 
     */
-    //void init(const CString& pPassword);
-
-
-    void init(BYTE* pBuffer, int pLength);
-
-
-
-}; //class
-
-}; //namespace
+    
+    class AESEncDec : public EncDec {
+    
+      public:
+        fw::core::ByteBuffer encrypt(const BYTE* pData, int pLen);
+        fw::core::ByteBuffer decrypt(const BYTE* pData, int pLen);
+    
+        /** 
+            The AES PHM algorithm generates key from the password 
+            Note: use this method only if the pass phrase is a plain text,
+            otherwise use rather init(BYTE*, int);
+        */
+        //void init(const CString& pPassword);
+    
+    
+        void init(BYTE* pBuffer, int pLength);
+    
+    
+    
+    }; //class
+    
+    } //namespace
+    
+} //namespace crypt
 
 
 #endif //SIAESENCDEC_H_INCLUDED

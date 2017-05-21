@@ -32,75 +32,76 @@ void AES_PHM_GenerateIvFromSeed(byte const* pbIvSeed, byte* pbIv) {
 } //AES_PHM_GenerateIvFromSeed
 
 
-namespace sicrypt {
+namespace fw
+{
 
-AES_PHM_Decryption::AES_PHM_Decryption(byte const* pbKey, unsigned int nKeyLen, CryptoPP::BufferedTransformation* pOutQueue)
-: Filter(pOutQueue), m_nCiphertextBufSize(0), m_nCiphertextLen(0)  {
+    namespace crypt {
+    
+    AES_PHM_Decryption::AES_PHM_Decryption(byte const* pbKey, unsigned int nKeyLen, CryptoPP::BufferedTransformation* pOutQueue)
+    : Filter(pOutQueue), m_nCiphertextBufSize(0), m_nCiphertextLen(0)  {
+    
+        m_sbbKey.resize(CryptoPP::SHA256::DIGESTSIZE);
+        CryptoPP::SHA256().CalculateDigest(m_sbbKey, pbKey, nKeyLen);
+    
+     } //constructor
+    
+    
+    void 
+    AES_PHM_Decryption::Put(byte const* pbData, unsigned int nDataLen)  {
+    
+        AES_PHM_AppendToBuffer(m_sbbCiphertext, m_nCiphertextBufSize, m_nCiphertextLen, pbData, nDataLen);
+    
+    }; //Put
+    
+    
+    void 
+    AES_PHM_Decryption::MessageEnd(int nPropagation) {
+    
+      if (m_nCiphertextLen < MINIMUM_CIPHERTEXT_LENGTH) {
+        CryptException ex(CryptoPP::Exception::OTHER_ERROR, "AES PHM Decryption: Invalid Ciphertext or Key");
+        throw ex;
+      }
+    
+    
+      // Make the code less cluttered by using the following values
+      unsigned int nMacPosition = m_nCiphertextLen - CryptoPP::HMAC<CryptoPP::SHA>::DIGESTSIZE;
+      unsigned int nIvSeedPosition = nMacPosition - IV_SEED_SIZE;
+    
+      // Verify MAC
+      if (!CryptoPP::HMAC<CryptoPP::SHA>(m_sbbKey, CryptoPP::SHA256::DIGESTSIZE).VerifyDigest(
+              m_sbbCiphertext + nMacPosition,
+              m_sbbCiphertext, nMacPosition)) {
+        CryptException ex(CryptoPP::Exception::OTHER_ERROR, "AES PHM Decryption: Invalid Ciphertext or Key");
+        throw ex;      
+      }
+    
+    
+      // Generate IV from seed
+      CryptoPP::SecByteBlock sbbIv(IV_SIZE);
+      AES_PHM_GenerateIvFromSeed(m_sbbCiphertext + nIvSeedPosition, sbbIv);
+    
+      // Initialize AES
+      CryptoPP::AESEncryption aes(m_sbbKey, CryptoPP::SHA256::DIGESTSIZE);
+      CryptoPP::CFBDecryption decryptor(aes, sbbIv);
+    
+      // Decrypt
+      decryptor.ProcessString(m_sbbCiphertext, nIvSeedPosition);
+    
+      // See how much padding we have
+      unsigned int nRandomPaddingLen = (m_sbbCiphertext[0] & 0x0f) + 3;
+    
+      // Output plaintext
+      if (AttachedTransformation())
+          AttachedTransformation()->Put(m_sbbCiphertext + nRandomPaddingLen, nIvSeedPosition - nRandomPaddingLen);
+    
+      m_sbbCiphertext.resize(0);
+      m_nCiphertextLen = 0;
+      m_nCiphertextBufSize = 0;
+    
+      CryptoPP::Filter::MessageEnd(nPropagation);
+    
+     }; //MessageEnd
+    
+    } //namespace crypt
 
-    m_sbbKey.resize(CryptoPP::SHA256::DIGESTSIZE);
-    CryptoPP::SHA256().CalculateDigest(m_sbbKey, pbKey, nKeyLen);
-
- } //constructor
-
-
-void 
-AES_PHM_Decryption::Put(byte const* pbData, unsigned int nDataLen)  {
-
-    AES_PHM_AppendToBuffer(m_sbbCiphertext, m_nCiphertextBufSize, m_nCiphertextLen, pbData, nDataLen);
-
-}; //Put
-
-
-void 
-AES_PHM_Decryption::MessageEnd(int nPropagation) {
-
-  if (m_nCiphertextLen < MINIMUM_CIPHERTEXT_LENGTH) {
-    SICryptException ex(CryptoPP::Exception::OTHER_ERROR, "AES PHM Decryption: Invalid Ciphertext or Key");
-    throw ex;
-  }
-
-
-  // Make the code less cluttered by using the following values
-  unsigned int nMacPosition = m_nCiphertextLen - CryptoPP::HMAC<CryptoPP::SHA>::DIGESTSIZE;
-  unsigned int nIvSeedPosition = nMacPosition - IV_SEED_SIZE;
-
-  // Verify MAC
-  if (!CryptoPP::HMAC<CryptoPP::SHA>(m_sbbKey, CryptoPP::SHA256::DIGESTSIZE).VerifyDigest(
-          m_sbbCiphertext + nMacPosition,
-          m_sbbCiphertext, nMacPosition)) {
-    SICryptException ex(CryptoPP::Exception::OTHER_ERROR, "AES PHM Decryption: Invalid Ciphertext or Key");
-    throw ex;      
-  }
-
-
-  // Generate IV from seed
-  CryptoPP::SecByteBlock sbbIv(IV_SIZE);
-  AES_PHM_GenerateIvFromSeed(m_sbbCiphertext + nIvSeedPosition, sbbIv);
-
-  // Initialize AES
-  CryptoPP::AESEncryption aes(m_sbbKey, CryptoPP::SHA256::DIGESTSIZE);
-  CryptoPP::CFBDecryption decryptor(aes, sbbIv);
-
-  // Decrypt
-  decryptor.ProcessString(m_sbbCiphertext, nIvSeedPosition);
-
-  // See how much padding we have
-  unsigned int nRandomPaddingLen = (m_sbbCiphertext[0] & 0x0f) + 3;
-
-  // Output plaintext
-  if (AttachedTransformation())
-      AttachedTransformation()->Put(m_sbbCiphertext + nRandomPaddingLen, nIvSeedPosition - nRandomPaddingLen);
-
-  m_sbbCiphertext.resize(0);
-  m_nCiphertextLen = 0;
-  m_nCiphertextBufSize = 0;
-
-  CryptoPP::Filter::MessageEnd(nPropagation);
-
- }; //MessageEnd
-
-
-
-
-
-}; //namespace
+} //namespace fw
