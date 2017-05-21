@@ -64,7 +64,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>Wininet.lib;sqlite3.lib;xmlParser.lib;cryptlib.lib;fwCrypt.lib;fwCommon.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)sidb.dll</OutputFile>
+      <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <AdditionalLibraryDirectories>$(BOOST_LIBS)\lib_vs2015;../sqlite3/$(ConfigurationName);../xmlParser/$(ConfigurationName);$(LIBS)\crypto5\Win32\Output\Debug;../fwCrypt/$(ConfigurationName);../fwCommon/$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>.\sidb.def</ModuleDefinitionFile>
