@@ -91,8 +91,8 @@ namespace fw
 		{
 
 			XMLNode el = XMLNode::createXMLTopNode(_T("sidb_maxid"));
-			SIXMLNode::addAttribute(el, _T("name"), m_sName);
-			SIXMLNode::addAttribute(el, _T("unique_id"), m_iUniqueID);
+			FWXMLNode::addAttribute(el, _T("name"), m_sName);
+			FWXMLNode::addAttribute(el, _T("unique_id"), m_iUniqueID);
 
 #ifdef ALLOW_PERFORMANCE_ISSUES
 			fw::debug::Logger::Log(LEVEL_SIDB_MAXID, "{SIMaxID::toUnicodeXML} m_sName=%s, m_iUniqueID=%d",
@@ -114,7 +114,7 @@ namespace fw
 
 
 			int iID;
-			if (false == SIXMLNode::getAttributeInt(*pXmlElement, _T("unique_id"), iID))
+			if (false == FWXMLNode::getAttributeInt(*pXmlElement, _T("unique_id"), iID))
 				return false;
 			m_iUniqueID = (Identifier)iID;
 
@@ -137,7 +137,7 @@ namespace fw
 #ifdef USE_UNICODE_XML
 
 					XMLNode xmlEntity = toUnicodeXML();
-					CString xmlData = SIXMLNode::nodeToString(xmlEntity);
+					CString xmlData = FWXMLNode::nodeToString(xmlEntity);
 #else
 					TiXmlElement xmlEntity = toXML();
 					std::string utf8Xml;

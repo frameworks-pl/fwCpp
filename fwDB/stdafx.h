@@ -63,7 +63,7 @@
 #include <src/fw/core/fwnumbers.h>
 #include <src/fw/core/fwapputils.h>
 #include <src/fw/core/fwfileutils.h>
-#include <SIXMLNode.h>
+#include <fwxmlnode.h>
 #include <xmlParser.h>
 #include "dbpi.h"
 
