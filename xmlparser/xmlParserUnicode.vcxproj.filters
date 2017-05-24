@@ -15,21 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sixmlnode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="xmlParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="xmlTestUnicode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fwxmlnode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sixmlnode.h">
+    <ClInclude Include="xmlParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="xmlParser.h">
+    <ClInclude Include="fwxmlnode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

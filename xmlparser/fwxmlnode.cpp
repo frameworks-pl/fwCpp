@@ -1,4 +1,4 @@
-#include "sixmlnode.h"
+#include "fwxmlnode.h"
 #include <string>
 #include <src/fw/core/fwnumbers.h>
 
@@ -7,13 +7,13 @@
 //#define new DEBUG_NEW
 #endif
 
-XMLAttribute* SIXMLNode::addAttribute(XMLNode& pXMLNode, const CString& pAttrName, const CString pAttrValue)
+XMLAttribute* FWXMLNode::addAttribute(XMLNode& pXMLNode, const CString& pAttrName, const CString pAttrValue)
 {
   return pXMLNode.addAttribute((LPCTSTR)pAttrName, (LPCTSTR)pAttrValue);
 
 }
 
-XMLAttribute* SIXMLNode::addAttribute(XMLNode& pXMLNode, const CString& pAttrName, int pAttrValue)
+XMLAttribute* FWXMLNode::addAttribute(XMLNode& pXMLNode, const CString& pAttrName, int pAttrValue)
 {
   CString s;
   s.Format(_T("%d"), pAttrValue);
@@ -22,7 +22,7 @@ XMLAttribute* SIXMLNode::addAttribute(XMLNode& pXMLNode, const CString& pAttrNam
 }
 
 
-bool SIXMLNode::getAttributeInt(const XMLNode& pXMLNode, const CString& pAttrName, int& pAttrValue)
+bool FWXMLNode::getAttributeInt(const XMLNode& pXMLNode, const CString& pAttrName, int& pAttrValue)
 {
   const wchar_t* pAttrVal = pXMLNode.getAttribute((LPCTSTR)pAttrName);
   if (NULL != pAttrVal)
@@ -39,7 +39,7 @@ bool SIXMLNode::getAttributeInt(const XMLNode& pXMLNode, const CString& pAttrNam
 
 }
 
-bool SIXMLNode::getAttributeBool(const XMLNode& pXMLNode, const CString& pAttrName, bool& pAttrValue)
+bool FWXMLNode::getAttributeBool(const XMLNode& pXMLNode, const CString& pAttrName, bool& pAttrValue)
 {
   int iValue = 0;
   if (getAttributeInt(pXMLNode, pAttrName, iValue))
@@ -53,20 +53,20 @@ bool SIXMLNode::getAttributeBool(const XMLNode& pXMLNode, const CString& pAttrNa
 }
 
 
-void SIXMLNode::setText(XMLNode& pXMLNode, const CString& pText)
+void FWXMLNode::setText(XMLNode& pXMLNode, const CString& pText)
 {
   pXMLNode.updateText((LPCTSTR)pText);
 
 }
 
-void SIXMLNode::setText(XMLNode& pXMLNode, const TCHAR& pChar)
+void FWXMLNode::setText(XMLNode& pXMLNode, const TCHAR& pChar)
 {
   pXMLNode.updateText(&pChar);
 
 }
 
 
-void SIXMLNode::setText(XMLNode& pXMLNode, int pIntValue)
+void FWXMLNode::setText(XMLNode& pXMLNode, int pIntValue)
 {
   CString s;
   s.Format(_T("%d"), pIntValue);
@@ -75,7 +75,7 @@ void SIXMLNode::setText(XMLNode& pXMLNode, int pIntValue)
 }
 
 
-void SIXMLNode::setText(XMLNode& pXMLNode, unsigned int pUintValue)
+void FWXMLNode::setText(XMLNode& pXMLNode, unsigned int pUintValue)
 {
   CString s;
   s.Format(_T("%u"), pUintValue);
@@ -86,7 +86,7 @@ void SIXMLNode::setText(XMLNode& pXMLNode, unsigned int pUintValue)
 
 
 
-bool SIXMLNode::getTextInt(const XMLNode& pXMLNode, int& pIntValue)
+bool FWXMLNode::getTextInt(const XMLNode& pXMLNode, int& pIntValue)
 {
   CString s((LPCTSTR)pXMLNode.getText());
   if (fw::core::Numbers::isInt(s, true))
@@ -100,7 +100,7 @@ bool SIXMLNode::getTextInt(const XMLNode& pXMLNode, int& pIntValue)
 }
 
 
-CString SIXMLNode::nodeToString(const XMLNode& pXMLNode)
+CString FWXMLNode::nodeToString(const XMLNode& pXMLNode)
 {
   wchar_t* pXMLString = pXMLNode.createXMLString();
   CString sResult(pXMLString);
@@ -112,7 +112,7 @@ CString SIXMLNode::nodeToString(const XMLNode& pXMLNode)
 }
 
 
-bool SIXMLNode::getAttributeString(const XMLNode& pXMLNode, const CString& pAttrName, CString& pAttrValue)
+bool FWXMLNode::getAttributeString(const XMLNode& pXMLNode, const CString& pAttrName, CString& pAttrValue)
 {
   const wchar_t* pAttr = pXMLNode.getAttribute((LPCTSTR)pAttrName);
   if (NULL == pAttr)

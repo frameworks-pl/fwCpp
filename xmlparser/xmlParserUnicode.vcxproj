@@ -212,7 +212,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="sixmlnode.cpp" />
+    <ClCompile Include="fwxmlnode.cpp" />
     <ClCompile Include="xmlParser.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug_Unicode|Win32'">Disabled</Optimization>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_Unicode|Win32'">WIN32;_DEBUG;_CONSOLE;_UNICODE</PreprocessorDefinitions>
@@ -239,7 +239,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sixmlnode.h" />
+    <ClInclude Include="fwxmlnode.h" />
     <ClInclude Include="xmlParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

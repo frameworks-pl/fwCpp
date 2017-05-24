@@ -11,7 +11,7 @@
 
 
 //This is my simple wrapper that extends existing wrapper by providing tools
-class SIXMLNode
+class FWXMLNode
 {
 
   public:
