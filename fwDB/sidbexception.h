@@ -7,12 +7,12 @@ namespace fw
 	namespace db
 	{
 
-		class SIDB_DLLEXPORT SIDBException : public fw::core::Exception
+		class SIDB_DLLEXPORT DBException : public fw::core::Exception
 		{
 
 		public:
-			SIDBException(const CString& sMsg);
-			SIDBException(sqlite3* pDBHandle);
+			DBException(const CString& sMsg);
+			DBException(sqlite3* pDBHandle);
 
 			//returns underling error code from the database
 			int getDBErrorCode() const { return m_iDBErrorCode; }

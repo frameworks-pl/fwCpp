@@ -8,13 +8,13 @@ namespace fw
 	namespace db
 	{
 
-		class SIDB_DLLEXPORT SISQLRowDataSet
+		class SIDB_DLLEXPORT SQLRowDataSet
 		{
 		public:
-			SISQLRowDataSet(const CString& sReadQuery);
+			SQLRowDataSet(const CString& sReadQuery);
 
 			//adds new row to the collection
-			void append(const SISQLRow& pRow);
+			void append(const SQLRow& pRow);
 
 			//the read query
 			const CString& getReadQuery() const { return m_sReadQuery; }

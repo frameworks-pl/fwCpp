@@ -11,12 +11,12 @@ namespace fw
 	namespace db
 	{
 
-		SIGenericConnection::SIGenericConnection()
+		GenericConnection::GenericConnection()
 		{
 
 		}
 
-		void SIGenericConnection::destroyDeletedObjects(SISQLObjectDataSet* pSQLObjectDataSet)
+		void GenericConnection::destroyDeletedObjects(SQLObjectDataSet* pSQLObjectDataSet)
 		{
 			ASSERT(pSQLObjectDataSet);
 

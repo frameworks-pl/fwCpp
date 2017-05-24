@@ -9,12 +9,12 @@ namespace fw
 		//holds a single row (result of a query) converted to Unicode strings
 		//and is able to return any column's value converted to specified type
 		//throws exceptions if column does not exist or conversion is impossible
-		class SIDB_DLLEXPORT SISQLRow
+		class SIDB_DLLEXPORT SQLRow
 		{
 
 		public:
 
-			SISQLRow();
+			SQLRow();
 
 			//adds column->value par (performs conversion from UTF8 to Unicode)
 			void addValue(const char* pColName, const char* pColValue);
@@ -39,7 +39,7 @@ namespace fw
 
 
 		//list or "raw" rows
-		typedef std::list<SISQLRow> SQLRowList;
+		typedef std::list<SQLRow> SQLRowList;
 
 
 

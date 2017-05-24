@@ -11,7 +11,7 @@ namespace fw
 	namespace db
 	{
 
-		class SI_SQLT3_Connection_Listener : public fw::core::GenericListener
+		class SQLT3_Connection_Listener : public fw::core::GenericListener
 		{
 		public:
 
@@ -22,11 +22,11 @@ namespace fw
 
 
 		//the connection to SQLite3 database
-		class SIDB_DLLEXPORT SI_SQLT3_Connection : public SIGenericConnection, public fw::core::GenericNotifier
+		class SIDB_DLLEXPORT SQLT3_Connection : public GenericConnection, public fw::core::GenericNotifier
 		{
 
 		public:
-			SI_SQLT3_Connection();
+			SQLT3_Connection();
 
 			//opens connection to the specified database (failes if database does not exist)
 			void openConnection(const CString& pFilePath);
@@ -43,7 +43,7 @@ namespace fw
 
 			//this is general "read" query function - to return raw rows of data (no write!!!)
 			//The query to run is inside the dataset...
-			void query(SISQLRowDataSet& pRowDataset);
+			void query(SQLRowDataSet& pRowDataset);
 
 			//executes raw query without returning any result
 			void query(const CString& pQuery);
@@ -51,14 +51,14 @@ namespace fw
 			//this query can be used to read/write SQL objects    
 			//all queries needed to read/write data are taken from the object type inside the dataset
 			//returns number of objects saved/loaded (which might be different from number of objects in the dataset!!!)
-			int query(SISQLObjectDataSet& pObjectDataset, bool bWrite, const CString& pWherePhrase = _T(""), bool bClearCollection = true);
+			int query(SQLObjectDataSet& pObjectDataset, bool bWrite, const CString& pWherePhrase = _T(""), bool bClearCollection = true);
 
 			//performs read/write operations using the object passed
 			//the id is needed when loading an object from database (when writing this parameter is ignored)
-			void query(SISQLObject* pObject, bool bWrite, SQL_ID sqlID);
+			void query(SQLObject* pObject, bool bWrite, SQL_ID sqlID);
 
 			//returns number of items to load for the specified collection
-			int countItemsToLoad(SISQLObjectDataSet& pObjectDataset);
+			int countItemsToLoad(SQLObjectDataSet& pObjectDataset);
 
 			//get path to database
 			const CString& getDatabaseFilePath() const { return m_sPath; }
@@ -76,10 +76,10 @@ namespace fw
 		protected:
 
 			//reads a single record
-			void readRecord(sqlite3_stmt* pStmt, SISQLObject* pSQLObject);
+			void readRecord(sqlite3_stmt* pStmt, SQLObject* pSQLObject);
 
 			//writes single recrod
-			void writeRecord(sqlite3_stmt* pStmt, SISQLObject* pSQLObject, int iParamsCount);
+			void writeRecord(sqlite3_stmt* pStmt, SQLObject* pSQLObject, int iParamsCount);
 
 			//callback function to collect results of a query (raw rows)
 			static int QueryCallbackRowDataSet(void* pParm, int pColCnt, char** pRowVals, char** pColNames);

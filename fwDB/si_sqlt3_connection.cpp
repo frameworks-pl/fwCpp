@@ -11,7 +11,7 @@ namespace fw
 	namespace db
 	{
 
-		SI_SQLT3_Connection::SI_SQLT3_Connection()
+		SQLT3_Connection::SQLT3_Connection()
 		{
 
 			m_pCnnHandle = NULL;
@@ -20,7 +20,7 @@ namespace fw
 		}
 
 
-		void SI_SQLT3_Connection::query(const CString& pQuery)
+		void SQLT3_Connection::query(const CString& pQuery)
 		{
 			if (NULL != m_pCnnHandle)
 			{
@@ -28,25 +28,25 @@ namespace fw
 				beginTransaction();
 				if (SQLITE_OK != sqlite3_exec(m_pCnnHandle, utf8Query.c_str(), NULL, NULL, NULL))
 				{
-					throw SIDBException(m_pCnnHandle);
+					throw DBException(m_pCnnHandle);
 				}
 				endTransaction();
 			}
 			else
 			{
-				throw SIDBException(_T("Database connection is invalid."));
+				throw DBException(_T("Database connection is invalid."));
 			}
 
 		}
 
 
-		void SI_SQLT3_Connection::createDatabase(const CString& pFilePath, const CString& pScript)
+		void SQLT3_Connection::createDatabase(const CString& pFilePath, const CString& pScript)
 		{
 			std::string utfPath = fw::core::TextConv::Unicode2UTF8(pFilePath);
 			if (SQLITE_OK != sqlite3_open_v2(utfPath.c_str(), &m_pCnnHandle, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL))
 			{
 				//throw SIDBException(_T("Failed to open/create database."));
-				throw SIDBException(m_pCnnHandle);
+				throw DBException(m_pCnnHandle);
 			}
 
 			if (isOpen())
@@ -55,7 +55,7 @@ namespace fw
 		}
 
 
-		void SI_SQLT3_Connection::openConnection(const CString& pFilePath)
+		void SQLT3_Connection::openConnection(const CString& pFilePath)
 		{
 
 			if (fw::core::FileUtils::fileExists(pFilePath))
@@ -66,7 +66,7 @@ namespace fw
 				if (SQLITE_OK != sqlite3_open_v2(stdPath.c_str(), &m_pCnnHandle, SQLITE_OPEN_READWRITE, NULL))
 				{
 					//TODO: detect error in more detail
-					throw SIDBException(_T("Failed to open database."));
+					throw DBException(_T("Failed to open database."));
 				}
 				else
 				{
@@ -78,13 +78,13 @@ namespace fw
 			{
 				CString sMsg;
 				sMsg.Format(_T("File %s not found"), pFilePath);
-				throw SIDBException(sMsg);
+				throw DBException(sMsg);
 			}
 
 		}
 
 
-		void SI_SQLT3_Connection::closeConnection()
+		void SQLT3_Connection::closeConnection()
 		{
 			if (m_pCnnHandle)
 			{
@@ -98,18 +98,18 @@ namespace fw
 			}
 			else
 			{
-				throw SIDBException(_T("Cannot close the database - handle is invalid"));
+				throw DBException(_T("Cannot close the database - handle is invalid"));
 			}
 		}
 
 
-		void SI_SQLT3_Connection::query(SISQLRowDataSet& pRowDataset)
+		void SQLT3_Connection::query(SQLRowDataSet& pRowDataset)
 		{
 			if (m_pCnnHandle)
 			{
 				CString sQuery = pRowDataset.getReadQuery();
 				if (sQuery.IsEmpty())
-					throw SIDBException(_T("Query string is empty."));
+					throw DBException(_T("Query string is empty."));
 
 				std::string utf8Query = fw::core::TextConv::Unicode2UTF8(sQuery);
 				char szErrorMsg[1024];
@@ -119,12 +119,12 @@ namespace fw
 			}
 			else
 			{
-				throw SIDBException(_T("Database is not open."));
+				throw DBException(_T("Database is not open."));
 			}
 		}
 
 
-		void SI_SQLT3_Connection::query(SISQLObject* pObject, bool bWrite, SQL_ID sqlID)
+		void SQLT3_Connection::query(SQLObject* pObject, bool bWrite, SQL_ID sqlID)
 		{
 
 			if (NULL != m_pCnnHandle && NULL != pObject)
@@ -146,7 +146,7 @@ namespace fw
 
 						//no luck (don't know what to load
 						if (INVALID_SQL_ID == id)
-							throw SIDBException(_T("The object has invalid id."));
+							throw DBException(_T("The object has invalid id."));
 					}
 
 					CString sReadQuery;
@@ -158,7 +158,7 @@ namespace fw
 					sReadQuery += sWhere;
 
 					if (sReadQuery.IsEmpty())
-						throw SIDBException(_T("Query string is empty."));
+						throw DBException(_T("Query string is empty."));
 					utf8Query = fw::core::TextConv::Unicode2UTF8(sReadQuery);
 
 #ifdef ALLOW_PERFORMANCE_ISSUES
@@ -166,7 +166,7 @@ namespace fw
 #endif //ALLOW_PERFORMANCE_ISSUES
 					rc = sqlite3_prepare(m_pCnnHandle, utf8Query.c_str(), (int)utf8Query.size(), &pStmt, NULL);
 					if (SQLITE_OK != rc)
-						throw SIDBException(m_pCnnHandle);
+						throw DBException(m_pCnnHandle);
 
 					rc = sqlite3_step(pStmt);
 					if (SQLITE_ROW == rc)
@@ -186,11 +186,11 @@ namespace fw
 						//}
 						rc = sqlite3_step(pStmt);
 						if (SQLITE_DONE != rc)
-							throw SIDBException(_T("Too many items read for single oject"));
+							throw DBException(_T("Too many items read for single oject"));
 					}
 					else
 					{
-						throw SIDBException(m_pCnnHandle);
+						throw DBException(m_pCnnHandle);
 					}
 #ifdef ALLOW_PERFORMANCE_ISSUES
 					fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
@@ -214,7 +214,7 @@ namespace fw
 					rc = sqlite3_prepare(m_pCnnHandle, utf8Query.c_str(), (int)utf8Query.size(), &pStmt, NULL);
 
 					if (SQLITE_OK != rc)
-						throw SIDBException(m_pCnnHandle);
+						throw DBException(m_pCnnHandle);
 
 					try
 					{
@@ -222,14 +222,14 @@ namespace fw
 						//running the query
 						rc = sqlite3_step(pStmt);
 						if (rc == SQLITE_ROW)
-							throw SIDBException(_T("Non select query returned row(s)."));
+							throw DBException(_T("Non select query returned row(s)."));
 
 #ifdef ALLOW_PERFORMANCE_ISSUES
 						fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
 #endif //ALLOW_PERFORMANCE_ISSUES
 						rc = sqlite3_finalize(pStmt);
 					}
-					catch (SIDBException& ex)
+					catch (DBException& ex)
 					{
 #ifdef ALLOW_PERFORMANCE_ISSUES
 						fw::debug::Logger::Log(LEVEL_SIDB_PREPARE_FINALIZE, "{SI_SQLT3_Connection::query} finalize (%s, %d)", __FILE__, __LINE__);
@@ -242,7 +242,7 @@ namespace fw
 
 		}
 
-		void SI_SQLT3_Connection::readRecord(sqlite3_stmt* pStmt, SISQLObject* pSQLObject)
+		void SQLT3_Connection::readRecord(sqlite3_stmt* pStmt, SQLObject* pSQLObject)
 		{
 
 			int iColumnCnt = sqlite3_column_count(pStmt);
@@ -276,34 +276,34 @@ namespace fw
 				}
 
 				//forcing STATE_OK on the loaded object
-				pSQLObject->setState(SISQLObject::STATE_OK_LOADED);
+				pSQLObject->setState(SQLObject::STATE_OK_LOADED);
 
 			}
 			else
 			{
-				throw SIDBException(_T("Failed to create object during read operation."));
+				throw DBException(_T("Failed to create object during read operation."));
 			}
 		}
 
-		void SI_SQLT3_Connection::writeRecord(sqlite3_stmt* pStmt, SISQLObject* pSQLObject, int iParamsCount)
+		void SQLT3_Connection::writeRecord(sqlite3_stmt* pStmt, SQLObject* pSQLObject, int iParamsCount)
 		{
 
 			//binding blobs
 			for (int i = 1; i <= iParamsCount; i++)
 			{
-				const SISQLParam& pParamToBind = pSQLObject->getParamToBind(i);
+				const SQLParam& pParamToBind = pSQLObject->getParamToBind(i);
 				if (pParamToBind.isValid())
 					sqlite3_bind_blob(pStmt, i, (void*)pParamToBind.getBLOBBuffer().getBuffer(),
 						pParamToBind.getBLOBBuffer().getLength(), SQLITE_STATIC);
 				else
-					throw SIDBException(_T("Param to bind is invalid."));
+					throw DBException(_T("Param to bind is invalid."));
 			}
 
 
 		}
 
 
-		int SI_SQLT3_Connection::query(SISQLObjectDataSet& pObjectDataset, bool bWrite, const CString& pWherePhrase, bool bClearCollection)
+		int SQLT3_Connection::query(SQLObjectDataSet& pObjectDataset, bool bWrite, const CString& pWherePhrase, bool bClearCollection)
 		{
 
 			int iObjectsCount = 0;
@@ -333,7 +333,7 @@ namespace fw
 						iParamsCount = pObjectDataset.getReadQuery(sReadQuery);
 
 						if (sReadQuery.IsEmpty())
-							throw SIDBException(_T("Query string is empty."));
+							throw DBException(_T("Query string is empty."));
 
 						if (false == pWherePhrase.IsEmpty())
 						{
@@ -353,7 +353,7 @@ namespace fw
 #endif //ALLOW_PERFORMANCE_ISSUES
 						if (SQLITE_OK != rc)
 						{
-							throw SIDBException(m_pCnnHandle);
+							throw DBException(m_pCnnHandle);
 						}
 
 						do
@@ -367,7 +367,7 @@ namespace fw
 							case SQLITE_ROW:
 							{
 								//create dummy object to perform the load operation 
-								SISQLObject* pSQLObject = pObjectDataset.createObject();
+								SQLObject* pSQLObject = pObjectDataset.createObject();
 
 								if (NULL != pSQLObject)
 								{
@@ -382,14 +382,14 @@ namespace fw
 									{
 										delete pSQLObject;
 										pSQLObject = NULL;
-										throw SIDBException(_T("Decryption failed during initialization."));
+										throw DBException(_T("Decryption failed during initialization."));
 									}
 									catch (fw::core::Exception& ex)
 									{
 										delete pSQLObject;
 										pSQLObject = NULL;
 
-										throw SIDBException(m_pCnnHandle);
+										throw DBException(m_pCnnHandle);
 									}
 
 									iObjectsCount++;
@@ -397,25 +397,25 @@ namespace fw
 									//notify listeners about objects count change
 									std::list<fw::core::GenericListener*>::iterator listenerIt;
 									for (listenerIt = m_Listeners.begin(); listenerIt != m_Listeners.end(); listenerIt++)
-										((SI_SQLT3_Connection_Listener*)(*listenerIt))->onUpdatedItemsCountChange(iObjectsCount);
+										((SQLT3_Connection_Listener*)(*listenerIt))->onUpdatedItemsCountChange(iObjectsCount);
 
 									delete pSQLObject;
 									pSQLObject = NULL;
 								}
 								else
 								{
-									throw SIDBException(_T("Failed to create object during read operation."));
+									throw DBException(_T("Failed to create object during read operation."));
 								}
 							}
 							break;
 							case SQLITE_MISUSE:
 							case SQLITE_ERROR:
-								throw SIDBException(m_pCnnHandle);
+								throw DBException(m_pCnnHandle);
 								break;
 							case SQLITE_DONE:
 								break;
 							default:
-								throw SIDBException(_T("Unknown value returned while processing query."));
+								throw DBException(_T("Unknown value returned while processing query."));
 							}
 
 						} while (rc == SQLITE_ROW);
@@ -442,7 +442,7 @@ namespace fw
 							SQLObjectList::iterator it;
 							for (it = objects_to_update.begin(); it != objects_to_update.end(); it++)
 							{
-								SISQLObject* pSQLObject = *it;
+								SQLObject* pSQLObject = *it;
 								CString sQuery;
 
 								iParamsCount = pSQLObject->getUpdateQuery(sQuery, bWrite, false);
@@ -459,7 +459,7 @@ namespace fw
 									bFinalized = false;
 									if (SQLITE_OK != rc)
 									{
-										throw SIDBException(m_pCnnHandle);
+										throw DBException(m_pCnnHandle);
 									}
 
 									writeRecord(pStmt, pSQLObject, iParamsCount);
@@ -467,7 +467,7 @@ namespace fw
 									//running the query
 									rc = sqlite3_step(pStmt);
 									if (rc == SQLITE_ROW)
-										throw SIDBException(_T("Non select query returned row(s)."));
+										throw DBException(_T("Non select query returned row(s)."));
 
 									bFinalized = true;
 #ifdef ALLOW_PERFORMANCE_ISSUES
@@ -484,7 +484,7 @@ namespace fw
 								//notify listeners about objects count change
 								std::list<fw::core::GenericListener*>::iterator listenerIt;
 								for (listenerIt = m_Listeners.begin(); listenerIt != m_Listeners.end(); listenerIt++)
-									((SI_SQLT3_Connection_Listener*)(*listenerIt))->onUpdatedItemsCountChange(iObjectsCount);
+									((SQLT3_Connection_Listener*)(*listenerIt))->onUpdatedItemsCountChange(iObjectsCount);
 
 							}
 
@@ -498,8 +498,8 @@ namespace fw
 							//of all objects written
 							for (it = objects_to_update.begin(); it != objects_to_update.end(); it++)
 							{
-								if (SISQLObject::STATE_DELETE != (*it)->getState())
-									(*it)->setState(SISQLObject::STATE_OK);
+								if (SQLObject::STATE_DELETE != (*it)->getState())
+									(*it)->setState(SQLObject::STATE_OK);
 							}
 
 							//allow dataset to destroy "deleted" objects
@@ -518,10 +518,10 @@ namespace fw
 				}
 				else
 				{
-					throw SIDBException(_T("Database is not open."));
+					throw DBException(_T("Database is not open."));
 				}
 			}
-			catch (SIDBException& ex)
+			catch (DBException& ex)
 			{
 				if (false == bFinalized)
 				{
@@ -540,13 +540,13 @@ namespace fw
 		}
 
 
-		int SI_SQLT3_Connection::QueryCallbackRowDataSet(void* pParm, int pColCnt, char** pRowVals, char** pColNames)
+		int SQLT3_Connection::QueryCallbackRowDataSet(void* pParm, int pColCnt, char** pRowVals, char** pColNames)
 		{
 			//recover pointer to dataset
-			SISQLRowDataSet* pRowDataset = (SISQLRowDataSet*)pParm;
+			SQLRowDataSet* pRowDataset = (SQLRowDataSet*)pParm;
 			if (pRowDataset)
 			{
-				SISQLRow oSingleRow;
+				SQLRow oSingleRow;
 				for (int i = 0; i < pColCnt; i++)
 				{
 					oSingleRow.addValue(pColNames[i], pRowVals[0]);
@@ -560,29 +560,29 @@ namespace fw
 		}
 
 
-		int SI_SQLT3_Connection::QueryCallbackObjectDataSet(void* pParm, int pColCnt, char** pRowVals, char** pColNames)
+		int SQLT3_Connection::QueryCallbackObjectDataSet(void* pParm, int pColCnt, char** pRowVals, char** pColNames)
 		{
 
 			int result = 0;
 
 			//recover pointer to dataset
-			SISQLObjectDataSet* pObjectDataSet = (SISQLObjectDataSet*)pParm;
+			SQLObjectDataSet* pObjectDataSet = (SQLObjectDataSet*)pParm;
 			if (pObjectDataSet)
 			{
 				//produce a row object 
-				SISQLRow oSingleRow;
+				SQLRow oSingleRow;
 				for (int i = 0; i < pColCnt; i++)
 				{
 					oSingleRow.addValue(pColNames[i], pRowVals[1]);
 				}
 
 				//produce the SQLObject 
-				ASSERT(pObjectDataSet->getRuntimeClass().IsDerivedFrom(RUNTIME_CLASS(SISQLObject)));
+				ASSERT(pObjectDataSet->getRuntimeClass().IsDerivedFrom(RUNTIME_CLASS(SQLObject)));
 
 				CObject* pObject = pObjectDataSet->getRuntimeClass().CreateObject();
 				if (pObject)
 				{
-					SISQLObject* pSISQLObject = (SISQLObject*)pObject;
+					SQLObject* pSISQLObject = (SQLObject*)pObject;
 					if (pSISQLObject)
 					{
 
@@ -604,7 +604,7 @@ namespace fw
 
 
 
-		int SI_SQLT3_Connection::countItemsToLoad(SISQLObjectDataSet& pObjectDataset)
+		int SQLT3_Connection::countItemsToLoad(SQLObjectDataSet& pObjectDataset)
 		{
 
 			//CObject* pObject = pObjectDataset.createObject();
@@ -612,7 +612,7 @@ namespace fw
 			if (pObject.get())
 			{
 
-				SISQLObject* pSQLObject = (SISQLObject*)pObject.get();
+				SQLObject* pSQLObject = (SQLObject*)pObject.get();
 				if (NULL != pSQLObject)
 				{
 					CString sCountQuery;
@@ -620,7 +620,7 @@ namespace fw
 
 					if (sCountQuery.GetLength())
 					{
-						SISQLRowDataSet oDS(sCountQuery);
+						SQLRowDataSet oDS(sCountQuery);
 						query(oDS);
 
 						if (false == oDS.isEmpty())
@@ -642,7 +642,7 @@ namespace fw
 
 
 
-		void SI_SQLT3_Connection::beginTransaction()
+		void SQLT3_Connection::beginTransaction()
 		{
 
 			if (m_pCnnHandle)
@@ -661,18 +661,18 @@ namespace fw
 					else
 						sMsg.Format(_T("Cannot start transaction (%s)."), sErr);
 
-					throw SIDBException(sMsg);
+					throw DBException(sMsg);
 				}
 			}
 			else
-				throw db::SIDBException(_T("Connection is not opened."));
+				throw db::DBException(_T("Connection is not opened."));
 
 
 
 		}
 
 
-		void SI_SQLT3_Connection::endTransaction(bool bCommit)
+		void SQLT3_Connection::endTransaction(bool bCommit)
 		{
 
 			if (m_pCnnHandle)
@@ -683,16 +683,16 @@ namespace fw
 					int iErrorCode = sqlite3_errcode(m_pCnnHandle);
 					const char* pErrorMsg = sqlite3_errmsg(m_pCnnHandle);
 
-					throw SIDBException(_T("Commit transaction failed."));
+					throw DBException(_T("Commit transaction failed."));
 				}
 			}
 			else
-				throw db::SIDBException(_T("Connection is not opened."));
+				throw db::DBException(_T("Connection is not opened."));
 
 		}
 
 
-		bool SI_SQLT3_Connection::tableExists(const char* pTableName)
+		bool SQLT3_Connection::tableExists(const char* pTableName)
 		{
 			bool bResult = false;
 			if (m_pCnnHandle)
@@ -710,7 +710,7 @@ namespace fw
 				fw::debug::Logger::Log(LEVEL_SIDB_SQLITE, "{SI_SQLT3_Connection::tableExists} sqlite_prepare(result=%d)\n", rc);
 #endif //ALLOW_PERFORMANCE_ISSUES
 				if (SQLITE_OK != rc)
-					throw SIDBException(m_pCnnHandle);
+					throw DBException(m_pCnnHandle);
 
 				rc = sqlite3_step(pStmt);
 				if (SQLITE_ROW == rc)

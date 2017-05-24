@@ -10,16 +10,16 @@ namespace fw
 	namespace db
 	{
 
-		fw::crypt::Archive* SISQLXMLDataItem::m_pArchive = NULL;
-		CFile SISQLXMLDataItem::m_FakeFile;
+		fw::crypt::Archive* SQLXMLDataItem::m_pArchive = NULL;
+		CFile SQLXMLDataItem::m_FakeFile;
 
-		SISQLXMLDataItem::SISQLXMLDataItem()
+		SQLXMLDataItem::SQLXMLDataItem()
 		{
 
 
 		}
 
-		bool SISQLXMLDataItem::chunkToRootXML(const fw::core::ByteBuffer& pBuffer, XMLNode& pXmlDocument)
+		bool SQLXMLDataItem::chunkToRootXML(const fw::core::ByteBuffer& pBuffer, XMLNode& pXmlDocument)
 		{
 			if (NULL == m_pArchive)
 				throw fw::core::Exception(_T("SQL to XML engine not initialized."));
@@ -35,7 +35,7 @@ namespace fw
 		}
 
 
-		void SISQLXMLDataItem::initializeArchive(const CString& pPassword)
+		void SQLXMLDataItem::initializeArchive(const CString& pPassword)
 		{
 			if (NULL != m_pArchive)
 				deinitializeArchive();
@@ -47,14 +47,14 @@ namespace fw
 
 		}
 
-		void SISQLXMLDataItem::deinitializeArchive()
+		void SQLXMLDataItem::deinitializeArchive()
 		{
 			delete m_pArchive;
 			m_pArchive = NULL;
 		}
 
 
-		fw::core::ByteBuffer SISQLXMLDataItem::encryptChunk(const CString& pChunk)
+		fw::core::ByteBuffer SQLXMLDataItem::encryptChunk(const CString& pChunk)
 		{
 			if (m_pArchive)
 			{

@@ -8,18 +8,18 @@ namespace fw
 	namespace db
 	{
 
-		class SISQLObjectDataSet;
-		class SI_SQLT3_Connection;
+		class SQLObjectDataSet;
+		class SQLT3_Connection;
 
 
 		//an abstract class of an entity that
 		//knows how to serialize itself from/to SQL database
-		class SIDB_DLLEXPORT SISQLObject : public CObject
+		class SIDB_DLLEXPORT SQLObject : public CObject
 		{
 
 
-			friend class SISQLObjectDataSet;
-			friend class SI_SQLT3_Connection;
+			friend class SQLObjectDataSet;
+			friend class SQLT3_Connection;
 
 
 		public:
@@ -42,19 +42,19 @@ namespace fw
 
 			static const CString m_sSQLID_FieldName;
 
-			SISQLObject();
-			virtual ~SISQLObject() { }
+			SQLObject();
+			virtual ~SQLObject() { }
 
 			//need to define custom copy constructor due to overriding CObject
 			//(see C2558 for details)
-			SISQLObject(const SISQLObject& pObject);
+			SQLObject(const SQLObject& pObject);
 
 			//need to define custom copy constructor due to overriding CObject
 			//(see C2558 for details)
-			const SISQLObject& operator=(const SISQLObject& pObject);
+			const SQLObject& operator=(const SQLObject& pObject);
 
 			//initializes itself from the external copy of an object
-			virtual bool initialize(const SISQLObject* pObject);
+			virtual bool initialize(const SQLObject* pObject);
 
 			//initializes itself after loading/saving
 			virtual bool initialize() = 0;
@@ -84,7 +84,7 @@ namespace fw
 			StateEnum getState() const { return m_eState; }
 
 			//adds new param to the object
-			void addParam(const SISQLParam& pParam);
+			void addParam(const SQLParam& pParam);
 
 			//removes param identified by the column name
 			//returns true if the param has been removed as expected
@@ -96,7 +96,7 @@ namespace fw
 
 			//returns the n-th param to be bound to the compiled sql query
 			//if there is no param with such index, returns false
-			const SISQLParam& getParamToBind(int iIndex);
+			const SQLParam& getParamToBind(int iIndex);
 
 
 			void updateFromBLOB(const CString& pColName, const fw::core::ByteBuffer& pBLOB);
@@ -142,8 +142,8 @@ namespace fw
 		};
 
 
-		typedef std::list<SISQLObject*> SQLObjectList;
-		typedef std::map<SQL_ID, SISQLObject*> SQLObjectMap;
+		typedef std::list<SQLObject*> SQLObjectList;
+		typedef std::map<SQL_ID, SQLObject*> SQLObjectMap;
 	}; //namespace 
 }
 

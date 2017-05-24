@@ -10,8 +10,8 @@ namespace fw
 	{
 
 
-		SIMaxIDDataSet::SIMaxIDDataSet()
-			: SISQLObjectDataSet(RUNTIME_CLASS(SIMaxID))
+		MaxIDDataSet::MaxIDDataSet()
+			: SQLObjectDataSet(RUNTIME_CLASS(MaxID))
 		{
 
 			m_iMaxID = INVALID_SQL_ID;
@@ -19,13 +19,13 @@ namespace fw
 
 		}
 
-		SIMaxID* SIMaxIDDataSet::findMaxObject(const CString& pObjectName)
+		MaxID* MaxIDDataSet::findMaxObject(const CString& pObjectName)
 		{
 
 			SQLObjectMap::iterator it;
 			for (it = m_ObjectList.begin(); it != m_ObjectList.end(); it++)
 			{
-				SIMaxID* pMaxID = (SIMaxID*)it->second;
+				MaxID* pMaxID = (MaxID*)it->second;
 				if (pMaxID && (pMaxID->getObjectName() == pObjectName))
 				{
 					return pMaxID;
@@ -37,28 +37,28 @@ namespace fw
 		}
 
 
-		SQL_ID SIMaxIDDataSet::set(const SISQLObject* pSQLObject)
+		SQL_ID MaxIDDataSet::set(const SQLObject* pSQLObject)
 		{
 
-			if (SISQLObject::STATE_OK_LOADED != pSQLObject->getState())
+			if (SQLObject::STATE_OK_LOADED != pSQLObject->getState())
 			{
 				//verify that the name of the object being added is unique!!!
-				const SIMaxID* pMaxID = (SIMaxID*)pSQLObject;
+				const MaxID* pMaxID = (MaxID*)pSQLObject;
 				if (pMaxID)
 				{
-					SIMaxID* pExistingMaxID = findMaxObject(pMaxID->getObjectName());
+					MaxID* pExistingMaxID = findMaxObject(pMaxID->getObjectName());
 					if (NULL != pExistingMaxID)
 					{
 						CString s;
 						s.Format(_T("Object named '%s' already exists in the max id collection."), pMaxID->getObjectName());
-						throw SIDBException(s);
+						throw DBException(s);
 					}
 				}
 				else
-					throw db::SIDBException(_T("The provided object is not valid for this collection."));
+					throw db::DBException(_T("The provided object is not valid for this collection."));
 			}
 
-			SQL_ID sqlId = SISQLObjectDataSet::set(pSQLObject);
+			SQL_ID sqlId = SQLObjectDataSet::set(pSQLObject);
 
 			//make sure the max id is never less than id of any object added to the set
 			if (m_iMaxID < sqlId)
@@ -70,14 +70,14 @@ namespace fw
 		}
 
 
-		Identifier SIMaxIDDataSet::getNextID(const CString& pObjectName)
+		Identifier MaxIDDataSet::getNextID(const CString& pObjectName)
 		{
 
-			SIMaxID* pMaxID = findMaxObject(pObjectName);
+			MaxID* pMaxID = findMaxObject(pObjectName);
 			if (NULL == pMaxID)
 			{
 				//there is no object with the speified name -> creating one
-				pMaxID = new SIMaxID(pObjectName);
+				pMaxID = new MaxID(pObjectName);
 				setSQLID(pMaxID, ++m_iMaxID);
 				m_ObjectList.insert(SQLObjectMap::value_type(pMaxID->getSQLID(), pMaxID));
 
@@ -92,10 +92,10 @@ namespace fw
 
 		}
 
-		const Identifier& SIMaxIDDataSet::getCurrentMaxID(const CString& pObjectName)
+		const Identifier& MaxIDDataSet::getCurrentMaxID(const CString& pObjectName)
 		{
 
-			SIMaxID* pMaxID = findMaxObject(pObjectName);
+			MaxID* pMaxID = findMaxObject(pObjectName);
 
 			//if user is asking for max id of "max id" object...
 			CString sMaxIDRuntimeClassName(getRuntimeClass().m_lpszClassName);
@@ -111,13 +111,13 @@ namespace fw
 
 
 #if defined(_DEBUG) && defined(ALLOW_PERFORMANCE_ISSUES)
-		void SIMaxIDDataSet::dumpMaxIDs()
+		void MaxIDDataSet::dumpMaxIDs()
 		{
 
 			SQLObjectMap::iterator it;
 			for (it = m_ObjectList.begin(); it != m_ObjectList.end(); it++)
 			{
-				SIMaxID* pMaxID = (SIMaxID*)it->second;
+				MaxID* pMaxID = (MaxID*)it->second;
 				if (pMaxID)
 					pMaxID->dumpMaxID();
 			}

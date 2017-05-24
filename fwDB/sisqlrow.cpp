@@ -9,16 +9,16 @@ namespace fw
 	namespace db
 	{
 
-		SISQLRow::SISQLRow()
+		SQLRow::SQLRow()
 		{
 
 		}
 
 
-		void SISQLRow::addValue(const char* pColName, const char* pColValue)
+		void SQLRow::addValue(const char* pColName, const char* pColValue)
 		{
 			if (NULL == pColName)
-				throw SIDBException(_T("Unknown column name when parsing a row."));
+				throw DBException(_T("Unknown column name when parsing a row."));
 
 			CString sColName = fw::core::TextConv::UTF82Unicode(pColName);
 			CString sColValue = fw::core::TextConv::UTF82Unicode(pColValue);
@@ -28,7 +28,7 @@ namespace fw
 		}
 
 
-		int SISQLRow::getValueAsInt(const CString& pColName) const
+		int SQLRow::getValueAsInt(const CString& pColName) const
 		{
 
 			int iResult = 0;
@@ -40,7 +40,7 @@ namespace fw
 				{
 					CString sMsg;
 					sMsg.Format(_T("Cannot convert %s to integer."), it->second);
-					throw db::SIDBException(sMsg);
+					throw db::DBException(sMsg);
 				}
 			}
 
@@ -50,7 +50,7 @@ namespace fw
 		}
 
 
-		int SISQLRow::getValueAsInt(int iColIndex) const
+		int SQLRow::getValueAsInt(int iColIndex) const
 		{
 			int iResult = 0;
 
@@ -65,7 +65,7 @@ namespace fw
 
 			CString sMsg;
 			sMsg.Format(_T("Index %d is out of range."), iColIndex);
-			throw SIDBException(sMsg);
+			throw DBException(sMsg);
 
 		}
 

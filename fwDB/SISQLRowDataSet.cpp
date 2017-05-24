@@ -9,14 +9,14 @@ namespace fw
 	namespace db
 	{
 
-		SISQLRowDataSet::SISQLRowDataSet(const CString& sReadQuery)
+		SQLRowDataSet::SQLRowDataSet(const CString& sReadQuery)
 		{
 			m_sReadQuery = sReadQuery;
 
 		}
 
 
-		void SISQLRowDataSet::append(const SISQLRow& pRow)
+		void SQLRowDataSet::append(const SQLRow& pRow)
 		{
 			m_RowList.push_back(pRow);
 

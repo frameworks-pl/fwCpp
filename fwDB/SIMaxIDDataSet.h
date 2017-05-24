@@ -8,15 +8,15 @@ namespace fw
 	namespace db
 	{
 
-		class SIMaxID;
+		class MaxID;
 
-		class SIDB_DLLEXPORT SIMaxIDDataSet : public SISQLObjectDataSet
+		class SIDB_DLLEXPORT MaxIDDataSet : public SQLObjectDataSet
 		{
 
 		public:
-			SIMaxIDDataSet();
+			MaxIDDataSet();
 
-			SQL_ID set(const SISQLObject* pSQLObject);
+			SQL_ID set(const SQLObject* pSQLObject);
 
 			//returns next unique identifier for the object specified by name
 			Identifier getNextID(const CString& pObjectName);
@@ -32,7 +32,7 @@ namespace fw
 		protected:
 
 			//finds the object with the specified name
-			SIMaxID* findMaxObject(const CString& pObjectName);
+			MaxID* findMaxObject(const CString& pObjectName);
 
 			//this data set must "manually" assign identifier to itslef
 			int m_iMaxID;

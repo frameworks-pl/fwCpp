@@ -9,22 +9,22 @@ namespace fw
 	namespace db
 	{
 
-		CString SIMaxID::m_sTableName = _T("max_ids"); //default value of this table should be changed
+		CString MaxID::m_sTableName = _T("max_ids"); //default value of this table should be changed
 
-		IMPLEMENT_DYNCREATE(SIMaxID, SISQLXMLDataItem)
+		IMPLEMENT_DYNCREATE(MaxID, SQLXMLDataItem)
 
-			SIMaxID::SIMaxID()
+			MaxID::MaxID()
 		{
 
 			m_iUniqueID = INVALID_SQL_ID;
 			//we want the id to be valid from the very beginning
 			m_iUniqueID++;
 
-			addParam(SISQLParam(_T("data"), &m_sql_maxid_data));
+			addParam(SQLParam(_T("data"), &m_sql_maxid_data));
 
 		}
 
-		SIMaxID::SIMaxID(const CString& pMaxIDName)
+		MaxID::MaxID(const CString& pMaxIDName)
 		{
 
 			m_sName = pMaxIDName;
@@ -33,13 +33,13 @@ namespace fw
 			//we want the id to be valid from the very beginning
 			m_iUniqueID++;
 
-			addParam(SISQLParam(_T("data"), &m_sql_maxid_data));
+			addParam(SQLParam(_T("data"), &m_sql_maxid_data));
 
 
 		}
 
 
-		Identifier SIMaxID::getNextID()
+		Identifier MaxID::getNextID()
 		{
 			Identifier new_id = m_iUniqueID;
 			m_iUniqueID++;
@@ -53,14 +53,14 @@ namespace fw
 		}
 
 
-		Identifier SIMaxID::getCurrentMaxID() const
+		Identifier MaxID::getCurrentMaxID() const
 		{
 			return m_iUniqueID;
 
 		}
 
 
-		bool SIMaxID::initialize()
+		bool MaxID::initialize()
 		{
 
 			if (isLoaded() && m_sql_maxid_data.getLength() > 0)
@@ -75,19 +75,19 @@ namespace fw
 		}
 
 
-		bool SIMaxID::initialize(const SISQLObject* pObject)
+		bool MaxID::initialize(const SQLObject* pObject)
 		{
-			SISQLXMLDataItem::initialize(pObject);
+			SQLXMLDataItem::initialize(pObject);
 			ASSERT(fw::core::AppUtils::runtimeObjectsHaveTheSameClass((CObject*)pObject, this));
 
-			*this = *(const SIMaxID*)pObject;
+			*this = *(const MaxID*)pObject;
 			return initialize();
 
 
 		}
 
 
-		XMLNode SIMaxID::toUnicodeXML() const
+		XMLNode MaxID::toUnicodeXML() const
 		{
 
 			XMLNode el = XMLNode::createXMLTopNode(_T("sidb_maxid"));
@@ -104,7 +104,7 @@ namespace fw
 		}
 
 
-		bool SIMaxID::fromUnicodeXML(const XMLNode* pXmlElement)
+		bool MaxID::fromUnicodeXML(const XMLNode* pXmlElement)
 		{
 
 			const wchar_t* pAttr = pXmlElement->getAttribute(_T("name"));
@@ -127,7 +127,7 @@ namespace fw
 
 		}
 
-		int SIMaxID::getUpdateQuery(CString& pQuery, bool bWrite, bool bCountQuery)
+		int MaxID::getUpdateQuery(CString& pQuery, bool bWrite, bool bCountQuery)
 		{
 			if (true == bWrite)
 			{
@@ -148,13 +148,13 @@ namespace fw
 				}
 			}
 
-			return db::SISQLXMLDataItem::getUpdateQuery(pQuery, bWrite, bCountQuery);
+			return db::SQLXMLDataItem::getUpdateQuery(pQuery, bWrite, bCountQuery);
 
 		}
 
 
 #if defined(_DEBUG) && defined(ALLOW_PERFORMANCE_ISSUES)
-		void SIMaxID::dumpMaxID()
+		void MaxID::dumpMaxID()
 		{
 			fw::debug::Logger::Log(LEVEL_SIDB, "m_sName=%s, m_iUniqueID=%d", fw::core::TextConv::Unicode2UTF8(m_sName).c_str(), (int)m_iUniqueID);
 
@@ -162,7 +162,7 @@ namespace fw
 #endif
 
 
-		void SIMaxID::initMaxIDS(const CString& pTableName)
+		void MaxID::initMaxIDS(const CString& pTableName)
 		{
 			m_sTableName = pTableName;
 

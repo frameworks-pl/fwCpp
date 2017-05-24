@@ -6,9 +6,9 @@ namespace fw
 	namespace db
 	{
 
-		SIBLOBItem SIBLOBCollection::m_InvalidBLOB = SIBLOBItem();
+		BLOBItem BLOBCollection::m_InvalidBLOB = BLOBItem();
 
-		SIBLOBItem::SIBLOBItem()
+		BLOBItem::BLOBItem()
 		{
 			m_ID = INVALID_BLOB_ID;
 			m_pData = NULL;
@@ -16,16 +16,16 @@ namespace fw
 		}
 
 
-		SIBLOBItem::SIBLOBItem(fw::core::ByteBuffer* pData)
+		BLOBItem::BLOBItem(fw::core::ByteBuffer* pData)
 		{
-			m_ID = SIBLOBCollection::get()->getMaxID();
+			m_ID = BLOBCollection::get()->getMaxID();
 			m_pData = pData;
-			SIBLOBCollection::get()->addRef(m_ID);
+			BLOBCollection::get()->addRef(m_ID);
 
 
 		}
 
-		SIBLOBItem::~SIBLOBItem()
+		BLOBItem::~BLOBItem()
 		{
 
 			release();
@@ -46,7 +46,7 @@ namespace fw
 		//}
 
 
-		SIBLOBItem::SIBLOBItem(const SIBLOBItem& pSIBLOBItem)
+		BLOBItem::BLOBItem(const BLOBItem& pSIBLOBItem)
 		{
 			m_ID = INVALID_BLOB_ID;
 			m_pData = NULL;
@@ -56,7 +56,7 @@ namespace fw
 		}
 
 
-		SIBLOBItem& SIBLOBItem::operator=(const SIBLOBItem& pSIBLOBItem)
+		BLOBItem& BLOBItem::operator=(const BLOBItem& pSIBLOBItem)
 		{
 
 			//release exiting object if any
@@ -64,7 +64,7 @@ namespace fw
 
 			m_ID = pSIBLOBItem.getID();
 			m_pData = pSIBLOBItem.getDataBuffer();
-			SIBLOBCollection::get()->addRef(m_ID);
+			BLOBCollection::get()->addRef(m_ID);
 
 			return *this;
 
@@ -72,35 +72,35 @@ namespace fw
 
 
 
-		BLOB_ID SIBLOBItem::getID() const
+		BLOB_ID BLOBItem::getID() const
 		{
 			return m_ID;
 		}
 
 
-		bool SIBLOBItem::isValid() const
+		bool BLOBItem::isValid() const
 		{
 			return ((NULL != m_pData) && INVALID_BLOB_ID != m_ID);
 
 		}
 
 
-		void SIBLOBItem::create()
+		void BLOBItem::create()
 		{
 			release();
 
 			m_pData = new fw::core::ByteBuffer();
-			m_ID = SIBLOBCollection::get()->getMaxID();
-			SIBLOBCollection::get()->addRef(m_ID);
+			m_ID = BLOBCollection::get()->getMaxID();
+			BLOBCollection::get()->addRef(m_ID);
 		}
 
 
-		void SIBLOBItem::release()
+		void BLOBItem::release()
 		{
 
 			if (INVALID_BLOB_ID != m_ID)
 			{
-				int iRefCount = SIBLOBCollection::get()->release(m_ID);
+				int iRefCount = BLOBCollection::get()->release(m_ID);
 				if (0 == iRefCount)
 				{
 					delete m_pData;
@@ -115,16 +115,16 @@ namespace fw
 		//----------------------------------------------------------------------------------
 
 
-		SIBLOBCollection* SIBLOBCollection::m_pSIBLOBCollection = NULL;
+		BLOBCollection* BLOBCollection::m_pSIBLOBCollection = NULL;
 
-		SIBLOBCollection::SIBLOBCollection()
+		BLOBCollection::BLOBCollection()
 		{
 			m_iMaxID = 1;
 
 		}
 
 
-		SIBLOBCollection::~SIBLOBCollection()
+		BLOBCollection::~BLOBCollection()
 		{
 			//std::list<SIBLOBItem>::iterator it;
 			//for (it = m_SIBLOBItems.begin(); it != m_SIBLOBItems.end(); it++)
@@ -142,16 +142,16 @@ namespace fw
 		}
 
 
-		SIBLOBCollection* SIBLOBCollection::get()
+		BLOBCollection* BLOBCollection::get()
 		{
 			if (NULL == m_pSIBLOBCollection)
-				m_pSIBLOBCollection = new SIBLOBCollection;
+				m_pSIBLOBCollection = new BLOBCollection;
 
 			return m_pSIBLOBCollection;
 		}
 
 
-		void SIBLOBCollection::terminate()
+		void BLOBCollection::terminate()
 		{
 			delete m_pSIBLOBCollection;
 			m_pSIBLOBCollection = NULL;
@@ -216,7 +216,7 @@ namespace fw
 		//}
 
 
-		int SIBLOBCollection::getMaxID()
+		int BLOBCollection::getMaxID()
 		{
 			int iMaxID = m_iMaxID;
 			m_iMaxID++;
@@ -226,7 +226,7 @@ namespace fw
 
 
 
-		void SIBLOBCollection::addRef(BLOB_ID iID)
+		void BLOBCollection::addRef(BLOB_ID iID)
 		{
 
 			//if the blob has invalid ID we will not regiser it!!!
@@ -245,7 +245,7 @@ namespace fw
 
 		}
 
-		int SIBLOBCollection::release(BLOB_ID iID)
+		int BLOBCollection::release(BLOB_ID iID)
 		{
 			std::map<BLOB_ID, int>::iterator it = m_BLOBRefCountMap.find(iID);
 			if (m_BLOBRefCountMap.end() != it)

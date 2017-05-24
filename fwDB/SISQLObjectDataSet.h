@@ -8,7 +8,7 @@ namespace fw
 	namespace db
 	{
 
-		class SIGenericConnection;
+		class GenericConnection;
 
 		struct sqlobjectMatch
 		{
@@ -20,7 +20,7 @@ namespace fw
 
 			sqlobjectMatch(const SQL_ID& pSQLID) : m_Identifier(pSQLID) { m_iMatchType = TYPE_SQLID; };
 
-			bool operator()(SISQLObject* pSQLObject)
+			bool operator()(SQLObject* pSQLObject)
 			{
 				switch (m_iMatchType)
 				{
@@ -41,7 +41,7 @@ namespace fw
 		};
 
 
-		class SISQLObjectDataSet_Listener : public fw::core::GenericListener
+		class SQLObjectDataSet_Listener : public fw::core::GenericListener
 		{
 		public:
 
@@ -52,16 +52,16 @@ namespace fw
 
 
 
-		class SIMaxIDDataSet;
-		class SIDB_DLLEXPORT SISQLObjectDataSet : public fw::core::GenericNotifier
+		class MaxIDDataSet;
+		class SIDB_DLLEXPORT SQLObjectDataSet : public fw::core::GenericNotifier
 		{
 
-			friend class SIGenericConnection;
+			friend class GenericConnection;
 		public:
-			SISQLObjectDataSet(CRuntimeClass* pClass);
-			virtual ~SISQLObjectDataSet();
+			SQLObjectDataSet(CRuntimeClass* pClass);
+			virtual ~SQLObjectDataSet();
 
-			virtual void initialize(SIMaxIDDataSet* pMaxIdDataSet);
+			virtual void initialize(MaxIDDataSet* pMaxIdDataSet);
 
 			//returns runtime class for this data set (can be used to produce objects of the kind)
 			CRuntimeClass getRuntimeClass() { return m_RuntimeClass; }
@@ -72,18 +72,18 @@ namespace fw
 
 			//adds new or updets an exitsing item in the dataset
 			//returns ID of the object set (useful if object without an ID is being added to the list)
-			virtual SQL_ID set(const SISQLObject* pSQLObject);
+			virtual SQL_ID set(const SQLObject* pSQLObject);
 
 			//returns const reference to an object with the specified type
 			//if there is no such object, returns NULL
-			virtual bool get(const SQL_ID& pSQLId, SISQLObject* pObject) const;
+			virtual bool get(const SQL_ID& pSQLId, SQLObject* pObject) const;
 
 			//returns directly pointer to the sql object with the 
 			//specified sql id (or NULL if there is no such object)
-			virtual const SISQLObject* get(const SQL_ID& pSQLID) const;
+			virtual const SQLObject* get(const SQL_ID& pSQLID) const;
 
 			//sets object as erased
-			void erase(const SISQLObject* pSQLObject);
+			void erase(const SQLObject* pSQLObject);
 
 			//returns current number of objects in the dataset
 			int size() const;
@@ -94,7 +94,7 @@ namespace fw
 
 			//returns the next object in dataset or NULL if there are no more
 			//objects in the collection
-			const SISQLObject* getNextObject() const;
+			const SQLObject* getNextObject() const;
 
 			//gets the general read query for (all) objects of the type stored in the dataset
 			//returns number of variables to bind
@@ -104,7 +104,7 @@ namespace fw
 			//returns number of objects to update
 			int getObjectsToUpdate(SQLObjectList& pObjsToUpdate);
 
-			SISQLObject* createObject();
+			SQLObject* createObject();
 
 			//returns number of items that must be stored (updated/inserted/deleted)
 			int countItemsToSave() const;
@@ -121,14 +121,14 @@ namespace fw
 			//destroys objects marked as deleted
 			void destroyDeletedObjects();
 
-			virtual SQL_ID set(const SISQLObject* pSQLObject, SISQLObject::StateEnum pState);
+			virtual SQL_ID set(const SQLObject* pSQLObject, SQLObject::StateEnum pState);
 
 			//assigns identifier to specified sql object
-			void setSQLID(SISQLObject* pSQLObject, const SQL_ID& pID);
+			void setSQLID(SQLObject* pSQLObject, const SQL_ID& pID);
 
 			//default controltor (only needed if deriving a new class from this
 			//one)
-			SISQLObjectDataSet();
+			SQLObjectDataSet();
 
 			//collection of objects
 			SQLObjectMap m_ObjectList;
@@ -146,7 +146,7 @@ namespace fw
 			mutable SQLObjectMap::const_iterator m_Iterator;
 
 			//pointer to the collection of max ids
-			SIMaxIDDataSet* m_pMaxIDDataSet;
+			MaxIDDataSet* m_pMaxIDDataSet;
 
 
 

@@ -7,18 +7,18 @@ namespace fw
 	namespace db
 	{
 
-		class SISQLObjectDataSet;
+		class SQLObjectDataSet;
 
 		//base class for all different types od DB connection (basically this is just an interface)
-		class SIGenericConnection
+		class GenericConnection
 		{
 		public:
-			SIGenericConnection();
+			GenericConnection();
 
 		protected:
 
 			//destroyes objects from dataset that have been deleted
-			void destroyDeletedObjects(SISQLObjectDataSet* pSQLObjectDataSet);
+			void destroyDeletedObjects(SQLObjectDataSet* pSQLObjectDataSet);
 
 
 

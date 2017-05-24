@@ -9,7 +9,7 @@ namespace fw
 	namespace db
 	{
 
-		SIDBException::SIDBException(const CString& sMsg)
+		DBException::DBException(const CString& sMsg)
 			: fw::core::Exception(sMsg)
 		{
 			m_iDBErrorCode = -1;
@@ -17,7 +17,7 @@ namespace fw
 		}
 
 
-		SIDBException::SIDBException(sqlite3* pDBHandle)
+		DBException::DBException(sqlite3* pDBHandle)
 			: fw::core::Exception(_T(""))
 		{
 			if (pDBHandle)

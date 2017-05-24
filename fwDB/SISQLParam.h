@@ -6,7 +6,7 @@ namespace fw
 	namespace db
 	{
 
-		class SIDB_DLLEXPORT SISQLParam
+		class SIDB_DLLEXPORT SQLParam
 		{
 		public:
 
@@ -21,16 +21,16 @@ namespace fw
 
 
 			//constructs integer sql param
-			SISQLParam(const CString& pColName, int* pIntValue);
+			SQLParam(const CString& pColName, int* pIntValue);
 
 			//constructs string sql param
-			SISQLParam(const CString& pColName, CString* pStringValue);
+			SQLParam(const CString& pColName, CString* pStringValue);
 
 			//constructs blob sql param
-			SISQLParam(const CString& pColName, fw::core::ByteBuffer* pByteBuffer);
+			SQLParam(const CString& pColName, fw::core::ByteBuffer* pByteBuffer);
 
 			//constructs blob pointer sql param
-			SISQLParam(const CString& pColName, SIBLOBItem* pBLOBItem);
+			SQLParam(const CString& pColName, BLOBItem* pBLOBItem);
 
 			const CString& getColumnName() const { return m_sColumnName; }
 
@@ -38,7 +38,7 @@ namespace fw
 			//if the value is actually a param to be bound
 			bool getSQLFormattedValue(CString& pFormattedValue) const;
 
-			static const SISQLParam& invalid();
+			static const SQLParam& invalid();
 			bool isValid() const;
 
 			//returns pointer to buffer of a blob param, throws if this
@@ -59,7 +59,7 @@ namespace fw
 		protected:
 
 
-			SISQLParam();
+			SQLParam();
 			void init();
 
 
@@ -69,7 +69,7 @@ namespace fw
 			int* m_pIntValue;
 			CString* m_pStringValue;
 			fw::core::ByteBuffer* m_pByteBuffer;
-			db::SIBLOBItem* m_pBLOBItem;
+			db::BLOBItem* m_pBLOBItem;
 
 			//name of this param in sqlite database
 			CString m_sColumnName;
@@ -80,8 +80,8 @@ namespace fw
 
 		}; //class
 
-		typedef std::map<CString /*Column name*/, SISQLParam> ParamMap;
-		typedef std::map<int, SISQLParam> ParamVarsMap;
+		typedef std::map<CString /*Column name*/, SQLParam> ParamMap;
+		typedef std::map<int, SQLParam> ParamVarsMap;
 
 
 

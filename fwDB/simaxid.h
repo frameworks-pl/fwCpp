@@ -8,14 +8,14 @@ namespace fw
 	namespace db
 	{
 
-		class SIDB_DLLEXPORT SIMaxID : public SISQLXMLDataItem
+		class SIDB_DLLEXPORT MaxID : public SQLXMLDataItem
 		{
 
-			DECLARE_DYNCREATE(SIMaxID)
+			DECLARE_DYNCREATE(MaxID)
 
 		public:
-			SIMaxID();
-			SIMaxID(const CString& pMaxIDName);
+			MaxID();
+			MaxID(const CString& pMaxIDName);
 
 			//use this method to assign different table name for max ids than "max_ids"
 			static void initMaxIDS(const CString& pTableName);
@@ -31,7 +31,7 @@ namespace fw
 			//use getNextID instead.
 			Identifier getCurrentMaxID() const;
 
-			bool initialize(const SISQLObject* pObject);
+			bool initialize(const SQLObject* pObject);
 			int getUpdateQuery(CString& pQuery, bool bWrite, bool bCountQuery);
 
 #if defined(_DEBUG) && defined(ALLOW_PERFORMANCE_ISSUES)

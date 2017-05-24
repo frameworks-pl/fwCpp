@@ -11,19 +11,19 @@ namespace fw
 		typedef int BLOB_ID;
 
 
-		class SIBLOBCollection;
+		class BLOBCollection;
 
 
-		class SIDB_DLLEXPORT SIBLOBItem
+		class SIDB_DLLEXPORT BLOBItem
 		{
-			friend class SIBLOBCollection;
+			friend class BLOBCollection;
 		public:
 
-			SIBLOBItem();
-			SIBLOBItem(const SIBLOBItem& pSIBLOBItem);
-			SIBLOBItem& operator=(const SIBLOBItem& pSIBLOBItem);
-			SIBLOBItem(fw::core::ByteBuffer* pData);
-			virtual ~SIBLOBItem();
+			BLOBItem();
+			BLOBItem(const BLOBItem& pSIBLOBItem);
+			BLOBItem& operator=(const BLOBItem& pSIBLOBItem);
+			BLOBItem(fw::core::ByteBuffer* pData);
+			virtual ~BLOBItem();
 
 			BLOB_ID getID() const;
 			bool isValid() const;
@@ -58,21 +58,21 @@ namespace fw
 
 
 		class SIDB_DLLEXPORT
-			SIBLOBCollection
+			BLOBCollection
 		{
-			friend class SIBLOBItem;
+			friend class BLOBItem;
 		public:
-			static SIBLOBCollection* get();
+			static BLOBCollection* get();
 			static void terminate();
 
-			static const SIBLOBItem& invalidSIBLOBItem() { return m_InvalidBLOB; }
+			static const BLOBItem& invalidSIBLOBItem() { return m_InvalidBLOB; }
 
 		protected:
-			SIBLOBCollection();
-			~SIBLOBCollection();
+			BLOBCollection();
+			~BLOBCollection();
 
 			//the collection singleton
-			static SIBLOBCollection* m_pSIBLOBCollection;
+			static BLOBCollection* m_pSIBLOBCollection;
 
 			//returns next available id for BLOB item
 			int getMaxID();
@@ -93,7 +93,7 @@ namespace fw
 			//mapping BLOB id into ref count number
 			std::map<BLOB_ID, int> m_BLOBRefCountMap;
 
-			static SIBLOBItem m_InvalidBLOB;
+			static BLOBItem m_InvalidBLOB;
 
 
 		}; //class

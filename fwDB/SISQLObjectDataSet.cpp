@@ -10,7 +10,7 @@ namespace fw
 	namespace db
 	{
 
-		SISQLObjectDataSet::SISQLObjectDataSet()
+		SQLObjectDataSet::SQLObjectDataSet()
 		{
 
 			m_pMaxIDDataSet = NULL;
@@ -18,24 +18,24 @@ namespace fw
 		}
 
 
-		SISQLObjectDataSet::~SISQLObjectDataSet()
+		SQLObjectDataSet::~SQLObjectDataSet()
 		{
 			clear();
 
 		}
 
-		SISQLObjectDataSet::SISQLObjectDataSet(CRuntimeClass* pClass)
+		SQLObjectDataSet::SQLObjectDataSet(CRuntimeClass* pClass)
 		{
 
 			if (NULL == pClass)
-				throw SIDBException(_T("Cannot create object dataset - the type of object is unknown."));
+				throw DBException(_T("Cannot create object dataset - the type of object is unknown."));
 
 			m_RuntimeClass = *pClass;
 			m_pMaxIDDataSet = NULL;
 
 		}
 
-		void SISQLObjectDataSet::initialize(SIMaxIDDataSet* pMaxIdDataSet)
+		void SQLObjectDataSet::initialize(MaxIDDataSet* pMaxIdDataSet)
 		{
 
 			m_pMaxIDDataSet = pMaxIdDataSet;
@@ -46,18 +46,18 @@ namespace fw
 
 
 
-		int SISQLObjectDataSet::getReadQuery(CString& pQuery)
+		int SQLObjectDataSet::getReadQuery(CString& pQuery)
 		{
 
 			int iVarsCount = 0;
 
 			CRuntimeClass rc = getRuntimeClass();
 
-			ASSERT(rc.IsDerivedFrom(RUNTIME_CLASS(SISQLObject)));
+			ASSERT(rc.IsDerivedFrom(RUNTIME_CLASS(SQLObject)));
 			CObject* pObject = rc.CreateObject();
 			if (NULL != pObject)
 			{
-				SISQLObject* pSQLObject = (SISQLObject*)pObject;
+				SQLObject* pSQLObject = (SQLObject*)pObject;
 				if (NULL != pSQLObject)
 					iVarsCount = pSQLObject->getUpdateQuery(pQuery, false, false);
 				delete pObject;
@@ -69,7 +69,7 @@ namespace fw
 		}
 
 
-		int SISQLObjectDataSet::getObjectsToUpdate(SQLObjectList& pObjsToUpdate)
+		int SQLObjectDataSet::getObjectsToUpdate(SQLObjectList& pObjsToUpdate)
 		{
 
 			int iCnt = 0;
@@ -78,7 +78,7 @@ namespace fw
 			SQLObjectMap::iterator it;
 			for (it = m_ObjectList.begin(); it != m_ObjectList.end(); it++)
 			{
-				if (it->second->getState() != SISQLObject::STATE_OK)
+				if (it->second->getState() != SQLObject::STATE_OK)
 				{
 					pObjsToUpdate.push_back(it->second);
 					iCnt++;
@@ -88,7 +88,7 @@ namespace fw
 			//then objects to delete
 			for (it = m_DeletedObjectList.begin(); it != m_DeletedObjectList.end(); it++)
 			{
-				if (it->second->getState() != SISQLObject::STATE_OK)
+				if (it->second->getState() != SQLObject::STATE_OK)
 				{
 					pObjsToUpdate.push_back(it->second);
 					iCnt++;
@@ -102,7 +102,7 @@ namespace fw
 
 		}
 
-		void SISQLObjectDataSet::clear()
+		void SQLObjectDataSet::clear()
 		{
 
 			SQLObjectMap::iterator it;
@@ -119,7 +119,7 @@ namespace fw
 
 		}
 
-		bool SISQLObjectDataSet::get(const SQL_ID& pSQLId, SISQLObject* pObject) const
+		bool SQLObjectDataSet::get(const SQL_ID& pSQLId, SQLObject* pObject) const
 		{
 			SQLObjectMap::const_iterator objectIt = m_ObjectList.find(pSQLId);
 			if (objectIt != m_ObjectList.end())
@@ -132,7 +132,7 @@ namespace fw
 
 		}
 
-		const SISQLObject* SISQLObjectDataSet::get(const SQL_ID& pSQLID) const
+		const SQLObject* SQLObjectDataSet::get(const SQL_ID& pSQLID) const
 		{
 			SQLObjectMap::const_iterator objectIt = m_ObjectList.find(pSQLID);
 			if (objectIt != m_ObjectList.end())
@@ -143,58 +143,58 @@ namespace fw
 		}
 
 
-		SQL_ID SISQLObjectDataSet::set(const SISQLObject* pSQLObject)
+		SQL_ID SQLObjectDataSet::set(const SQLObject* pSQLObject)
 		{
 
-			SISQLObject::StateEnum eCurrentState = pSQLObject->getState();
+			SQLObject::StateEnum eCurrentState = pSQLObject->getState();
 
 
 			//#143 if the object has already ID assigned,
 			//check what is its current state in the database
 			if (INVALID_SQL_ID != pSQLObject->getSQLID())
 			{
-				const SISQLObject* pTemp = get(pSQLObject->getSQLID());
+				const SQLObject* pTemp = get(pSQLObject->getSQLID());
 				if (NULL != pTemp)
 				{
 					//we assume that it is possible that client still sees the object as new
 					//while database has already saved it
 					//in this case we will alter the current state to force update
-					if (SISQLObject::STATE_OK == pTemp->getState() && (SISQLObject::STATE_NEW == eCurrentState))
-						eCurrentState = SISQLObject::STATE_UPDATE;
+					if (SQLObject::STATE_OK == pTemp->getState() && (SQLObject::STATE_NEW == eCurrentState))
+						eCurrentState = SQLObject::STATE_UPDATE;
 				}
 			}
 
 
 			switch (eCurrentState)
 			{
-			case SISQLObject::STATE_NEW:
-			case SISQLObject::STATE_DELETE:
-			case SISQLObject::STATE_UPDATE:
-			case SISQLObject::STATE_OK_LOADED:
+			case SQLObject::STATE_NEW:
+			case SQLObject::STATE_DELETE:
+			case SQLObject::STATE_UPDATE:
+			case SQLObject::STATE_OK_LOADED:
 				return set(pSQLObject, eCurrentState);
 				break;
-			case SISQLObject::STATE_OK:
+			case SQLObject::STATE_OK:
 				//assuming that this is request to update the object
-				return set(pSQLObject, SISQLObject::STATE_UPDATE);
+				return set(pSQLObject, SQLObject::STATE_UPDATE);
 				break;
 			default:
 			{
 				CString s;
 				s.Format(_T("Trying to set object with unknown state (%d)."), pSQLObject->getState());
-				throw SIDBException(s);
+				throw DBException(s);
 			}
 			}
 		}
 
 
-		int SISQLObjectDataSet::countItemsToSave() const
+		int SQLObjectDataSet::countItemsToSave() const
 		{
 
 			int iCount = 0;
 			SQLObjectMap::const_iterator it;
 			for (it = m_ObjectList.begin(); it != m_ObjectList.end(); it++)
 			{
-				if ((it->second->getState() != SISQLObject::STATE_OK) && (it->second->getState() != SISQLObject::STATE_OK_LOADED))
+				if ((it->second->getState() != SQLObject::STATE_OK) && (it->second->getState() != SQLObject::STATE_OK_LOADED))
 					iCount++;
 			}
 
@@ -207,7 +207,7 @@ namespace fw
 		}
 
 
-		SQL_ID SISQLObjectDataSet::set(const SISQLObject* pSQLObject, SISQLObject::StateEnum pState)
+		SQL_ID SQLObjectDataSet::set(const SQLObject* pSQLObject, SQLObject::StateEnum pState)
 		{
 			SQL_ID sqlID = INVALID_SQL_ID;
 			bool bDoNotNotify = false;
@@ -215,12 +215,12 @@ namespace fw
 
 			//sql max ids collection does not have this member set
 			//so we must do exception for it!
-			if ((false == pSQLObject->IsKindOf(RUNTIME_CLASS(SIMaxID))) && NULL == m_pMaxIDDataSet)
+			if ((false == pSQLObject->IsKindOf(RUNTIME_CLASS(MaxID))) && NULL == m_pMaxIDDataSet)
 			{
 				CString s;
 				CString sClassName(getRuntimeClass().m_lpszClassName);
 				s.Format(_T("Collection of %s has no max ID dataset initialized."), sClassName);
-				throw db::SIDBException(s);
+				throw db::DBException(s);
 			}
 
 			if (pSQLObject)
@@ -233,16 +233,16 @@ namespace fw
 					CString sClassOfDataSet(m_RuntimeClass.m_lpszClassName);
 
 					if (sClassToCreate != sClassOfDataSet)
-						throw db::SIDBException(_T("Trying to add an object of wrong type."));
+						throw db::DBException(_T("Trying to add an object of wrong type."));
 
 					switch (pState)
 					{
-					case SISQLObject::STATE_NEW:
+					case SQLObject::STATE_NEW:
 					{
 						CObject* pObject = pRC->CreateObject();
 						if (NULL != pObject)
 						{
-							SISQLObject* pNewSQLObject = (SISQLObject*)pObject;
+							SQLObject* pNewSQLObject = (SQLObject*)pObject;
 							if (pNewSQLObject)
 							{
 								/*                if (INVALID_SQL_ID != pSQLObject->getSQLID())
@@ -293,7 +293,7 @@ namespace fw
 									{
 										CString s;
 										s.Format(_T("Cannot update object with id %d, object not found."), pSQLObject->getSQLID());
-										throw SIDBException(s);
+										throw DBException(s);
 									}
 								}
 #ifdef ALLOW_PERFORMANCE_ISSUES
@@ -309,7 +309,7 @@ namespace fw
 						}
 					}
 					break;
-					case SISQLObject::STATE_DELETE:
+					case SQLObject::STATE_DELETE:
 					{
 						//find the object in the map and move it to the "deleted" map
 						SQLObjectMap::iterator it = m_ObjectList.find(pSQLObject->getSQLID());
@@ -318,7 +318,7 @@ namespace fw
 							CObject* pObject = pRC->CreateObject();
 							if (NULL != pObject)
 							{
-								SISQLObject* pSQLObject = (SISQLObject*)pObject;
+								SQLObject* pSQLObject = (SQLObject*)pObject;
 								if (NULL != pSQLObject)
 								{
 									try
@@ -334,7 +334,7 @@ namespace fw
 
 									pSQLObject->setDeleted();
 									if (m_DeletedObjectList.end() != m_DeletedObjectList.find(pSQLObject->getSQLID()))
-										throw SIDBException(_T("Trying to delete the same object twice!"));
+										throw DBException(_T("Trying to delete the same object twice!"));
 
 									//add copy of the object to the "deleted" map
 									m_DeletedObjectList.insert(SQLObjectMap::value_type(pSQLObject->getSQLID(), pSQLObject));
@@ -348,18 +348,18 @@ namespace fw
 							{
 								delete pObject;
 								pObject = NULL;
-								throw SIDBException(_T("Deleting object failed (this is not an SQL object."));
+								throw DBException(_T("Deleting object failed (this is not an SQL object."));
 							}
 						}
 						else
 						{
 							CString s;
 							s.Format(_T("Cannot update object with id %d, object not found."), pSQLObject->getSQLID());
-							throw SIDBException(s);
+							throw DBException(s);
 						}
 					}
 					break;
-					case SISQLObject::STATE_UPDATE:
+					case SQLObject::STATE_UPDATE:
 					{
 
 						//SQLObjectList::iterator it = find_if(m_ObjectList.begin(), m_ObjectList.end(), sqlobjectMatch(pSQLObject->getSQLID()));
@@ -367,23 +367,23 @@ namespace fw
 						if (it != m_ObjectList.end())
 						{
 							it->second->initialize(pSQLObject);
-							it->second->setState(SISQLObject::STATE_UPDATE);
+							it->second->setState(SQLObject::STATE_UPDATE);
 							sqlID = it->second->getSQLID();
 #ifdef ALLOW_PERFORMANCE_ISSUES
 							CString sClassName(getRuntimeClass().m_lpszClassName);
-							fw::debug::Logger::Log(LEVEL_SIDB, "{SISQLObjectDataSet::set (STATE_UPDATE)} collection:%s, sql_id:%d, state:%s", fw::core::TextConv::Unicode2UTF8(sClassName).c_str(), sqlID, fw::core::TextConv::Unicode2UTF8(SISQLObject::stateToString(it->second->getState())).c_str());
+							fw::debug::Logger::Log(LEVEL_SIDB, "{SISQLObjectDataSet::set (STATE_UPDATE)} collection:%s, sql_id:%d, state:%s", fw::core::TextConv::Unicode2UTF8(sClassName).c_str(), sqlID, fw::core::TextConv::Unicode2UTF8(SQLObject::stateToString(it->second->getState())).c_str());
 #endif //ALLOW_PERFORMANCE_ISSUES
 						}
 						else
 						{
 							CString s;
 							s.Format(_T("Cannot update object with id %d, object not found."), pSQLObject->getSQLID());
-							throw SIDBException(s);
+							throw DBException(s);
 						}
 
 					}
 					break;
-					case SISQLObject::STATE_OK_LOADED:
+					case SQLObject::STATE_OK_LOADED:
 					{
 
 						bDoNotNotify = true;
@@ -401,14 +401,14 @@ namespace fw
 						CObject* pObject = pRC->CreateObject();
 						if (NULL != pObject)
 						{
-							SISQLObject* pSQLObjectOk = (SISQLObject*)pObject;
+							SQLObject* pSQLObjectOk = (SQLObject*)pObject;
 							if (pSQLObjectOk)
 							{
 								try
 								{
 									if (true == pSQLObjectOk->initialize(pSQLObject))
 									{
-										pSQLObjectOk->setState(SISQLObject::STATE_OK);
+										pSQLObjectOk->setState(SQLObject::STATE_OK);
 										if (it == m_ObjectList.end())
 											m_ObjectList.insert(SQLObjectMap::value_type(pSQLObject->getSQLID(), pSQLObjectOk));
 										else
@@ -427,7 +427,7 @@ namespace fw
 									{
 										delete pObject;
 										pObject = NULL;
-										throw SIDBException(_T("At least one object failed to initialize."));
+										throw DBException(_T("At least one object failed to initialize."));
 									}
 								}
 								catch (fw::crypt::CryptException& ex)
@@ -440,24 +440,24 @@ namespace fw
 						}
 					}
 					break;
-					case SISQLObject::STATE_OK:
+					case SQLObject::STATE_OK:
 						//this should never happen!!!
 					{
 						CString s;
 						s.Format(_T("Trying to add object (sqlid = %d) with state OK."), pSQLObject->getSQLID());
-						throw SIDBException(s);
+						throw DBException(s);
 					}
 					break;
 					}
 
 
 				}
-				else throw db::SIDBException(_T("The type object is unknown."));
+				else throw db::DBException(_T("The type object is unknown."));
 
 			}
 			else
 			{
-				throw db::SIDBException(_T("Trying to add non existing object to collection."));
+				throw db::DBException(_T("Trying to add non existing object to collection."));
 			}
 
 			if (false == bDoNotNotify)
@@ -465,7 +465,7 @@ namespace fw
 				//notify listeners that an object has been modified
 				std::list<fw::core::GenericListener*>::iterator it;
 				for (it = m_Listeners.begin(); it != m_Listeners.end(); it++)
-					((db::SISQLObjectDataSet_Listener*)(*it))->onObjectModified();
+					((db::SQLObjectDataSet_Listener*)(*it))->onObjectModified();
 			}
 
 			return sqlID;
@@ -473,14 +473,14 @@ namespace fw
 		}
 
 
-		int SISQLObjectDataSet::size() const
+		int SQLObjectDataSet::size() const
 		{
 			return (int)m_ObjectList.size();
 
 		}
 
 
-		bool SISQLObjectDataSet::initIterator() const
+		bool SQLObjectDataSet::initIterator() const
 		{
 
 			if (m_ObjectList.size() > 0)
@@ -498,14 +498,14 @@ namespace fw
 
 
 
-		const SISQLObject* SISQLObjectDataSet::getNextObject() const
+		const SQLObject* SQLObjectDataSet::getNextObject() const
 		{
 
 			while (m_Iterator != m_ObjectList.end())
 			{
 				if (false == m_Iterator->second->isDeleted())
 				{
-					const db::SISQLObject* pObject = m_Iterator->second;
+					const db::SQLObject* pObject = m_Iterator->second;
 					m_Iterator++;
 					return pObject;
 				}
@@ -517,7 +517,7 @@ namespace fw
 		}
 
 
-		void SISQLObjectDataSet::erase(const SISQLObject* pSQLObject)
+		void SQLObjectDataSet::erase(const SQLObject* pSQLObject)
 		{
 
 			if (pSQLObject && (INVALID_SQL_ID != pSQLObject->getSQLID()))
@@ -533,25 +533,25 @@ namespace fw
 			}
 			else
 			{
-				throw SIDBException(_T("Trying to remove item that has no ID!"));
+				throw DBException(_T("Trying to remove item that has no ID!"));
 			}
 		}
 
 
-		void SISQLObjectDataSet::setSQLID(SISQLObject* pSQLObject, const SQL_ID& pID)
+		void SQLObjectDataSet::setSQLID(SQLObject* pSQLObject, const SQL_ID& pID)
 		{
 			pSQLObject->setSQLID(pID);
 
 		}
 
 
-		SISQLObject* SISQLObjectDataSet::createObject()
+		SQLObject* SQLObjectDataSet::createObject()
 		{
 
 			CObject* pObject = m_RuntimeClass.CreateObject();
 			if (NULL != pObject)
 			{
-				SISQLObject* pSQLObject = (SISQLObject*)pObject;
+				SQLObject* pSQLObject = (SQLObject*)pObject;
 				return pSQLObject;
 			}
 
@@ -561,7 +561,7 @@ namespace fw
 
 
 
-		void SISQLObjectDataSet::destroyDeletedObjects()
+		void SQLObjectDataSet::destroyDeletedObjects()
 		{
 			SQLObjectMap::iterator it;
 			for (it = m_DeletedObjectList.begin(); it != m_DeletedObjectList.end(); it++)
@@ -572,7 +572,7 @@ namespace fw
 		}
 
 
-		SQL_ID SISQLObjectDataSet::getMaxIDUsed() const
+		SQL_ID SQLObjectDataSet::getMaxIDUsed() const
 		{
 
 			//assuming that the map is sorted from smallest value to the largest
@@ -590,7 +590,7 @@ namespace fw
 
 		}
 
-		void SISQLObjectDataSet::forceFullUpdate()
+		void SQLObjectDataSet::forceFullUpdate()
 		{
 			SQLObjectMap::iterator it;
 			for (it = m_ObjectList.begin(); it != m_ObjectList.end(); it++)

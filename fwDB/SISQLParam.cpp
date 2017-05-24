@@ -10,14 +10,14 @@ namespace fw
 	namespace db
 	{
 
-		SISQLParam::SISQLParam()
+		SQLParam::SQLParam()
 		{
 
 			init();
 
 		}
 
-		SISQLParam::SISQLParam(const CString& pColName, int* pIntValue)
+		SQLParam::SQLParam(const CString& pColName, int* pIntValue)
 		{
 			init();
 			m_sColumnName = pColName;
@@ -27,7 +27,7 @@ namespace fw
 
 		}
 
-		SISQLParam::SISQLParam(const CString& pColName, CString* pStringValue)
+		SQLParam::SQLParam(const CString& pColName, CString* pStringValue)
 		{
 			init();
 			m_sColumnName = pColName;
@@ -36,7 +36,7 @@ namespace fw
 
 		}
 
-		SISQLParam::SISQLParam(const CString& pColName, fw::core::ByteBuffer* pByteBuffer)
+		SQLParam::SQLParam(const CString& pColName, fw::core::ByteBuffer* pByteBuffer)
 		{
 			init();
 			m_sColumnName = pColName;
@@ -45,7 +45,7 @@ namespace fw
 
 		}
 
-		SISQLParam::SISQLParam(const CString& pColName, db::SIBLOBItem* pBLOBItem)
+		SQLParam::SQLParam(const CString& pColName, db::BLOBItem* pBLOBItem)
 		{
 			init();
 			m_sColumnName = pColName;
@@ -55,7 +55,7 @@ namespace fw
 		}
 
 
-		void SISQLParam::init()
+		void SQLParam::init()
 		{
 
 			m_eParamType = PARAM_UNKNOWN;
@@ -68,7 +68,7 @@ namespace fw
 		}
 
 
-		bool SISQLParam::getSQLFormattedValue(CString& pFormattedValue) const
+		bool SQLParam::getSQLFormattedValue(CString& pFormattedValue) const
 		{
 
 			bool bHasParam = false;
@@ -87,7 +87,7 @@ namespace fw
 				break;
 
 			default:
-				throw db::SIDBException(_T("Trying to format unknown type of param."));
+				throw db::DBException(_T("Trying to format unknown type of param."));
 
 			}
 
@@ -96,13 +96,13 @@ namespace fw
 		}
 
 
-		const SISQLParam& SISQLParam::invalid()
+		const SQLParam& SQLParam::invalid()
 		{
-			static SISQLParam invalidParam;
+			static SQLParam invalidParam;
 			return invalidParam;
 
 		}
-		bool SISQLParam::isValid() const
+		bool SQLParam::isValid() const
 		{
 			if (PARAM_UNKNOWN == m_eParamType)
 				return false;
@@ -127,23 +127,23 @@ namespace fw
 		}
 
 
-		const fw::core::ByteBuffer& SISQLParam::getBLOBBuffer() const
+		const fw::core::ByteBuffer& SQLParam::getBLOBBuffer() const
 		{
 
 			switch (m_eParamType)
 			{
 			case PARAM_BLOB:
 				if (NULL == m_pByteBuffer)
-					throw SIDBException(_T("BLOB param is invalid."));
+					throw DBException(_T("BLOB param is invalid."));
 				return *m_pByteBuffer;
 				break;
 			case PARAM_BLOB_POINTER:
 				if (NULL == m_pBLOBItem || NULL == m_pBLOBItem->getDataBuffer())
-					throw SIDBException(_T("BLOB pointer param is invalid."));
+					throw DBException(_T("BLOB pointer param is invalid."));
 				return *m_pBLOBItem->getDataBuffer();
 				break;
 			default:
-				throw SIDBException(_T("Param is invalid."));
+				throw DBException(_T("Param is invalid."));
 			}
 
 
@@ -152,38 +152,38 @@ namespace fw
 		}
 
 
-		void SISQLParam::updateFromBLOB(const fw::core::ByteBuffer& pBLOB)
+		void SQLParam::updateFromBLOB(const fw::core::ByteBuffer& pBLOB)
 		{
 
 			if (PARAM_BLOB != m_eParamType && PARAM_BLOB_POINTER != m_eParamType)
-				throw SIDBException(_T("Trying to initialize non-BLOB param from a BLOB."));
+				throw DBException(_T("Trying to initialize non-BLOB param from a BLOB."));
 
 			if (PARAM_BLOB == m_eParamType)
 				*m_pByteBuffer = pBLOB;
 			else if (PARAM_BLOB_POINTER == m_eParamType)
 			{
 				fw::core::ByteBuffer* pByteBuffer = new fw::core::ByteBuffer(pBLOB);
-				*m_pBLOBItem = SIBLOBItem(pByteBuffer);
+				*m_pBLOBItem = BLOBItem(pByteBuffer);
 			}
 
 		}
 
 
-		void SISQLParam::updateFromInt(int pIntValue)
+		void SQLParam::updateFromInt(int pIntValue)
 		{
 
 			if (PARAM_INTEGER != m_eParamType)
-				throw SIDBException(_T("Trying to initialize non-INT param from an integer value."));
+				throw DBException(_T("Trying to initialize non-INT param from an integer value."));
 
 			*m_pIntValue = pIntValue;
 
 		}
 
 
-		void SISQLParam::updateFromString(const CString& pStringValue)
+		void SQLParam::updateFromString(const CString& pStringValue)
 		{
 			if (PARAM_STRING != m_eParamType)
-				throw SIDBException(_T("Trying to initialize non-STRING param from a string value."));
+				throw DBException(_T("Trying to initialize non-STRING param from a string value."));
 
 			*m_pStringValue = pStringValue;
 

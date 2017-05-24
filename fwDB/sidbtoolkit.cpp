@@ -9,7 +9,7 @@ namespace fw
 	namespace db
 	{
 
-		bool SIDBToolkit::updateSingleObject(SISQLObject* pSQLObject, bool bSave, SIMaxIDDataSet* pMaxIDDS, SI_SQLT3_Connection* pConn)
+		bool DBToolkit::updateSingleObject(SQLObject* pSQLObject, bool bSave, MaxIDDataSet* pMaxIDDS, SQLT3_Connection* pConn)
 		{
 
 			if (pSQLObject)
@@ -19,7 +19,7 @@ namespace fw
 				if ((true == bSave) && (false == pSQLObject->needsUpdate()))
 					return false;
 
-				db::SISQLObjectDataSet oTempDS(pSQLObject->GetRuntimeClass());
+				db::SQLObjectDataSet oTempDS(pSQLObject->GetRuntimeClass());
 				oTempDS.initialize(pMaxIDDS);
 				SQL_ID sqlID = INVALID_SQL_ID;
 				if (true == bSave)
@@ -32,7 +32,7 @@ namespace fw
 					//if loading take first element from the collection
 					if (oTempDS.initIterator())
 					{
-						const SISQLObject* pFirstSQLObject = oTempDS.getNextObject();
+						const SQLObject* pFirstSQLObject = oTempDS.getNextObject();
 						pSQLObject->initialize(pFirstSQLObject);
 						return true;
 					}
@@ -42,7 +42,7 @@ namespace fw
 					CString s(oTempDS.getRuntimeClass().m_lpszClassName);
 					CString sMsg;
 					sMsg.Format(_T("Failed to load/store single object of class %s."), s);
-					throw SIDBException(sMsg);
+					throw DBException(sMsg);
 				}
 			}
 
@@ -51,7 +51,7 @@ namespace fw
 		}
 
 
-		CString SIDBToolkit::buildDeleteQueries(const CString& sTableName, const std::vector<SQL_ID>& oIDList)
+		CString DBToolkit::buildDeleteQueries(const CString& sTableName, const std::vector<SQL_ID>& oIDList)
 		{
 			CString sDeleteQueries;
 			std::vector<SQL_ID>::const_iterator it;
