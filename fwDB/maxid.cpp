@@ -41,7 +41,7 @@ namespace fw
 
 		Identifier MaxID::getNextID()
 		{
-			Identifier new_id = m_iUniqueID;
+			fw::db::Identifier new_id = m_iUniqueID;
 			m_iUniqueID++;
 
 			//we have to enforce update here

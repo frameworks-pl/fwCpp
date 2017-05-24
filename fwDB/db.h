@@ -25,6 +25,14 @@
 
 
 //#include "silog.h"
+namespace fw
+{
+	namespace db
+	{
+		typedef unsigned int Identifier;
+	}
+
+}
 
 //invalid database identifier
 #define INVALID_SQL_ID 0

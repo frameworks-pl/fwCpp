@@ -1,7 +1,7 @@
 #ifndef FWCOMMON_H_INCLUDED
 #define FWCOMMON_H_INCLUDED
 
-typedef unsigned int Identifier;
+
 
 #define InvalidID -1
 
