@@ -65,7 +65,7 @@
 #include <src/fw/core/fwfileutils.h>
 #include <SIXMLNode.h>
 #include <xmlParser.h>
-#include "sidbpi.h"
+#include "dbpi.h"
 
 
 

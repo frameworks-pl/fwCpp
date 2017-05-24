@@ -1,7 +1,7 @@
 #ifndef SIMAXIDDATASET_H_INCLUDED
 #define SIMAXIDDATASET_H_INCLUDED
 
-#include "SISQLObjectDataSet.h"
+#include "SQLObjectDataSet.h"
 
 namespace fw
 {

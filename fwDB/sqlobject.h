@@ -1,7 +1,7 @@
 #ifndef SISQLOBJECT_H_INCLUDED
 #define SISQLOBJECT_H_INCLUDED
 
-#include "SISQLParam.h"
+#include "SQLParam.h"
 
 namespace fw
 {

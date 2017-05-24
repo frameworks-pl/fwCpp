@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -67,10 +67,10 @@
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <AdditionalLibraryDirectories>$(BOOST_LIBS)\lib_vs2015;../sqlite3/$(ConfigurationName);../xmlParser/$(ConfigurationName);$(LIBS)\crypto5\Win32\Output\Debug;../fwCrypt/$(ConfigurationName);../fwCommon/$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ModuleDefinitionFile>.\sidb.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>.\db.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <ImportLibrary>$(OutDir)sidb.lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)db.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Midl>
@@ -96,14 +96,14 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>Wininet.lib;$(DEV_ROOT)\$(Configuration)\sqlite3.lib;$(DEV_ROOT)\$(Configuration)\sicommon.lib;$(DEV_ROOT)\$(Configuration)\tinyxml_STL.lib;$(DEV_ROOT)\$(Configuration)\sicrypt.lib;$(LIBS_ROOT)\crypto5\lib\cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)sidb.dll</OutputFile>
+      <OutputFile>$(OutDir)db.dll</OutputFile>
       <AdditionalLibraryDirectories>$(LIBS_ROOT)\boost\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ModuleDefinitionFile>.\sidb.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>.\db.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <ImportLibrary>$(OutDir)sidb.lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)db.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Midl>
@@ -120,50 +120,50 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="si_sqlt3_connection.cpp" />
-    <ClCompile Include="SIBlobCollection.cpp" />
-    <ClCompile Include="sidbexception.cpp" />
-    <ClCompile Include="sidbtoolkit.cpp" />
-    <ClCompile Include="SIGenericConnection.cpp" />
-    <ClCompile Include="simaxid.cpp" />
-    <ClCompile Include="SIMaxIDDataSet.cpp" />
-    <ClCompile Include="sisqlobject.cpp" />
-    <ClCompile Include="SISQLObjectDataSet.cpp" />
-    <ClCompile Include="SISQLParam.cpp" />
-    <ClCompile Include="sisqlrow.cpp" />
-    <ClCompile Include="SISQLRowDataSet.cpp" />
-    <ClCompile Include="sisqlxmldataitem.cpp" />
-    <ClCompile Include="sidb.cpp" />
+    <ClCompile Include="sqlt3_connection.cpp" />
+    <ClCompile Include="BlobCollection.cpp" />
+    <ClCompile Include="dbexception.cpp" />
+    <ClCompile Include="dbtoolkit.cpp" />
+    <ClCompile Include="GenericConnection.cpp" />
+    <ClCompile Include="maxid.cpp" />
+    <ClCompile Include="MaxIDDataSet.cpp" />
+    <ClCompile Include="sqlobject.cpp" />
+    <ClCompile Include="SQLObjectDataSet.cpp" />
+    <ClCompile Include="SQLParam.cpp" />
+    <ClCompile Include="sqlrow.cpp" />
+    <ClCompile Include="SQLRowDataSet.cpp" />
+    <ClCompile Include="sqlxmldataitem.cpp" />
+    <ClCompile Include="db.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="si_sqlt3_connection.h" />
-    <ClInclude Include="SIBlobCollection.h" />
-    <ClInclude Include="sidbexception.h" />
-    <ClInclude Include="sidbtoolkit.h" />
-    <ClInclude Include="SIGenericConnection.h" />
-    <ClInclude Include="simaxid.h" />
-    <ClInclude Include="SIMaxIDDataSet.h" />
-    <ClInclude Include="sisqlobject.h" />
-    <ClInclude Include="SISQLObjectDataSet.h" />
-    <ClInclude Include="SISQLParam.h" />
-    <ClInclude Include="sisqlrow.h" />
-    <ClInclude Include="SISQLRowDataSet.h" />
-    <ClInclude Include="sisqlxmldataitem.h" />
+    <ClInclude Include="sqlt3_connection.h" />
+    <ClInclude Include="BlobCollection.h" />
+    <ClInclude Include="dbexception.h" />
+    <ClInclude Include="dbtoolkit.h" />
+    <ClInclude Include="GenericConnection.h" />
+    <ClInclude Include="maxid.h" />
+    <ClInclude Include="MaxIDDataSet.h" />
+    <ClInclude Include="sqlobject.h" />
+    <ClInclude Include="SQLObjectDataSet.h" />
+    <ClInclude Include="SQLParam.h" />
+    <ClInclude Include="sqlrow.h" />
+    <ClInclude Include="SQLRowDataSet.h" />
+    <ClInclude Include="sqlxmldataitem.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="sidb.h" />
-    <ClInclude Include="sidbpi.h" />
+    <ClInclude Include="db.h" />
+    <ClInclude Include="dbpi.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="sidb.rc" />
+    <ResourceCompile Include="db.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\sidb.rc2" />
-    <None Include="sidb.def" />
+    <None Include="res\db.rc2" />
+    <None Include="db.def" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

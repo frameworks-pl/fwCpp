@@ -1,7 +1,7 @@
 #ifndef SISQLXMLDATAITEM_H_INCLUDED
 #define SISQLXMLDATAITEM_H_INCLUDED
 
-#include "sisqlobject.h"
+#include "sqlobject.h"
 
 namespace fw
 {

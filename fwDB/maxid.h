@@ -1,7 +1,7 @@
 #ifndef SIMAXID_H_INCLUDED
 #define SIMAXID_H_INCLUDED
 
-#include "sisqlxmldataitem.h"
+#include "sqlxmldataitem.h"
 
 namespace fw
 {

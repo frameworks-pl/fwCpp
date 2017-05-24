@@ -2,9 +2,9 @@
 #define SISQLT3CONNECTION_H_INCLUDED
 
 
-#include "SISQLRowDataSet.h"
-#include "SISQLObjectDataSet.h"
-#include "SIGenericConnection.h"
+#include "SQLRowDataSet.h"
+#include "SQLObjectDataSet.h"
+#include "GenericConnection.h"
 
 namespace fw
 {

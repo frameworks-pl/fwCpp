@@ -1,7 +1,7 @@
 #ifndef SISQLOBJECTDATASET_H_INCLUDED
 #define SISQLOBJECTDATASET_H_INCLUDED
 
-#include "sisqlobject.h"
+#include "sqlobject.h"
 
 namespace fw
 {

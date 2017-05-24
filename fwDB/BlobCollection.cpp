@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SIBlobCollection.h"
+#include "BlobCollection.h"
 
 namespace fw
 {

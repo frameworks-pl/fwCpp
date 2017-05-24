@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "SIGenericConnection.h"
-#include "SISQLObjectDataSet.h"
+#include "GenericConnection.h"
+#include "SQLObjectDataSet.h"
 
 #ifdef _DEBUG
 //#define new DEBUG_NEW
