@@ -56,7 +56,7 @@ DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 
 
 
-//void SIDB_DLLEXPORT SIDBSetLogPointer(fw::debug::Logger* pLog)
+//void FWDB_DLLEXPORT SIDBSetLogPointer(fw::debug::Logger* pLog)
 //{
 //  fw::debug::LogInit(pLog);
 //}

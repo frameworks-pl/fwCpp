@@ -13,7 +13,7 @@ namespace fw
 		class SQLT3_Connection;
 
 		//class with some usefull tools related to data storing/loading
-		class SIDB_DLLEXPORT DBToolkit
+		class FWDB_DLLEXPORT DBToolkit
 		{
 		public:
 

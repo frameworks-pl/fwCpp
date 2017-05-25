@@ -9,7 +9,7 @@ namespace fw
 		//holds a single row (result of a query) converted to Unicode strings
 		//and is able to return any column's value converted to specified type
 		//throws exceptions if column does not exist or conversion is impossible
-		class SIDB_DLLEXPORT SQLRow
+		class FWDB_DLLEXPORT SQLRow
 		{
 
 		public:

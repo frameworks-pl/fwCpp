@@ -8,7 +8,7 @@ namespace fw
 	namespace db
 	{
 
-		class SIDB_DLLEXPORT MaxID : public SQLXMLDataItem
+		class FWDB_DLLEXPORT MaxID : public SQLXMLDataItem
 		{
 
 			DECLARE_DYNCREATE(MaxID)

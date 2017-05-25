@@ -2,10 +2,10 @@
 #define SIDB_H_INCLUDED
 
 
-#ifdef SIDB
-	#define SIDB_DLLEXPORT _declspec(dllexport)	
+#ifdef FWDB
+	#define FWDB_DLLEXPORT _declspec(dllexport)	
 #else
-	#define SIDB_DLLEXPORT _declspec(dllimport)
+	#define FWDB_DLLEXPORT _declspec(dllimport)
 #endif
 
 

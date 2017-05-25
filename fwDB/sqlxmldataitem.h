@@ -19,7 +19,7 @@ namespace fw
 
 		//A class of each data item that is to be stored
 		//in database as encrypted XML
-		class SIDB_DLLEXPORT SQLXMLDataItem : public SQLObject
+		class FWDB_DLLEXPORT SQLXMLDataItem : public SQLObject
 		{
 		public:
 			SQLXMLDataItem();

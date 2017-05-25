@@ -10,7 +10,7 @@ namespace fw
 
 		class MaxID;
 
-		class SIDB_DLLEXPORT MaxIDDataSet : public SQLObjectDataSet
+		class FWDB_DLLEXPORT MaxIDDataSet : public SQLObjectDataSet
 		{
 
 		public:

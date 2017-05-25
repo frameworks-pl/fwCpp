@@ -6,7 +6,7 @@ namespace fw
 	namespace db
 	{
 
-		class SIDB_DLLEXPORT SQLParam
+		class FWDB_DLLEXPORT SQLParam
 		{
 		public:
 

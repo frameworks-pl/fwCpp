@@ -25,7 +25,7 @@
 #include "SQLXMLDataItem.h"
 #include "dbtoolkit.h"
 
-//extern void SIDB_DLLEXPORT SIDBSetLogPointer(fw::debug::Logger* pLog);
+//extern void FWDB_DLLEXPORT SIDBSetLogPointer(fw::debug::Logger* pLog);
 
 
 #endif //SIDBPI_H_INCLUDED

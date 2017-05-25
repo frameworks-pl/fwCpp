@@ -53,7 +53,7 @@ namespace fw
 
 
 		class MaxIDDataSet;
-		class SIDB_DLLEXPORT SQLObjectDataSet : public fw::core::GenericNotifier
+		class FWDB_DLLEXPORT SQLObjectDataSet : public fw::core::GenericNotifier
 		{
 
 			friend class GenericConnection;

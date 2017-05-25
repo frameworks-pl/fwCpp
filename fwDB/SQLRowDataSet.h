@@ -8,7 +8,7 @@ namespace fw
 	namespace db
 	{
 
-		class SIDB_DLLEXPORT SQLRowDataSet
+		class FWDB_DLLEXPORT SQLRowDataSet
 		{
 		public:
 			SQLRowDataSet(const CString& sReadQuery);

@@ -14,7 +14,7 @@ namespace fw
 		class BLOBCollection;
 
 
-		class SIDB_DLLEXPORT BLOBItem
+		class FWDB_DLLEXPORT BLOBItem
 		{
 			friend class BLOBCollection;
 		public:
@@ -57,7 +57,7 @@ namespace fw
 		};
 
 
-		class SIDB_DLLEXPORT
+		class FWDB_DLLEXPORT
 			BLOBCollection
 		{
 			friend class BLOBItem;

@@ -7,7 +7,7 @@ namespace fw
 	namespace db
 	{
 
-		class SIDB_DLLEXPORT DBException : public fw::core::Exception
+		class FWDB_DLLEXPORT DBException : public fw::core::Exception
 		{
 
 		public:

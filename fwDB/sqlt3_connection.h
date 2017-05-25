@@ -22,7 +22,7 @@ namespace fw
 
 
 		//the connection to SQLite3 database
-		class SIDB_DLLEXPORT SQLT3_Connection : public GenericConnection, public fw::core::GenericNotifier
+		class FWDB_DLLEXPORT SQLT3_Connection : public GenericConnection, public fw::core::GenericNotifier
 		{
 
 		public:

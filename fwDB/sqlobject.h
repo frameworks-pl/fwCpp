@@ -14,7 +14,7 @@ namespace fw
 
 		//an abstract class of an entity that
 		//knows how to serialize itself from/to SQL database
-		class SIDB_DLLEXPORT SQLObject : public CObject
+		class FWDB_DLLEXPORT SQLObject : public CObject
 		{
 
 
