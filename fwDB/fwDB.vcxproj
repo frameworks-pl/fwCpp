@@ -103,7 +103,7 @@
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <ImportLibrary>$(OutDir)dwDB.lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)$(ProjectName).lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Midl>
