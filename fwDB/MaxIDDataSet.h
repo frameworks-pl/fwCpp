@@ -2,6 +2,7 @@
 #define SIMAXIDDATASET_H_INCLUDED
 
 #include "SQLObjectDataSet.h"
+#include "db.h"
 
 namespace fw
 {
@@ -15,6 +16,7 @@ namespace fw
 
 		public:
 			MaxIDDataSet();
+			MaxIDDataSet(CRuntimeClass* pClass);
 
 			SQL_ID set(const SQLObject* pSQLObject);
 
@@ -37,8 +39,8 @@ namespace fw
 			//this data set must "manually" assign identifier to itslef
 			int m_iMaxID;
 
-
-
+			//produces new max id object
+			virtual MaxID* createNewMaxID(const CString& pObjectName);
 
 		};
 

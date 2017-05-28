@@ -16,7 +16,12 @@ namespace fw
 
 			m_iMaxID = INVALID_SQL_ID;
 
+		}
 
+		MaxIDDataSet::MaxIDDataSet(CRuntimeClass* pClass)
+			: SQLObjectDataSet(pClass)
+		{
+			m_iMaxID = INVALID_SQL_ID;
 		}
 
 		MaxID* MaxIDDataSet::findMaxObject(const CString& pObjectName)
@@ -70,6 +75,12 @@ namespace fw
 		}
 
 
+		MaxID* MaxIDDataSet::createNewMaxID(const CString& pObjectName)
+		{
+			return new MaxID(pObjectName);
+		}
+
+
 		Identifier MaxIDDataSet::getNextID(const CString& pObjectName)
 		{
 
@@ -77,7 +88,7 @@ namespace fw
 			if (NULL == pMaxID)
 			{
 				//there is no object with the speified name -> creating one
-				pMaxID = new MaxID(pObjectName);
+				pMaxID = createNewMaxID(pObjectName);
 				setSQLID(pMaxID, ++m_iMaxID);
 				m_ObjectList.insert(SQLObjectMap::value_type(pMaxID->getSQLID(), pMaxID));
 
