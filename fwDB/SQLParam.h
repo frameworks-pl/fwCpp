@@ -1,6 +1,15 @@
 #ifndef SISQLPARAM_H_INCLUDED
 #define SISQLPARAM_H_INCLUDED
 
+#include <list>
+#include <fwxmlnode.h>
+#include <src/main/fwCommon.h>
+
+#include <src/fw/core/fwexception.h>
+#include <src/fw/core/fwgenericnotifier.h>
+#include <src/fw/core/fwbytebuffer.h>
+#include "dbpi.h"
+
 namespace fw
 {
 	namespace db
