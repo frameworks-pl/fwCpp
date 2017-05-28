@@ -257,21 +257,29 @@ namespace fw
 
 					switch (iColType)
 					{
-					case SQLITE_INTEGER:
-					{
-						int iVal = sqlite3_column_int(pStmt, iCol);
-						pSQLObject->updateFromInt(sColName, iVal);
-					}
-					break;
-					case SQLITE_BLOB:
-					{
-						const void* pBlob = sqlite3_column_blob(pStmt, iCol);
-						int iBytes = sqlite3_column_bytes(pStmt, iCol);
-						fw::core::ByteBuffer bb(iBytes);
-						memcpy((void*)bb.getBuffer(), pBlob, iBytes);
-						pSQLObject->updateFromBLOB(sColName, bb);
-					}
-					break;
+						case SQLITE_INTEGER:
+						{
+							int iVal = sqlite3_column_int(pStmt, iCol);
+							pSQLObject->updateFromInt(sColName, iVal);
+						}
+						break;
+						case SQLITE_BLOB:
+						{
+							const void* pBlob = sqlite3_column_blob(pStmt, iCol);
+							int iBytes = sqlite3_column_bytes(pStmt, iCol);
+							fw::core::ByteBuffer bb(iBytes);
+							memcpy((void*)bb.getBuffer(), pBlob, iBytes);
+							pSQLObject->updateFromBLOB(sColName, bb);
+						}
+						break;
+						case SQLITE_TEXT:
+						{
+							const char* pValue = (const char*)sqlite3_column_text(pStmt, iCol);
+							CString s = fw::core::TextConv::UTF82Unicode(pValue);
+							pSQLObject->updateFromString(sColName, s);
+
+						}
+							break;
 					}
 				}
 
