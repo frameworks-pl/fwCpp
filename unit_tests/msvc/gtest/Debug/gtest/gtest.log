@@ -1,0 +1,14 @@
+﻿Build started 2015-08-07 12:31:15 PM.
+     1>Project "D:\Projects\devtoolkit\unit_tests\msvc\gtest.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I.. /I..\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"gtest/Debug\gtest\\" /Fd"gtest/Debug\gtest\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "..\src\gtest-all.cc"
+         gtest-all.cc
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"gtest/Debug\gtest.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:"gtest/Debug\gtest.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"gtest/Debug\gtest.lib" /MACHINE:X86 /SAFESEH "gtest/Debug\gtest\gtest-all.obj"
+     1>gtest-all.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
+     1>LINK : fatal error LNK1561: entry point must be defined
+     1>Done Building Project "D:\Projects\devtoolkit\unit_tests\msvc\gtest.vcxproj" (Rebuild target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.54
