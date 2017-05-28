@@ -16,7 +16,6 @@
 #include "sqlrow.h"
 #include "sqlobject.h"
 #include "sqlt3_connection.h"
-#include "sqlobject.h"
 #include "SQLObjectDataSet.h"
 #include "SQLRowDataSet.h"
 #include "MaxID.h"
