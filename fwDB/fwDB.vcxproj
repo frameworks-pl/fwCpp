@@ -93,6 +93,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Wininet.lib;sqlite3.lib;xmlParser.lib;cryptlib.lib;fwCrypt.lib;fwCommon.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -118,6 +119,12 @@
       <Culture>0x0415</Culture>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy /y $(OutDir)$(ProjectName).dll $(LIBS)\frameworks\fwDB\$(ConfigurationName)\$(ProjectName).dll
+copy /y $(OutDir)$(ProjectName).lib $(LIBS)\frameworks\fwDB\$(ConfigurationName)\$(ProjectName).dll
+copy /y $(OutDir)$(ProjectName).pdb $(LIBS)\frameworks\fwDB\$(ConfigurationName)\$(ProjectName).dll
+copy /y $(ProjectDir)*.h $(LIBS)\frameworks\fwDB\include</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sqlt3_connection.cpp" />
