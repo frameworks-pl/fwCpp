@@ -63,8 +63,8 @@ namespace fw
 			const SQL_ID& getSQLID() const { return m_SQLID; }
 
 			//sets object as deleted
-			void setDeleted();
-			bool isDeleted() const;
+			virtual void setDeleted();
+			virtual bool isDeleted() const;
 
 			//true if object has just been loaded from database
 			bool isLoaded() const;
