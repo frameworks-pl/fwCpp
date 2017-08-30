@@ -341,6 +341,12 @@ namespace fw
 
 		}
 
+		std::vector<CString> getVolumes()
+		{
+			std::vector<CString> volumes;
+			return volumes;
+		}
+
 	} //namespace core
 
 

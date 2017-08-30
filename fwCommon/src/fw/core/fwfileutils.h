@@ -86,6 +86,8 @@ namespace fw {
 				//converts image type to a string representing its file extension
 				static CString imageExtensionToString(const ImageType eImageType);
 
+				std::vector<CString> getVolumes();
+
 
 			protected:
 
