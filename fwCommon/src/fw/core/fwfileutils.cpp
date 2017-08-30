@@ -341,11 +341,24 @@ namespace fw
 
 		}
 
-		std::vector<CString> getVolumes()
+		std::vector<CString> FileUtils::getVolumes()
 		{
-			std::vector<CString> volumes;
-			return volumes;
+			std::vector<CString> driveLetters;
+			DWORD drives = GetLogicalDrives();
+			for (int i = 0; i < 26; i++)
+			{
+				if (drives & (1 << i))
+				{
+					TCHAR cLetter = TCHAR(65 + i);
+					CString sLetter(cLetter);
+					driveLetters.push_back(sLetter);
+				}
+			}
+
+			return driveLetters;
+
 		}
+
 
 	} //namespace core
 
