@@ -9,9 +9,18 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sqlite3", "sqlite3\sqlite3.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fwDB", "fwDB\fwDB.vcxproj", "{8F0E864F-4775-47E1-8626-7F59D426BD01}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xmlParserUnicode", "xmlparser\xmlParserUnicode.vcxproj", "{4391F146-0445-49EE-B3B9-257B367C3734}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xmlParser", "xmlparser\xmlParserUnicode.vcxproj", "{4391F146-0445-49EE-B3B9-257B367C3734}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fwCrypt", "fwCrypt\fwcrypt.vcxproj", "{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unit_tests", "unit_tests\unit_tests.vcxproj", "{96829066-AF11-43E9-9711-49DC231C6210}"
+	ProjectSection(ProjectDependencies) = postProject
+		{03A01A05-365C-4E27-855D-935CAD6F187C} = {03A01A05-365C-4E27-855D-935CAD6F187C}
+		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB} = {514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}
+		{D694472D-9B14-47F0-B8BA-54E075C2A701} = {D694472D-9B14-47F0-B8BA-54E075C2A701}
+		{4391F146-0445-49EE-B3B9-257B367C3734} = {4391F146-0445-49EE-B3B9-257B367C3734}
+		{8F0E864F-4775-47E1-8626-7F59D426BD01} = {8F0E864F-4775-47E1-8626-7F59D426BD01}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +70,14 @@ Global
 		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}.Release_Unicode|x86.Build.0 = Release_Unicode|Win32
 		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}.Release|x86.ActiveCfg = Release|Win32
 		{514ECC1F-4965-47C1-AA19-CA6A6C2CA7BB}.Release|x86.Build.0 = Release|Win32
+		{96829066-AF11-43E9-9711-49DC231C6210}.Debug_Unicode|x86.ActiveCfg = Debug|Win32
+		{96829066-AF11-43E9-9711-49DC231C6210}.Debug_Unicode|x86.Build.0 = Debug|Win32
+		{96829066-AF11-43E9-9711-49DC231C6210}.Debug|x86.ActiveCfg = Debug|Win32
+		{96829066-AF11-43E9-9711-49DC231C6210}.Debug|x86.Build.0 = Debug|Win32
+		{96829066-AF11-43E9-9711-49DC231C6210}.Release_Unicode|x86.ActiveCfg = Release|Win32
+		{96829066-AF11-43E9-9711-49DC231C6210}.Release_Unicode|x86.Build.0 = Release|Win32
+		{96829066-AF11-43E9-9711-49DC231C6210}.Release|x86.ActiveCfg = Release|Win32
+		{96829066-AF11-43E9-9711-49DC231C6210}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
