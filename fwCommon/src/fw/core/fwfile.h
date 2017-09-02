@@ -21,7 +21,9 @@ namespace fw
 				}
 				virtual ~File() { }
 
-				const CString& getPath() const { return m_sPath;  }
+				const CString& getPath() const { return m_sPath; }
+				CString getName() const;
+
 				bool isDirectory() const { return m_bDirectory;  }
 
 			protected:

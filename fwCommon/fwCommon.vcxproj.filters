@@ -67,6 +67,9 @@
     <ClCompile Include="src\fw\core\fwfiles.cpp">
       <Filter>src\fw\core</Filter>
     </ClCompile>
+    <ClCompile Include="src\fw\core\fwfile.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\fwcommon.h">

@@ -124,6 +124,7 @@ echo f | xcopy /y /e $(SolutionDir)$(ProjectName)\src $(LIBS)\frameworks\$(Proje
     <ClCompile Include="src\fw\core\fwbytebuffer.cpp" />
     <ClCompile Include="src\fw\core\fwdatetime.cpp" />
     <ClCompile Include="src\fw\core\fwexception.cpp" />
+    <ClCompile Include="src\fw\core\fwfile.cpp" />
     <ClCompile Include="src\fw\core\fwfiles.cpp" />
     <ClCompile Include="src\fw\core\fwfileutils.cpp" />
     <ClCompile Include="src\fw\core\fwgenericnotifier.cpp" />

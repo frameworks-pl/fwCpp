@@ -49,3 +49,29 @@ TEST_F(FileUtilsTest, listDirectoryTest)
 	ASSERT_EQ(1, files.size());
 
 }
+
+TEST_F(FileUtilsTest, getFileNameTest)
+{
+	fw::core::Files filesAndDirs = fw::core::FileUtils::getFiles(m_sTestPath, m_Excludes);
+
+	ASSERT_EQ(1, filesAndDirs.getFiles().size());
+	ASSERT_EQ("file1.txt", filesAndDirs.getFiles()[0].getName());
+}
+
+
+TEST_F(FileUtilsTest, getPathTest)
+{
+	fw::core::Files filesAndDirs = fw::core::FileUtils::getFiles(m_sTestPath, m_Excludes);
+	CString sExptected;
+	sExptected = _T("c:\\temp\\listDirectoryTest\\file1.txt");
+	CString sPath = filesAndDirs.getFiles()[0].getPath();
+
+	ASSERT_TRUE(!sExptected.CompareNoCase(sPath));
+	
+}
+
+
+TEST(FileUtils, cDriveExists)
+{
+	ASSERT_TRUE(fw::core::FileUtils::dirExists(_T("C:\\")));
+}

@@ -21,6 +21,17 @@ namespace fw
 				return (finder.IsDirectory() == 0) ? false : true;
 			}
 
+			//scenario when path is root for a given drive
+			std::vector<CString> volumes = FileUtils::getVolumes();
+			std::vector<CString>::const_iterator it;
+			for (it = volumes.begin(); it != volumes.end(); it++)
+			{
+				CString sVolumeRoot;
+				sVolumeRoot.Format(_T("%s:\\"), *it);
+				if (!sVolumeRoot.CompareNoCase(pPath))
+					return true;
+			}
+
 			return false;
 
 		}; //dirExists
@@ -388,7 +399,11 @@ namespace fw
 							filesize.HighPart = ffd.nFileSizeHigh;
 						}
 
-						fw::core::File f(sFileName, bIsDir);
+						CString sFilePath(pPath);
+						fw::core::FileUtils::stripEndingBackslash(sFilePath);
+						sFilePath.Append(_T("\\"));
+						sFilePath.Append(sFileName);
+						fw::core::File f(sFilePath, bIsDir);
 						files.addFile(f);
 					}
 
