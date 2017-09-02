@@ -8,6 +8,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sqlite3", "sqlite3\sqlite3.vcxproj", "{03A01A05-365C-4E27-855D-935CAD6F187C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fwDB", "fwDB\fwDB.vcxproj", "{8F0E864F-4775-47E1-8626-7F59D426BD01}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D694472D-9B14-47F0-B8BA-54E075C2A701} = {D694472D-9B14-47F0-B8BA-54E075C2A701}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xmlParser", "xmlparser\xmlParserUnicode.vcxproj", "{4391F146-0445-49EE-B3B9-257B367C3734}"
 EndProject

@@ -359,6 +359,50 @@ namespace fw
 
 		}
 
+		fw::core::Files FileUtils::getFiles(const CString& pPath, const std::set<CString>& excludes)
+		{
+			fw::core::Files files;
+			if (FileUtils::dirExists(pPath))
+			{
+				CString sPath(pPath);
+				fw::core::FileUtils::stripEndingBackslash(sPath);
+				sPath.Append(_T("\\*"));
+
+				WIN32_FIND_DATA ffd;
+				HANDLE hFind = FindFirstFile((LPCTSTR)sPath, &ffd);
+				while (INVALID_HANDLE_VALUE != hFind)
+				{
+					CString sFileName(ffd.cFileName);
+					if (excludes.find(sFileName) == excludes.end())
+					{
+						bool bIsDir = false;
+
+						if ((ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
+						{
+							bIsDir = true;
+						}
+						else
+						{
+							LARGE_INTEGER filesize;
+							filesize.LowPart = ffd.nFileSizeLow;
+							filesize.HighPart = ffd.nFileSizeHigh;
+						}
+
+						fw::core::File f(sFileName, bIsDir);
+						files.addFile(f);
+					}
+
+					if (!FindNextFile(hFind, &ffd))
+					{
+						FindClose(hFind);
+						hFind = INVALID_HANDLE_VALUE;
+					}
+				}
+			}
+
+			return files;
+		}
+
 
 	} //namespace core
 

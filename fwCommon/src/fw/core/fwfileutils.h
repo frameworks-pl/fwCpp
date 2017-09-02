@@ -1,6 +1,8 @@
 #ifndef FILEUTILS_H_INCLUDED
 #define FILEUTILS_H_INCLUDED
 
+#include "fwfiles.h"
+
 namespace fw {
 
 	namespace core {
@@ -86,8 +88,13 @@ namespace fw {
 				//converts image type to a string representing its file extension
 				static CString imageExtensionToString(const ImageType eImageType);
 
+				//returns drive letters available in the system
 				static std::vector<CString> getVolumes();
 
+				//returns list of files in given folder
+				//excludes list of names that should be excluded from search on given path
+				//if path does not exist return value is empty vector
+				static fw::core::Files getFiles(const CString& pPath, const std::set<CString>& excludes);
 
 			protected:
 

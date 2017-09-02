@@ -76,6 +76,11 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy /y $(SolutionDir)fwCommon\$(ConfigurationName)\fwCommon.lib $(LIBS)\frameworks\fwCommon\$(ConfigurationName)
+copy /y $(SolutionDir)fwCommon\$(ConfigurationName)\fwCommon.pdb $(LIBS)\frameworks\fwCommon\$(ConfigurationName)
+echo f | xcopy /y /e $(SolutionDir)$(ProjectName)\src $(LIBS)\frameworks\$(ProjectName)\include\src</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -105,6 +110,11 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy /y $(SolutionDir)fwCommon\$(ConfigurationName)\fwCommon.lib $(LIBS)\frameworks\fwCommon\$(ConfigurationName)
+copy /y $(SolutionDir)fwCommon\$(ConfigurationName)\fwCommon.pdb $(LIBS)\frameworks\fwCommon\$(ConfigurationName)
+echo f | xcopy /y /e $(SolutionDir)$(ProjectName)\src $(LIBS)\frameworks\$(ProjectName)\include\src</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -114,6 +124,7 @@
     <ClCompile Include="src\fw\core\fwbytebuffer.cpp" />
     <ClCompile Include="src\fw\core\fwdatetime.cpp" />
     <ClCompile Include="src\fw\core\fwexception.cpp" />
+    <ClCompile Include="src\fw\core\fwfiles.cpp" />
     <ClCompile Include="src\fw\core\fwfileutils.cpp" />
     <ClCompile Include="src\fw\core\fwgenericnotifier.cpp" />
     <ClCompile Include="src\fw\core\fwnumbers.cpp" />
@@ -133,6 +144,8 @@
     <ClInclude Include="src\fw\core\fwcore.h" />
     <ClInclude Include="src\fw\core\fwdatetime.h" />
     <ClInclude Include="src\fw\core\fwexception.h" />
+    <ClInclude Include="src\fw\core\fwfile.h" />
+    <ClInclude Include="src\fw\core\fwfiles.h" />
     <ClInclude Include="src\fw\core\fwfileutils.h" />
     <ClInclude Include="src\fw\core\fwgenericnotifier.h" />
     <ClInclude Include="src\fw\core\fwnumbers.h" />
