@@ -39,6 +39,26 @@ namespace fw
 			return m_Directories;
 		}
 
+
+		int Files::nameToIndex(const CString& pFileName)
+		{
+			//rebuild all files if needed
+			if (m_All.empty())
+				getAll();
+
+			int iIndex = 0;
+			std::vector<File>::const_iterator it;
+			for (it = m_All.begin(); it < m_All.end(); it++)
+			{
+				if (!it->getName().CompareNoCase(pFileName))
+					return iIndex;
+
+				iIndex++;
+			}
+
+			return -1;
+		}
+
 	}
 
 }

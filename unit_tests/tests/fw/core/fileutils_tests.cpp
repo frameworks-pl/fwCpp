@@ -70,6 +70,29 @@ TEST_F(FileUtilsTest, getPathTest)
 	
 }
 
+TEST_F(FileUtilsTest, getFilesSlashAtTheEnd)
+{
+	fw::core::Files filesAndDirs = fw::core::FileUtils::getFiles(m_sTestPath + _T("\\"), m_Excludes);
+	ASSERT_EQ(3, filesAndDirs.getAll().size());
+}
+
+TEST_F(FileUtilsTest, nameToIndex)
+{
+	fw::core::Files filesAndDirs = fw::core::FileUtils::getFiles(m_sTestPath, m_Excludes);
+	int iIndex = filesAndDirs.nameToIndex(_T("file1.txt"));
+
+	int iExpectedIndex = 0;
+	std::vector<fw::core::File>::const_iterator it;
+	for (it = filesAndDirs.getAll().begin(); it < filesAndDirs.getAll().end(); it++)
+	{
+		if (!it->getName().CompareNoCase(_T("file1.txt")))
+			break;
+		iExpectedIndex++;
+	}
+
+	ASSERT_EQ(iExpectedIndex, iIndex);	
+}
+
 
 TEST(FileUtils, cDriveExists)
 {

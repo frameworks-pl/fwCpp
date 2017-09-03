@@ -14,11 +14,17 @@ namespace fw
 				virtual ~Files() { }
 				void addFile(const File& pFile);
 
+				//returns index of file in All collection
+				int nameToIndex(const CString& pFileName);
+
 				//returns all directories and files as one vector (directories first)
 				const std::vector<File>& getAll() const;
-				const std::vector<File>& getFiles() const;
-				const std::vector<File>& getDirectories() const;
 
+				//returns only files
+				const std::vector<File>& getFiles() const;
+
+				//returns only directories
+				const std::vector<File>& getDirectories() const;
 
 			protected:
 				std::vector<File> m_Files;

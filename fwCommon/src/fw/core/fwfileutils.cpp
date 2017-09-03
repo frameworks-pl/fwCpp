@@ -374,6 +374,7 @@ namespace fw
 		{
 			//convert releative path to full path
 			CString fullPath = getAbsolutePath(pPath);
+			FileUtils::stripEndingBackslash(fullPath);
 
 			fw::core::Files files;
 			if (FileUtils::dirExists(fullPath))
