@@ -96,6 +96,9 @@ namespace fw {
 				//if path does not exist return value is empty vector
 				static fw::core::Files getFiles(const CString& pPath, const std::set<CString>& excludes);
 
+				//return path without .. inside
+				static CString getAbsolutePath(const CString& sPath);
+
 			protected:
 
 				enum PartEnum {

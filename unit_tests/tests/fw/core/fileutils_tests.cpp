@@ -75,3 +75,12 @@ TEST(FileUtils, cDriveExists)
 {
 	ASSERT_TRUE(fw::core::FileUtils::dirExists(_T("C:\\")));
 }
+
+TEST(FileUtils, getAbsolutePath)
+{
+	CString sPath(_T("c:\\data\\zakomed\\.."));
+	CString s = fw::core::FileUtils::getAbsolutePath(sPath);
+	CString sExpected(_T("c:\\data"));
+	ASSERT_TRUE(!sExpected.CompareNoCase(s));
+	
+}

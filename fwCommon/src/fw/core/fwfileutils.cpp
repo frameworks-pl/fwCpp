@@ -372,10 +372,13 @@ namespace fw
 
 		fw::core::Files FileUtils::getFiles(const CString& pPath, const std::set<CString>& excludes)
 		{
+			//convert releative path to full path
+			CString fullPath = getAbsolutePath(pPath);
+
 			fw::core::Files files;
-			if (FileUtils::dirExists(pPath))
+			if (FileUtils::dirExists(fullPath))
 			{
-				CString sPath(pPath);
+				CString sPath(fullPath);
 				fw::core::FileUtils::stripEndingBackslash(sPath);
 				sPath.Append(_T("\\*"));
 
@@ -416,6 +419,19 @@ namespace fw
 			}
 
 			return files;
+		}
+
+
+		CString FileUtils::getAbsolutePath(const CString& sPath)
+		{
+			TCHAR absPath[MAX_PATH];
+			CString fullPath = sPath;
+			if (_wfullpath(&absPath[0], (LPCTSTR)sPath, MAX_PATH))
+			{
+				fullPath = CString(absPath);
+			}
+
+			return fullPath;
 		}
 
 
