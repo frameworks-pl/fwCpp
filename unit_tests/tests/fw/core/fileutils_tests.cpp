@@ -25,7 +25,6 @@ class FileUtilsTest : public ::testing::Test
 			CString sPath;
 			sPath.Format(_T("%s\\..\\unit_tests\\resources\\"), sAppPath);
 			CopyFile(sPath + _T("\\file1.txt"), m_sTestPath + _T("\\file1.txt"), FALSE);
-
 		}
 
 		virtual void TearDown()
@@ -106,4 +105,41 @@ TEST(FileUtils, getAbsolutePath)
 	CString sExpected(_T("c:\\data"));
 	ASSERT_TRUE(!sExpected.CompareNoCase(s));
 	
+}
+
+
+class FileUtilsFilteringTest : public ::testing::Test
+{
+public:
+	FileUtilsFilteringTest() : m_sTestPath(_T("c:\\temp\\filteringTest"))
+	{
+		m_Excludes.insert(std::set<CString>::value_type(_T(".")));
+
+	}
+protected:
+	virtual void SetUp()
+	{
+		fw::core::FileUtils::createDir(m_sTestPath);
+		fw::core::FileUtils::createDir(m_sTestPath + _T("\\folder1"));
+
+		//CString sLastError;
+		CString sAppPath = fw::core::AppUtils::getAppPath();
+		CString sPath;
+		sPath.Format(_T("%s\\..\\unit_tests\\resources\\"), sAppPath);
+		CopyFile(sPath + _T("\\file1.txt"), m_sTestPath + _T("\\file1.txt"), FALSE);
+		CopyFile(sPath + _T("\\file2.txt"), m_sTestPath + _T("\\file2.txt"), FALSE);
+		CopyFile(sPath + _T("\\aaa.txt"), m_sTestPath + _T("\\aaa.txt"), FALSE);
+		CopyFile(sPath + _T("\\bbb.db"), m_sTestPath + _T("\\bbb.db"), FALSE);
+
+	}
+	CString m_sTestPath;
+	std::set<CString> m_Excludes;
+};
+
+TEST_F(FileUtilsFilteringTest, filterFileTests)
+{
+	CString fileFilter(_T("*.db"));
+	fw::core::Files filesAndDirs = fw::core::FileUtils::getFiles(m_sTestPath, m_Excludes, _T("*"), fileFilter);
+	ASSERT_EQ(2, filesAndDirs.getDirectories().size());
+	ASSERT_EQ(1, filesAndDirs.getFiles().size());
 }
