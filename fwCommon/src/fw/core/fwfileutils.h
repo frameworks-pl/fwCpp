@@ -71,6 +71,12 @@ namespace fw {
 					*/
 				static std::list<CString> getFileDirList(const CString& pSearchMask, bool bFiles, bool bDirs);
 
+				//returns list of files/directories in given folder
+				//excludes list of names that should be excluded from search on given path
+				//if path does not exist return value is empty vector
+				static fw::core::Files getFiles(const CString& pPath,
+					const std::set<CString>& excludes, const CString& sDirFilter = _T("*"), const CString& sFileFilter =_T("*"));
+
 				/**
 				  This is simple helper function that removes ending backslash if there is one
 				  */
@@ -91,11 +97,6 @@ namespace fw {
 				//returns drive letters available in the system
 				static std::vector<CString> getVolumes();
 
-				//returns list of files in given folder
-				//excludes list of names that should be excluded from search on given path
-				//if path does not exist return value is empty vector
-				static fw::core::Files getFiles(const CString& pPath, const std::set<CString>& excludes);
-
 				//return path without .. inside
 				static CString getAbsolutePath(const CString& sPath);
 
@@ -108,6 +109,11 @@ namespace fw {
 					PATH_PART_EXT
 				};
 				static CString getPathPart(const PartEnum& pPart, const CString& pPath);
+
+				//fils in collection with files or directories (depending on bDir)
+				//that or on sPath, using filter sFilter
+				static void getFileSystemItems(const CString& sPath, bool bDir, CString sFilter,
+					const std::set<CString>& excludes, fw::core::Files& files);
 
 				//helper method used by fileSizeToString
 				static CString InsertSeparator(DWORD dwNumber);

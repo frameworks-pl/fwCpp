@@ -370,27 +370,40 @@ namespace fw
 
 		}
 
-		fw::core::Files FileUtils::getFiles(const CString& pPath, const std::set<CString>& excludes)
+		fw::core::Files FileUtils::getFiles(const CString& pPath, 
+			const std::set<CString>& excludes, const CString& sDirFilter, const CString& sFileFilter)
 		{
 			//convert releative path to full path
 			CString fullPath = getAbsolutePath(pPath);
 			FileUtils::stripEndingBackslash(fullPath);
 
 			fw::core::Files files;
-			if (FileUtils::dirExists(fullPath))
+			getFileSystemItems(fullPath, true, sDirFilter, excludes, files);
+			getFileSystemItems(fullPath, false, sFileFilter, excludes, files);
+			
+			return files;
+		}
+
+		void FileUtils::getFileSystemItems(const CString& sPath, bool bDir, CString sFilter, 
+			const std::set<CString>& excludes, fw::core::Files& files)
+		{
+			if (FileUtils::dirExists(sPath))
 			{
-				CString sPath(fullPath);
-				fw::core::FileUtils::stripEndingBackslash(sPath);
-				sPath.Append(_T("\\*"));
+				CString sFullPath(sPath);
+				fw::core::FileUtils::stripEndingBackslash(sFullPath);
+				sFullPath.Append(_T("\\"));
+				sFullPath.Append(sFilter);
+
 
 				WIN32_FIND_DATA ffd;
-				HANDLE hFind = FindFirstFile((LPCTSTR)sPath, &ffd);
+				HANDLE hFind = FindFirstFile((LPCTSTR)sFullPath, &ffd);
 				while (INVALID_HANDLE_VALUE != hFind)
 				{
 					CString sFileName(ffd.cFileName);
 					if (excludes.find(sFileName) == excludes.end())
 					{
 						bool bIsDir = false;
+						DWORD dwFileSize = 0;
 
 						if ((ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
 						{
@@ -398,17 +411,18 @@ namespace fw
 						}
 						else
 						{
-							LARGE_INTEGER filesize;
-							filesize.LowPart = ffd.nFileSizeLow;
-							filesize.HighPart = ffd.nFileSizeHigh;
+							dwFileSize = getFileSize(sFullPath);
 						}
 
-						CString sFilePath(pPath);
-						fw::core::FileUtils::stripEndingBackslash(sFilePath);
-						sFilePath.Append(_T("\\"));
-						sFilePath.Append(sFileName);
-						fw::core::File f(sFilePath, bIsDir);
-						files.addFile(f);
+						if ((bIsDir && bDir) || (!bIsDir && !bDir))
+						{
+							CString sFilePath(sPath);
+							fw::core::FileUtils::stripEndingBackslash(sFilePath);
+							sFilePath.Append(_T("\\"));
+							sFilePath.Append(sFileName);
+							fw::core::File f(sFilePath, bIsDir, dwFileSize);
+							files.addFile(f);
+						}
 					}
 
 					if (!FindNextFile(hFind, &ffd))
@@ -418,8 +432,6 @@ namespace fw
 					}
 				}
 			}
-
-			return files;
 		}
 
 

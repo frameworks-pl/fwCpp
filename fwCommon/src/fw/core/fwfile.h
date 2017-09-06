@@ -8,21 +8,20 @@ namespace fw
 		class File
 		{
 			public:
-				File()  : m_bDirectory(false)
+				File()  : m_bDirectory(false), m_Size(0)
 				{ 
-					m_Size.LowPart = 0;
-					m_Size.HighPart = 0;
 				}
 
-				File(const CString& sPath, bool bDirectory = false) : m_sPath(sPath), m_bDirectory(bDirectory)
+				File(const CString& sPath, bool bDirectory = false, DWORD dwSize = 0) 
+					: m_sPath(sPath), m_bDirectory(bDirectory), m_Size(dwSize)
 				{ 
-					m_Size.LowPart = 0;
-					m_Size.HighPart = 0;
+
 				}
 				virtual ~File() { }
 
 				const CString& getPath() const { return m_sPath; }
 				CString getName() const;
+				DWORD getSize() const { return m_Size;  }
 
 				bool isDirectory() const { return m_bDirectory;  }
 
@@ -35,7 +34,7 @@ namespace fw
 				bool m_bDirectory;
 
 				//file size LARGE_INTEGER
-				LARGE_INTEGER m_Size;
+				DWORD m_Size;
 		};
 
 
