@@ -405,21 +405,22 @@ namespace fw
 						bool bIsDir = false;
 						DWORD dwFileSize = 0;
 
+						CString sFilePath(sPath);
+						fw::core::FileUtils::stripEndingBackslash(sFilePath);
+						sFilePath.Append(_T("\\"));
+						sFilePath.Append(sFileName);
+
 						if ((ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
 						{
 							bIsDir = true;
 						}
 						else
 						{
-							dwFileSize = getFileSize(sFullPath);
+							dwFileSize = getFileSize(sFilePath);
 						}
 
 						if ((bIsDir && bDir) || (!bIsDir && !bDir))
 						{
-							CString sFilePath(sPath);
-							fw::core::FileUtils::stripEndingBackslash(sFilePath);
-							sFilePath.Append(_T("\\"));
-							sFilePath.Append(sFileName);
 							fw::core::File f(sFilePath, bIsDir, dwFileSize);
 							files.addFile(f);
 						}
