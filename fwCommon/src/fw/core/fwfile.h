@@ -22,6 +22,7 @@ namespace fw
 				const CString& getPath() const { return m_sPath; }
 				CString getName() const;
 				DWORD getSize() const { return m_Size;  }
+				CString getSizeAsString() const;
 
 				bool isDirectory() const { return m_bDirectory;  }
 

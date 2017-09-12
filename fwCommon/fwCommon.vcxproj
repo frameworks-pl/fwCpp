@@ -130,6 +130,7 @@ echo f | xcopy /y /e $(SolutionDir)$(ProjectName)\src $(LIBS)\frameworks\$(Proje
     <ClCompile Include="src\fw\core\fwgenericnotifier.cpp" />
     <ClCompile Include="src\fw\core\fwnumbers.cpp" />
     <ClCompile Include="src\fw\core\fwtextconv.cpp" />
+    <ClCompile Include="src\fw\core\fwthread.cpp" />
     <ClCompile Include="src\fw\core\fwversion.cpp" />
     <ClCompile Include="src\fw\debug\fwlog.cpp" />
     <ClCompile Include="src\main\fwcommon.cpp" />
@@ -151,6 +152,7 @@ echo f | xcopy /y /e $(SolutionDir)$(ProjectName)\src $(LIBS)\frameworks\$(Proje
     <ClInclude Include="src\fw\core\fwgenericnotifier.h" />
     <ClInclude Include="src\fw\core\fwnumbers.h" />
     <ClInclude Include="src\fw\core\fwtextconv.h" />
+    <ClInclude Include="src\fw\core\fwthread.h" />
     <ClInclude Include="src\fw\core\fwversion.h" />
     <ClInclude Include="src\fw\debug\fwlog.h" />
     <ClInclude Include="src\fw\gui\fwgui.h" />

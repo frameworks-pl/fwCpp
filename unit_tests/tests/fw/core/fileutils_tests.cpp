@@ -15,7 +15,7 @@ class FileUtilsTest : public ::testing::Test
 
 		}
 	protected:
-		virtual void SetUp()
+		void SetUp() override
 		{
 			fw::core::FileUtils::createDir(m_sTestPath);
 			fw::core::FileUtils::createDir(m_sTestPath + _T("\\folder1"));
@@ -27,7 +27,7 @@ class FileUtilsTest : public ::testing::Test
 			CopyFile(sPath + _T("\\file1.txt"), m_sTestPath + _T("\\file1.txt"), FALSE);
 		}
 
-		virtual void TearDown()
+		void TearDown() override
 		{
 			fw::core::FileUtils::removeDir(m_sTestPath);
 		}
@@ -110,30 +110,35 @@ TEST(FileUtils, getAbsolutePath)
 
 class FileUtilsFilteringTest : public ::testing::Test
 {
-public:
-	FileUtilsFilteringTest() : m_sTestPath(_T("c:\\temp\\filteringTest"))
-	{
-		m_Excludes.insert(std::set<CString>::value_type(_T(".")));
+	public:
+		FileUtilsFilteringTest() : m_sTestPath(_T("c:\\temp\\filteringTest"))
+		{
+			m_Excludes.insert(std::set<CString>::value_type(_T(".")));
+		}
+	protected:
+		virtual void SetUp()
+		{
+			fw::core::FileUtils::createDir(m_sTestPath);
+			fw::core::FileUtils::createDir(m_sTestPath + _T("\\folder1"));
 
-	}
-protected:
-	virtual void SetUp()
-	{
-		fw::core::FileUtils::createDir(m_sTestPath);
-		fw::core::FileUtils::createDir(m_sTestPath + _T("\\folder1"));
+			//CString sLastError;
+			CString sAppPath = fw::core::AppUtils::getAppPath();
+			CString sPath;
+			sPath.Format(_T("%s\\..\\unit_tests\\resources\\"), sAppPath);
+			CopyFile(sPath + _T("\\file1.txt"), m_sTestPath + _T("\\file1.txt"), FALSE);
+			CopyFile(sPath + _T("\\file2.txt"), m_sTestPath + _T("\\file2.txt"), FALSE);
+			CopyFile(sPath + _T("\\aaa.txt"), m_sTestPath + _T("\\aaa.txt"), FALSE);
+			CopyFile(sPath + _T("\\bbb.db"), m_sTestPath + _T("\\bbb.db"), FALSE);
 
-		//CString sLastError;
-		CString sAppPath = fw::core::AppUtils::getAppPath();
-		CString sPath;
-		sPath.Format(_T("%s\\..\\unit_tests\\resources\\"), sAppPath);
-		CopyFile(sPath + _T("\\file1.txt"), m_sTestPath + _T("\\file1.txt"), FALSE);
-		CopyFile(sPath + _T("\\file2.txt"), m_sTestPath + _T("\\file2.txt"), FALSE);
-		CopyFile(sPath + _T("\\aaa.txt"), m_sTestPath + _T("\\aaa.txt"), FALSE);
-		CopyFile(sPath + _T("\\bbb.db"), m_sTestPath + _T("\\bbb.db"), FALSE);
+		}
 
-	}
-	CString m_sTestPath;
-	std::set<CString> m_Excludes;
+		void TearDown() override
+		{
+			fw::core::FileUtils::removeDir(m_sTestPath);
+		}
+
+		CString m_sTestPath;
+		std::set<CString> m_Excludes;
 };
 
 TEST_F(FileUtilsFilteringTest, filterFileTests)
@@ -142,4 +147,43 @@ TEST_F(FileUtilsFilteringTest, filterFileTests)
 	fw::core::Files filesAndDirs = fw::core::FileUtils::getFiles(m_sTestPath, m_Excludes, _T("*"), fileFilter);
 	ASSERT_EQ(2, filesAndDirs.getDirectories().size());
 	ASSERT_EQ(1, filesAndDirs.getFiles().size());
+}
+
+
+class FileUtilsSizeTest : public ::testing::Test
+{
+	public:
+		FileUtilsSizeTest() : m_sTestPath(_T("c:\\temp\\sizeTest"))
+		{
+			m_Excludes.insert(std::set<CString>::value_type(_T(".")));
+		}
+	protected:
+		virtual void SetUp()
+		{
+			fw::core::FileUtils::createDir(m_sTestPath);
+
+			//CString sLastError;
+			CString sAppPath = fw::core::AppUtils::getAppPath();
+			CString sPath;
+			sPath.Format(_T("%s\\..\\unit_tests\\resources\\"), sAppPath);
+			CopyFile(sPath + _T("\\boxbells.db"), m_sTestPath + _T("\\boxbells.db"), FALSE);
+		}
+
+		void TearDown() override
+		{
+			fw::core::FileUtils::removeDir(m_sTestPath);
+		}
+
+		CString m_sTestPath;
+		std::set<CString> m_Excludes;
+};
+
+
+
+TEST_F(FileUtilsSizeTest, sizeTest)
+{
+	CString fileFilter(_T("*.db"));
+	fw::core::Files filesAndDirs = fw::core::FileUtils::getFiles(m_sTestPath, m_Excludes, _T("*"), fileFilter);
+	ASSERT_EQ(1, filesAndDirs.getFiles().size());
+	ASSERT_TRUE(filesAndDirs.getFiles()[0].getSize() > 0);
 }
