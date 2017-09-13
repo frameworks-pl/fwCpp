@@ -404,6 +404,7 @@ namespace fw
 					{
 						bool bIsDir = false;
 						DWORD dwFileSize = 0;
+						SYSTEMTIME lastModifiedDate = File::INVALID_SYSTEM_TIME;
 
 						CString sFilePath(sPath);
 						fw::core::FileUtils::stripEndingBackslash(sFilePath);
@@ -418,10 +419,14 @@ namespace fw
 						{
 							dwFileSize = getFileSize(sFilePath);
 						}
+						SYSTEMTIME creationDate = File::INVALID_SYSTEM_TIME;
+						SYSTEMTIME lastAccessDate = File::INVALID_SYSTEM_TIME;
+						if (!getFileDates(sFilePath, creationDate, lastAccessDate, lastModifiedDate))
+							lastModifiedDate = File::INVALID_SYSTEM_TIME;
 
 						if ((bIsDir && bDir) || (!bIsDir && !bDir))
 						{
-							fw::core::File f(sFilePath, bIsDir, dwFileSize);
+							fw::core::File f(sFilePath, bIsDir, dwFileSize, lastModifiedDate);
 							files.addFile(f);
 						}
 					}

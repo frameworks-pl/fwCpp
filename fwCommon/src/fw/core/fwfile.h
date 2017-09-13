@@ -8,12 +8,15 @@ namespace fw
 		class File
 		{
 			public:
+
+				static SYSTEMTIME INVALID_SYSTEM_TIME;
+
 				File()  : m_bDirectory(false), m_Size(0)
 				{ 
 				}
 
-				File(const CString& sPath, bool bDirectory = false, DWORD dwSize = 0) 
-					: m_sPath(sPath), m_bDirectory(bDirectory), m_Size(dwSize)
+				File(const CString& sPath, bool bDirectory = false, DWORD dwSize = 0, SYSTEMTIME updateDate = INVALID_SYSTEM_TIME)
+					: m_sPath(sPath), m_bDirectory(bDirectory), m_Size(dwSize), m_LastUpdated(updateDate)
 				{ 
 
 				}
@@ -23,6 +26,7 @@ namespace fw
 				CString getName() const;
 				DWORD getSize() const { return m_Size;  }
 				CString getSizeAsString() const;
+				CString getLastUpdateDateAsString() const;
 
 				bool isDirectory() const { return m_bDirectory;  }
 
@@ -36,6 +40,9 @@ namespace fw
 
 				//file size LARGE_INTEGER
 				DWORD m_Size;
+
+				//last update date
+				SYSTEMTIME m_LastUpdated;
 		};
 
 
