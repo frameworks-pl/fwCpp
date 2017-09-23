@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "aesphmdecryption.h"
-#include "sicryptexception.h"
+#include "fwcryptexception.h"
 
 
 #ifdef _DEBUG

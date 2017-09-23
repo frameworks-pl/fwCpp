@@ -1,12 +1,12 @@
 #include "stdafx.h"
-#include "siencdec.h"
+#include "fwencdec.h"
 
 #pragma warning (push)
 #pragma warning (disable: 4267)
 #include <crypto5/hex.h>
 #pragma warning (pop)
 
-#include "sicryptexception.h"
+#include "fwcryptexception.h"
 
 #ifdef _DEBUG
 //#define new DEBUG_NEW

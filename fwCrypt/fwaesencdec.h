@@ -1,7 +1,7 @@
 #ifndef SIAESENCDEC_H_INCLUDED
 #define SIAESENCDEC_H_INCLUDED
 
-#include "siencdec.h"
+#include "fwencdec.h"
 
 
 namespace fw

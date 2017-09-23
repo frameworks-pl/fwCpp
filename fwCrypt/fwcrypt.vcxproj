@@ -93,6 +93,11 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>msvcrt;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Lib>
+    <PostBuildEvent>
+      <Command>copy /y $(SolutionDir)fwCrypt\$(ConfigurationName)\fwCrypt.lib $(LIBS)\frameworks\fwCrypt\$(ConfigurationName)
+copy /y $(SolutionDir)fwCrypt\$(ConfigurationName)\fwCrypt.pdb $(LIBS)\frameworks\fwCrypt\$(ConfigurationName)
+copy /y $(SolutionDir)$(ProjectName)\*.h $(LIBS)\frameworks\$(ProjectName)\include</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -106,6 +111,11 @@
     <Lib>
       <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
     </Lib>
+    <PostBuildEvent>
+      <Command>copy /y $(SolutionDir)fwCrypt\$(ConfigurationName)\fwCrypt.lib $(LIBS)\frameworks\fwCrypt\$(ConfigurationName)
+copy /y $(SolutionDir)fwCrypt\$(ConfigurationName)\fwCrypt.pdb $(LIBS)\frameworks\fwCrypt\$(ConfigurationName)
+copy /y $(SolutionDir)$(ProjectName)\*.h $(LIBS)\frameworks\$(ProjectName)\include</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Unicode|Win32'">
     <ClCompile>
@@ -145,13 +155,13 @@
   <ItemGroup>
     <ClCompile Include="aesphmdecryption.cpp" />
     <ClCompile Include="aesphmencryption.cpp" />
-    <ClCompile Include="siaesencdec.cpp" />
-    <ClCompile Include="siarchive.cpp" />
-    <ClCompile Include="sicryptexception.cpp" />
-    <ClCompile Include="sicrypttest.cpp" />
-    <ClCompile Include="siencdec.cpp" />
-    <ClCompile Include="silicense.cpp" />
-    <ClCompile Include="sisha256.cpp" />
+    <ClCompile Include="fwaesencdec.cpp" />
+    <ClCompile Include="fwarchive.cpp" />
+    <ClCompile Include="fwcryptexception.cpp" />
+    <ClCompile Include="fwcrypttest.cpp" />
+    <ClCompile Include="fwencdec.cpp" />
+    <ClCompile Include="fwlicense.cpp" />
+    <ClCompile Include="fwsha256.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Unicode|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -162,13 +172,13 @@
   <ItemGroup>
     <ClInclude Include="aesphmdecryption.h" />
     <ClInclude Include="aesphmencryption.h" />
-    <ClInclude Include="siaesencdec.h" />
-    <ClInclude Include="siarchive.h" />
-    <ClInclude Include="sicryptexception.h" />
-    <ClInclude Include="sicrypttest.h" />
-    <ClInclude Include="siencdec.h" />
-    <ClInclude Include="silicense.h" />
-    <ClInclude Include="sisha256.h" />
+    <ClInclude Include="fwaesencdec.h" />
+    <ClInclude Include="fwarchive.h" />
+    <ClInclude Include="fwcryptexception.h" />
+    <ClInclude Include="fwcrypttest.h" />
+    <ClInclude Include="fwencdec.h" />
+    <ClInclude Include="fwlicense.h" />
+    <ClInclude Include="fwsha256.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

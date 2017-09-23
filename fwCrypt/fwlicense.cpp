@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "silicense.h"
+#include "fwlicense.h"
 
 #include <src/fw/core/fwdatetime.h>
-#include "sisha256.h"
-#include "siencdec.h"
-#include "siaesencdec.h"
-#include "sicryptexception.h"
+#include "fwsha256.h"
+#include "fwencdec.h"
+#include "fwaesencdec.h"
+#include "fwcryptexception.h"
 #include <src/fw/core/fwapputils.h>
 #include <src/fw/core/fwtextconv.h>
 

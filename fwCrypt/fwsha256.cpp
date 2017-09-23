@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "sisha256.h"
-#include "sicryptexception.h"
+#include "fwsha256.h"
+#include "fwcryptexception.h"
 
 #ifdef _DEBUG
 //#define new DEBUG_NEW

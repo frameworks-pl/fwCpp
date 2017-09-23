@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "siaesencdec.h"
+#include "fwaesencdec.h"
 #include "aesphmencryption.h"
 #include "aesphmdecryption.h"
-#include "sicryptexception.h"
+#include "fwcryptexception.h"
 
 #ifdef _DEBUG
 //#define new DEBUG_NEW

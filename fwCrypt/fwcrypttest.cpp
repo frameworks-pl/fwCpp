@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "sicrypttest.h"
+#include "fwcrypttest.h"
 
-#include "siaesencdec.h"
-#include "sisha256.h"
+#include "fwaesencdec.h"
+#include "fwsha256.h"
 #include <src/fw/core/fwdatetime.h>
 #include <src/fw/core/fwapputils.h>
 #include <src/fw/core/fwtextconv.h>
