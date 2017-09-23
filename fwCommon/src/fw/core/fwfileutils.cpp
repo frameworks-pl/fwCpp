@@ -24,13 +24,17 @@ namespace fw
 			}
 
 			//scenario when path is root for a given drive
+			CString sPath(pPath);
+			stripEndingBackslash(sPath);
+			sPath.Append(_T("\\"));
+
 			std::vector<Drive> drives = FileUtils::getDrives();
 			std::vector<Drive>::const_iterator it;
 			for (it = drives.begin(); it != drives.end(); it++)
 			{
 				CString sVolumeRoot;
 				sVolumeRoot.Format(_T("%s:\\"), it->getLetter());
-				if (!sVolumeRoot.CompareNoCase(pPath))
+				if (!sVolumeRoot.CompareNoCase(sPath))
 					return true;
 			}
 
