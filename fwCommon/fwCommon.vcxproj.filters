@@ -73,6 +73,9 @@
     <ClCompile Include="src\fw\core\fwthread.cpp">
       <Filter>src\fw\core</Filter>
     </ClCompile>
+    <ClCompile Include="src\fw\core\fwdrive.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\fwcommon.h">
@@ -130,6 +133,9 @@
       <Filter>src\fw\core</Filter>
     </ClInclude>
     <ClInclude Include="src\fw\core\fwthread.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwdrive.h">
       <Filter>src\fw\core</Filter>
     </ClInclude>
   </ItemGroup>

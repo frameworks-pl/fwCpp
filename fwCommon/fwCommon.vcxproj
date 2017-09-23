@@ -123,6 +123,7 @@ echo f | xcopy /y /e $(SolutionDir)$(ProjectName)\src $(LIBS)\frameworks\$(Proje
     <ClCompile Include="src\fw\core\fwapputils.cpp" />
     <ClCompile Include="src\fw\core\fwbytebuffer.cpp" />
     <ClCompile Include="src\fw\core\fwdatetime.cpp" />
+    <ClCompile Include="src\fw\core\fwdrive.cpp" />
     <ClCompile Include="src\fw\core\fwexception.cpp" />
     <ClCompile Include="src\fw\core\fwfile.cpp" />
     <ClCompile Include="src\fw\core\fwfiles.cpp" />
@@ -145,6 +146,7 @@ echo f | xcopy /y /e $(SolutionDir)$(ProjectName)\src $(LIBS)\frameworks\$(Proje
     <ClInclude Include="src\fw\core\fwbytebuffer.h" />
     <ClInclude Include="src\fw\core\fwcore.h" />
     <ClInclude Include="src\fw\core\fwdatetime.h" />
+    <ClInclude Include="src\fw\core\fwdrive.h" />
     <ClInclude Include="src\fw\core\fwexception.h" />
     <ClInclude Include="src\fw\core\fwfile.h" />
     <ClInclude Include="src\fw\core\fwfiles.h" />

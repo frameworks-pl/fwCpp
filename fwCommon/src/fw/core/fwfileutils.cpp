@@ -13,6 +13,8 @@ namespace fw
 	namespace core
 	{
 
+		const std::vector<Drive::Type> FileUtils::ALL_DRIVES;
+
 		bool FileUtils::dirExists(const CString& pPath) {
 
 			CFileFind finder;
@@ -22,12 +24,12 @@ namespace fw
 			}
 
 			//scenario when path is root for a given drive
-			std::vector<CString> volumes = FileUtils::getVolumes();
-			std::vector<CString>::const_iterator it;
-			for (it = volumes.begin(); it != volumes.end(); it++)
+			std::vector<Drive> drives = FileUtils::getDrives();
+			std::vector<Drive>::const_iterator it;
+			for (it = drives.begin(); it != drives.end(); it++)
 			{
 				CString sVolumeRoot;
-				sVolumeRoot.Format(_T("%s:\\"), *it);
+				sVolumeRoot.Format(_T("%s:\\"), it->getLetter());
 				if (!sVolumeRoot.CompareNoCase(pPath))
 					return true;
 			}
@@ -352,9 +354,9 @@ namespace fw
 
 		}
 
-		std::vector<CString> FileUtils::getVolumes()
+		std::vector<Drive> FileUtils::getDrives(std::vector<Drive::Type> types)
 		{
-			std::vector<CString> driveLetters;
+			std::vector<Drive> drivesVec;
 			DWORD drives = GetLogicalDrives();
 			for (int i = 0; i < 26; i++)
 			{
@@ -362,11 +364,18 @@ namespace fw
 				{
 					TCHAR cLetter = TCHAR(65 + i);
 					CString sLetter(cLetter);
-					driveLetters.push_back(sLetter);
+					CString s(sLetter);
+					s.Append(_T(":\\"));
+					Drive::Type type = (Drive::Type)::GetDriveType(s);
+					if (types.empty() || std::find(types.begin(), types.end(), type) != types.end())
+					{
+						Drive drive(sLetter, type);
+						drivesVec.push_back(drive);
+					}
 				}
 			}
 
-			return driveLetters;
+			return drivesVec;
 
 		}
 

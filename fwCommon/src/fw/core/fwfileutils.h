@@ -2,6 +2,7 @@
 #define FILEUTILS_H_INCLUDED
 
 #include "fwfiles.h"
+#include "fwdrive.h"
 
 namespace fw {
 
@@ -25,6 +26,10 @@ namespace fw {
 		{
 
 			public:
+
+				//empty list of drive types (default value for getDrives indicating that all types should be included)
+				static const std::vector<Drive::Type> ALL_DRIVES;
+
 				/** @brief returns true if the specified directory/folder exists */
 				static bool dirExists(const CString& pPath);
 
@@ -95,7 +100,8 @@ namespace fw {
 				static CString imageExtensionToString(const ImageType eImageType);
 
 				//returns drive letters available in the system
-				static std::vector<CString> getVolumes();
+				//types - if empty all types will be included, otherwise only types on the list will be included
+				static std::vector<Drive> getDrives(std::vector<Drive::Type> types = ALL_DRIVES);
 
 				//return path without .. inside
 				static CString getAbsolutePath(const CString& sPath);
