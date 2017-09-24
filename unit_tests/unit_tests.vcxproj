@@ -49,15 +49,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions);GTEST_HAS_PARAM_TEST;_USING_V110_SDK71_</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;./include;./include/gtest;./src;./tests/et/core;$(ETCOMMON_ROOT)/src/et/core;../fwDB;../fwCommon;../xmlparser;../sqlite3;$(BOOST_LIBS)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./include;./include/gtest;./src;./tests/et/core;../fwDB;../fwCommon;../xmlparser;../sqlite3;$(BOOST_LIBS);../fwCrypt;$(LIBS)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(LIBS)/frameworks/fwDB/$(ConfigurationName);$(SolutionDir)fwCommon\$(ConfigurationName);$(BOOST_LIBS)\lib_vs2015</AdditionalLibraryDirectories>
-      <AdditionalDependencies>fwDB.lib;fwCommon.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LIBS)/frameworks/fwDB/$(ConfigurationName);$(SolutionDir)fwCommon\$(ConfigurationName);$(BOOST_LIBS)\lib_vs2015;$(LIBS)\crypto5\Win32\Output\$(ConfigurationName);$(SolutionDir)fwCrypt\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fwDB.lib;fwCommon.lib;fwCrypt.lib;cryptlib.lib</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib;%(IgnoreSpecificDefaultLibraries);</IgnoreSpecificDefaultLibraries>
     </Link>
     <Lib>
@@ -78,7 +78,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;GTEST_HAS_PARAM_TEST;_USING_V110_SDK71_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;./include;./include/gtest;./src;./tests/et/core;$(ETCOMMON_ROOT)/src/et/core;../fwDB;../fwCommon;../xmlparser;../sqlite3;$(BOOST_LIBS)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./include;./include/gtest;./src;./tests/et/core;../fwDB;../fwCommon;../xmlparser;../sqlite3;$(BOOST_LIBS);../fwCrypt;$(LIBS)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -86,8 +86,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(LIBS)\frameworks\fwDB\$(ConfigurationName);$(SolutionDir)\fwCommon\$(ConfigurationName);$(BOOST_LIBS)\lib_vs2015</AdditionalLibraryDirectories>
-      <AdditionalDependencies>fwDB.lib;fwCommon.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LIBS)\frameworks\fwDB\$(ConfigurationName);$(SolutionDir)\fwCommon\$(ConfigurationName);$(BOOST_LIBS)\lib_vs2015;$(LIBS)\crypto5\Win32\Output\$(ConfigurationName);$(SolutionDir)fwCrypt\$(ConfigurationName)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fwDB.lib;fwCommon.lib;fwCrypt.lib;cryptlib.lib</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -111,6 +111,7 @@
   <ItemGroup>
     <ClCompile Include="src\gtest-all.cc" />
     <ClCompile Include="tests\fw\core\fileutils_tests.cpp" />
+    <ClCompile Include="tests\fw\crypt\sha256_tests.cpp" />
     <ClCompile Include="tests\fw\db\dbserializer_tests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

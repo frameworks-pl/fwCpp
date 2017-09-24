@@ -66,6 +66,22 @@ namespace fw {
           throws exception if the buffor is not initilized.
         */
         BYTE* getBuffer();
+
+		//return hash as byte buffer
+		const fw::core::ByteBuffer& getByteBuffer() const { return mHash;  }
+
+		//returns SHA256 as base64 encoded string
+		CString toBase64();
+
+		//creates sha256 from provided base64 string
+		void fromBase64(const CString& sBase64String);
+
+		//encodes buffer to base64
+		static CString b64encode(const void* data, const size_t len);
+
+		//decodes from base64
+		static fw::core::ByteBuffer b64decode(const CString& sBase64String);
+
     
       protected:
     

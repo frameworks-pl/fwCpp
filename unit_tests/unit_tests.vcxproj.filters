@@ -24,6 +24,9 @@
     <Filter Include="tests\fw\core">
       <UniqueIdentifier>{f9deb05b-68a1-48d6-957c-bc3a5bcc8b2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\fw\crypt">
+      <UniqueIdentifier>{8efd4144-50cc-4f84-bbe1-d5e45cef557c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -45,6 +48,9 @@
     </ClCompile>
     <ClCompile Include="tests\fw\core\fileutils_tests.cpp">
       <Filter>tests\fw\core</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\fw\crypt\sha256_tests.cpp">
+      <Filter>tests\fw\crypt</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SICryptException.h"
+#include "fwcryptexception.h"
 
 #ifdef _DEBUG
 //#define new DEBUG_NEW

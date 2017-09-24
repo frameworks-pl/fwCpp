@@ -160,7 +160,6 @@ copy /y $(SolutionDir)$(ProjectName)\*.h $(LIBS)\frameworks\$(ProjectName)\inclu
     <ClCompile Include="fwcryptexception.cpp" />
     <ClCompile Include="fwcrypttest.cpp" />
     <ClCompile Include="fwencdec.cpp" />
-    <ClCompile Include="fwlicense.cpp" />
     <ClCompile Include="fwsha256.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Unicode|Win32'">Create</PrecompiledHeader>
@@ -177,7 +176,6 @@ copy /y $(SolutionDir)$(ProjectName)\*.h $(LIBS)\frameworks\$(ProjectName)\inclu
     <ClInclude Include="fwcryptexception.h" />
     <ClInclude Include="fwcrypttest.h" />
     <ClInclude Include="fwencdec.h" />
-    <ClInclude Include="fwlicense.h" />
     <ClInclude Include="fwsha256.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
