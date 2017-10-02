@@ -25,6 +25,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unit_tests", "unit_tests\un
 		{8F0E864F-4775-47E1-8626-7F59D426BD01} = {8F0E864F-4775-47E1-8626-7F59D426BD01}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyxmlSTL", "tinyxml\tinyxmlSTL.vcxproj", "{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Unicode|x86 = Debug_Unicode|x86
@@ -81,6 +83,14 @@ Global
 		{96829066-AF11-43E9-9711-49DC231C6210}.Release_Unicode|x86.Build.0 = Release|Win32
 		{96829066-AF11-43E9-9711-49DC231C6210}.Release|x86.ActiveCfg = Release|Win32
 		{96829066-AF11-43E9-9711-49DC231C6210}.Release|x86.Build.0 = Release|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Debug_Unicode|x86.ActiveCfg = Debug_Unicode|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Debug_Unicode|x86.Build.0 = Debug_Unicode|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Debug|x86.ActiveCfg = Debug|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Debug|x86.Build.0 = Debug|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Release_Unicode|x86.ActiveCfg = Release_Unicode|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Release_Unicode|x86.Build.0 = Release_Unicode|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Release|x86.ActiveCfg = Release|Win32
+		{11C27A99-9496-47C6-94A0-E26AC9B4EEC5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
