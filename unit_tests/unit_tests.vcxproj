@@ -67,7 +67,8 @@
       <Command>$(TargetPath)</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>copy /y $(LIBS)\frameworks\fwDB\$(ConfigurationName)\fwDB.dll $(OutDir)</Command>
+      <Command>copy /y $(LIBS)\frameworks\fwDB\$(ConfigurationName)\fwDB.dll $(OutDir)
+copy /y $(LIBS)\sqlite3\$(ConfigurationName)\sqlite3.dll $(OutDir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -95,10 +96,12 @@
       <AdditionalOptions>/ignore:4006 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <PostBuildEvent>
-      <Command>$(TargetPath)</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>copy /y $(LIBS)\frameworks\fwDB\$(ConfigurationName)\fwDB.dll $(OutDir)</Command>
+      <Command>copy /y $(LIBS)\frameworks\fwDB\$(ConfigurationName)\fwDB.dll $(OutDir)
+copy /y $(LIBS)\sqlite3\$(ConfigurationName)\sqlite3.dll $(OutDir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
