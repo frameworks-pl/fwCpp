@@ -113,6 +113,11 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0813</Culture>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy /y $(OutDir)$(ProjectName).lib $(LIBS)\frameworks\xmlParser\$(ConfigurationName)
+
+copy /y $(ProjectDir)*.h $(LIBS)\frameworks\xmlParser\include</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -148,6 +153,10 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0813</Culture>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy /y $(OutDir)$(ProjectName).lib $(LIBS)\frameworks\xmlParser\$(ConfigurationName)
+copy /y $(ProjectDir)*.h $(LIBS)\frameworks\xmlParser\include</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Unicode|Win32'">
     <ClCompile>
