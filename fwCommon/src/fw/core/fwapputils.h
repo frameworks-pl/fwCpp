@@ -55,6 +55,9 @@ namespace fw {
                 @brief Generates a GUID as string
             */
             static CString getGUIDAsString();
+
+			//Returns true if both guids are the same (regardles of case)
+			static bool compareGUIDs(const CString& sGUID1, const CString& sGUID2);
     
             /**
                 This is kind of complicated method to check if the them is currently

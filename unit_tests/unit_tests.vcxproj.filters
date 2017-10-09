@@ -52,5 +52,8 @@
     <ClCompile Include="tests\fw\crypt\sha256_tests.cpp">
       <Filter>tests\fw\crypt</Filter>
     </ClCompile>
+    <ClCompile Include="tests\fw\core\apputils_tests.cpp">
+      <Filter>tests\fw\core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

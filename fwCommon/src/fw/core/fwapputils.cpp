@@ -184,7 +184,8 @@ namespace fw {
 
 			//make CString from Ole string
 			CString cstr_guid(pstrGuid);
-			int j = cstr_guid.GetLength();
+			cstr_guid.MakeLower();
+
 
 			//relase Ole string
 			if (NULL != pstrGuid)
@@ -193,6 +194,11 @@ namespace fw {
 			return cstr_guid;
 
 		}; //getGUIDAsString
+
+		bool AppUtils::compareGUIDs(const CString& sGUID1, const CString& sGUID2)
+		{
+			return !sGUID1.CompareNoCase(sGUID2);
+		}
 
 
 		CString AppUtils::getEnvVar(const CString& pVarName)
