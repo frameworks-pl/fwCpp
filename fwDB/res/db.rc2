@@ -34,13 +34,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "Somift"
-            VALUE "FileDescription", ""
+            VALUE "CompanyName", "Frameworks"
+            VALUE "FileDescription", "SQLite C++ driver"
             VALUE "FileVersion", STRFILEVER
-            VALUE "InternalName", "sidb.dll"
-            VALUE "LegalCopyright", "(c) Somift.  All rights reserved."
-            VALUE "OriginalFilename", "sidb.dll"
-            VALUE "ProductName", "Data Organizer"
+            VALUE "InternalName", "fwDB.dll"
+            VALUE "LegalCopyright", "(C) Frameworks.  All rights reserved."
+            VALUE "OriginalFilename", "fwDB.dll"
+            VALUE "ProductName", "fwDB"
             VALUE "ProductVersion", STRPRODUCTVER
         END
     END
