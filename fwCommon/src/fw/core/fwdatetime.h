@@ -89,6 +89,12 @@ namespace fw {
 				*/
 				static void addPeriod(SYSTEMTIME& pDateTime, const int& pDays, const int& pHours = 0, const int& pMinutes = 0, const int& pSeconds = 0);
 
+				/**
+					@brief Returns number of seconds that passed between first date
+					and second date.
+				*/
+				static int getTimeSpanAsSeconds(const SYSTEMTIME& pStartDateTime, const SYSTEMTIME& pEndDateTime);
+
 				//returns string representing the date using user system settings
 				//or default system settings
 				//bLong specifies if the date should be converted to long or short format

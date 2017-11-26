@@ -55,5 +55,8 @@
     <ClCompile Include="tests\fw\core\apputils_tests.cpp">
       <Filter>tests\fw\core</Filter>
     </ClCompile>
+    <ClCompile Include="tests\fw\core\datetime_tests.cpp">
+      <Filter>tests\fw\core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

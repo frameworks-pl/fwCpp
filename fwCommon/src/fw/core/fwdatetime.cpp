@@ -756,7 +756,36 @@ namespace fw {
 
 			return true;
 
-			} //namespace
+		} 
+
+
+		int DateTime::getTimeSpanAsSeconds(const SYSTEMTIME& pStartDateTime, const SYSTEMTIME& pEndDateTime)
+		{
+			
+			std::tm start_tm;
+			std::tm end_tm;
+
+			start_tm.tm_sec = pStartDateTime.wSecond;
+			start_tm.tm_min = pStartDateTime.wMinute;
+			start_tm.tm_hour = pStartDateTime.wHour;
+			start_tm.tm_mday = pStartDateTime.wDay;
+			start_tm.tm_mon = pStartDateTime.wMonth - 1;
+			start_tm.tm_year = pStartDateTime.wYear - 1900;
+			start_tm.tm_isdst = -1;
+
+			end_tm.tm_sec = pEndDateTime.wSecond;
+			end_tm.tm_min = pEndDateTime.wMinute;
+			end_tm.tm_hour = pEndDateTime.wHour;
+			end_tm.tm_mday = pEndDateTime.wDay;
+			end_tm.tm_mon = pEndDateTime.wMonth - 1;
+			end_tm.tm_year = pEndDateTime.wYear - 1900;
+			end_tm.tm_isdst = -1;
+
+			std::time_t start_time_t = std::mktime(&start_tm);
+			std::time_t end_time_t = std::mktime(&end_tm);
+
+			return end_time_t - start_time_t;
+		}
 
 	} //namespace core
 

@@ -114,6 +114,7 @@ copy /y $(LIBS)\sqlite3\$(ConfigurationName)\sqlite3.dll $(OutDir)</Command>
   <ItemGroup>
     <ClCompile Include="src\gtest-all.cc" />
     <ClCompile Include="tests\fw\core\apputils_tests.cpp" />
+    <ClCompile Include="tests\fw\core\datetime_tests.cpp" />
     <ClCompile Include="tests\fw\core\fileutils_tests.cpp" />
     <ClCompile Include="tests\fw\crypt\sha256_tests.cpp" />
     <ClCompile Include="tests\fw\db\dbserializer_tests.cpp" />
