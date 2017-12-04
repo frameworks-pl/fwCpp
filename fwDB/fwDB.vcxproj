@@ -83,9 +83,11 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy /y $(OutDir)$(ProjectName).dll $(LIBS)\frameworks\fwDB\$(ConfigurationName)
+      <Command>IF NOT EXIST $(LIBS)\frameworks\fwDB\$(ConfigurationName) MKDIR $(LIBS)\frameworks\fwDB\$(ConfigurationName)
+copy /y $(OutDir)$(ProjectName).dll $(LIBS)\frameworks\fwDB\$(ConfigurationName)
 copy /y $(OutDir)$(ProjectName).lib $(LIBS)\frameworks\fwDB\$(ConfigurationName)
 copy /y $(OutDir)$(ProjectName).pdb $(LIBS)\frameworks\fwDB\$(ConfigurationName)
+IF NOT EXIST $(LIBS)\frameworks\fwDB\include MKDIR $(LIBS)\frameworks\fwDB\include
 copy /y $(ProjectDir)*.h $(LIBS)\frameworks\fwDB\include</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -126,10 +128,7 @@ copy /y $(ProjectDir)*.h $(LIBS)\frameworks\fwDB\include</Command>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy /y $(OutDir)$(ProjectName).dll $(LIBS)\frameworks\fwDB\$(ConfigurationName)
-copy /y $(OutDir)$(ProjectName).lib $(LIBS)\frameworks\fwDB\$(ConfigurationName)
-copy /y $(OutDir)$(ProjectName).pdb $(LIBS)\frameworks\fwDB\$(ConfigurationName)
-copy /y $(ProjectDir)*.h $(LIBS)\frameworks\fwDB\include</Command>
+      <Command>IF NOT EXIST $(LIBS)\frameworks\fwDB\$(ConfigurationName) MKDIR $(LIBS)\frameworks\fwDB\$(ConfigurationName)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

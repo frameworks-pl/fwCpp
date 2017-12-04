@@ -114,8 +114,9 @@
       <Culture>0x0813</Culture>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy /y $(OutDir)$(ProjectName).lib $(LIBS)\frameworks\xmlParser\$(ConfigurationName)
-
+      <Command>IF NOT EXIST $(LIBS)\frameworks\xmlParser\$(ConfigurationName) MKDIR $(LIBS)\frameworks\xmlParser\$(ConfigurationName)
+copy /y $(OutDir)$(ProjectName).lib $(LIBS)\frameworks\xmlParser\$(ConfigurationName)
+IF NOT EXIST $(LIBS)\frameworks\xmlParser\include MKDIR $(LIBS)\frameworks\xmlParser\include
 copy /y $(ProjectDir)*.h $(LIBS)\frameworks\xmlParser\include</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -154,7 +155,9 @@ copy /y $(ProjectDir)*.h $(LIBS)\frameworks\xmlParser\include</Command>
       <Culture>0x0813</Culture>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy /y $(OutDir)$(ProjectName).lib $(LIBS)\frameworks\xmlParser\$(ConfigurationName)
+      <Command>IF NOT EXIST $(LIBS)\frameworks\xmlParser\$(ConfigurationName) MKDIR $(LIBS)\frameworks\xmlParser\$(ConfigurationName)
+copy /y $(OutDir)$(ProjectName).lib $(LIBS)\frameworks\xmlParser\$(ConfigurationName)
+IF NOT EXIST $(LIBS)\frameworks\xmlParser\include MKDIR $(LIBS)\frameworks\xmlParser\include
 copy /y $(ProjectDir)*.h $(LIBS)\frameworks\xmlParser\include</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
