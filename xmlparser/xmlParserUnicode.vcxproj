@@ -22,7 +22,7 @@
     <ProjectGuid>{4391F146-0445-49EE-B3B9-257B367C3734}</ProjectGuid>
     <SccProjectName />
     <SccLocalPath />
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>xmlParser</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
