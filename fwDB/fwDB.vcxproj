@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -179,14 +179,6 @@ copy /y $(ProjectDir)*.h $(LIBS)\frameworks\fwDB\include</Command>
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\sicrypt\sicrypt.vcxproj">
-      <Project>{514ecc1f-4965-47c1-aa19-ca6a6c2ca7bb}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\silog\silog.vcxproj">
-      <Project>{5219a192-c88b-4452-9db3-972323ba12f2}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\sqlite3\sqlite3.vcxproj">
       <Project>{03a01a05-365c-4e27-855d-935cad6f187c}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
