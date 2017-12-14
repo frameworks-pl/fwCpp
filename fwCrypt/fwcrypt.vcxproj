@@ -94,7 +94,11 @@
       <IgnoreSpecificDefaultLibraries>msvcrt;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Lib>
     <PostBuildEvent>
-      <Command>IF NOT EXIST $(LIBS)\frameworks\fwCrypt\$(ConfigurationName) MKDIR $(LIBS)\frameworks\fwCrypt\$(ConfigurationName)</Command>
+      <Command>IF NOT EXIST $(LIBS)\frameworks\fwCrypt\$(ConfigurationName) MKDIR $(LIBS)\frameworks\fwCrypt\$(ConfigurationName)
+copy /y $(SolutionDir)fwCrypt\$(ConfigurationName)\fwCrypt.lib $(LIBS)\frameworks\fwCrypt\$(ConfigurationName)
+copy /y $(SolutionDir)fwCrypt\$(ConfigurationName)\fwCrypt.pdb $(LIBS)\frameworks\fwCrypt\$(ConfigurationName)
+IF NOT EXIST $(LIBS)\frameworks\$(ProjectName)\include MKDIR $(LIBS)\frameworks\$(ProjectName)\include
+copy /y $(SolutionDir)$(ProjectName)\*.h $(LIBS)\frameworks\$(ProjectName)\include</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -128,7 +128,12 @@ copy /y $(ProjectDir)*.h $(LIBS)\frameworks\fwDB\include</Command>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>IF NOT EXIST $(LIBS)\frameworks\fwDB\$(ConfigurationName) MKDIR $(LIBS)\frameworks\fwDB\$(ConfigurationName)</Command>
+      <Command>IF NOT EXIST $(LIBS)\frameworks\fwDB\$(ConfigurationName) MKDIR $(LIBS)\frameworks\fwDB\$(ConfigurationName)
+copy /y $(OutDir)$(ProjectName).dll $(LIBS)\frameworks\fwDB\$(ConfigurationName)
+copy /y $(OutDir)$(ProjectName).lib $(LIBS)\frameworks\fwDB\$(ConfigurationName)
+copy /y $(OutDir)$(ProjectName).pdb $(LIBS)\frameworks\fwDB\$(ConfigurationName)
+IF NOT EXIST $(LIBS)\frameworks\fwDB\include MKDIR $(LIBS)\frameworks\fwDB\include
+copy /y $(ProjectDir)*.h $(LIBS)\frameworks\fwDB\include</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

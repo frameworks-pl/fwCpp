@@ -80,7 +80,7 @@
       <Command>IF NOT EXIST $(LIBS)\frameworks\fwCommon\$(ConfigurationName) MKDIR $(LIBS)\frameworks\fwCommon\$(ConfigurationName)
 copy /y $(SolutionDir)fwCommon\$(ConfigurationName)\fwCommon.lib $(LIBS)\frameworks\fwCommon\$(ConfigurationName)
 copy /y $(SolutionDir)fwCommon\$(ConfigurationName)\fwCommon.pdb $(LIBS)\frameworks\fwCommon\$(ConfigurationName)
-echo f | xcopy /y /e $(SolutionDir)$(ProjectName)\src $(LIBS)\frameworks\$(ProjectName)\include\src</Command>
+echo f | xcopy /y /e "$(SolutionDir)$(ProjectName)\src" "$(LIBS)\frameworks\$(ProjectName)\include\src"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -112,7 +112,10 @@ echo f | xcopy /y /e $(SolutionDir)$(ProjectName)\src $(LIBS)\frameworks\$(Proje
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>IF NOT EXIST $(LIBS)\frameworks\fwCommon\$(ConfigurationName) MKDIR $(LIBS)\frameworks\fwCommon\$(ConfigurationName)</Command>
+      <Command>IF NOT EXIST $(LIBS)\frameworks\fwCommon\$(ConfigurationName) MKDIR $(LIBS)\frameworks\fwCommon\$(ConfigurationName)
+copy /y $(SolutionDir)fwCommon\$(ConfigurationName)\fwCommon.lib $(LIBS)\frameworks\fwCommon\$(ConfigurationName)
+copy /y $(SolutionDir)fwCommon\$(ConfigurationName)\fwCommon.pdb $(LIBS)\frameworks\fwCommon\$(ConfigurationName)
+echo f | xcopy /y /e "$(SolutionDir)$(ProjectName)\src" "$(LIBS)\frameworks\$(ProjectName)\include\src"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
