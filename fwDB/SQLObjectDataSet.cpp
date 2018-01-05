@@ -318,26 +318,26 @@ namespace fw
 							CObject* pObject = pRC->CreateObject();
 							if (NULL != pObject)
 							{
-								SQLObject* pSQLObject = (SQLObject*)pObject;
-								if (NULL != pSQLObject)
+								SQLObject* pSQLObjectToDelete = (SQLObject*)pObject;
+								if (NULL != pSQLObjectToDelete)
 								{
 									try
 									{
-										pSQLObject->initialize(it->second);
+										pSQLObjectToDelete->initialize(it->second);
 									}
 									catch (fw::crypt::CryptException& ex)
 									{
-										delete pSQLObject;
-										pSQLObject = NULL;
+										delete pSQLObjectToDelete;
+										pSQLObjectToDelete = NULL;
 										throw ex;
 									}
 
-									pSQLObject->setDeleted();
-									if (m_DeletedObjectList.end() != m_DeletedObjectList.find(pSQLObject->getSQLID()))
+									pSQLObjectToDelete->setDeleted();
+									if (m_DeletedObjectList.end() != m_DeletedObjectList.find(pSQLObjectToDelete->getSQLID()))
 										throw DBException(_T("Trying to delete the same object twice!"));
 
 									//add copy of the object to the "deleted" map
-									m_DeletedObjectList.insert(SQLObjectMap::value_type(pSQLObject->getSQLID(), pSQLObject));
+									m_DeletedObjectList.insert(SQLObjectMap::value_type(pSQLObjectToDelete->getSQLID(), pSQLObjectToDelete));
 
 									//now delete the copy from the "regular" map
 									delete it->second;
