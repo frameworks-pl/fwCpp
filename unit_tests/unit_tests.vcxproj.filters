@@ -27,6 +27,9 @@
     <Filter Include="tests\fw\crypt">
       <UniqueIdentifier>{8efd4144-50cc-4f84-bbe1-d5e45cef557c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\fw\math">
+      <UniqueIdentifier>{6b488f23-9013-415e-9c8a-7017a82b4350}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -57,6 +60,9 @@
     </ClCompile>
     <ClCompile Include="tests\fw\core\datetime_tests.cpp">
       <Filter>tests\fw\core</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\fw\math\point3d_tests.cpp">
+      <Filter>tests\fw\math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

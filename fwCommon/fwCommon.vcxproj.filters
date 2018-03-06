@@ -23,6 +23,9 @@
     <Filter Include="src\fw\core">
       <UniqueIdentifier>{675ddea9-c738-4e2f-8024-15da37f9e873}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\fw\math">
+      <UniqueIdentifier>{6a352fbb-b4ee-4474-ae54-1192adee20fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -75,6 +78,9 @@
     </ClCompile>
     <ClCompile Include="src\fw\core\fwdrive.cpp">
       <Filter>src\fw\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fw\math\fwpoint3d.cpp">
+      <Filter>src\fw\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="src\fw\core\fwdrive.h">
       <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\math\fwpoint3d.h">
+      <Filter>src\fw\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -38,7 +38,7 @@ BEGIN
             VALUE "FileDescription", "SQLite C++ driver"
             VALUE "FileVersion", STRFILEVER
             VALUE "InternalName", "fwDB.dll"
-            VALUE "LegalCopyright", "(C) Frameworks.  All rights reserved."
+            VALUE "LegalCopyright", "(C) Frameworks.pl All rights reserved."
             VALUE "OriginalFilename", "fwDB.dll"
             VALUE "ProductName", "fwDB"
             VALUE "ProductVersion", STRPRODUCTVER

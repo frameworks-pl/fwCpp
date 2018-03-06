@@ -136,6 +136,7 @@ echo f | xcopy /y /e "$(SolutionDir)$(ProjectName)\src" "$(LIBS)\frameworks\$(Pr
     <ClCompile Include="src\fw\core\fwthread.cpp" />
     <ClCompile Include="src\fw\core\fwversion.cpp" />
     <ClCompile Include="src\fw\debug\fwlog.cpp" />
+    <ClCompile Include="src\fw\math\fwpoint3d.cpp" />
     <ClCompile Include="src\main\fwcommon.cpp" />
     <ClCompile Include="src\main\fwCommon_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -160,6 +161,7 @@ echo f | xcopy /y /e "$(SolutionDir)$(ProjectName)\src" "$(LIBS)\frameworks\$(Pr
     <ClInclude Include="src\fw\core\fwversion.h" />
     <ClInclude Include="src\fw\debug\fwlog.h" />
     <ClInclude Include="src\fw\gui\fwgui.h" />
+    <ClInclude Include="src\fw\math\fwpoint3d.h" />
     <ClInclude Include="src\main\fwcommon.h" />
     <ClInclude Include="src\main\fwCommon_pch.h" />
     <ClInclude Include="src\main\Resource.h" />
