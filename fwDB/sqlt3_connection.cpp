@@ -274,9 +274,8 @@ namespace fw
 						break;
 						case SQLITE_TEXT:
 						{
-							const char* pValue = (const char*)sqlite3_column_text(pStmt, iCol);
-							CString s = fw::core::TextConv::UTF82Unicode(pValue);
-							pSQLObject->updateFromString(sColName, s);
+							const char* pValue = (const char*)sqlite3_column_text(pStmt, iCol);							
+							pSQLObject->updateFromString(sColName, pValue);
 
 						}
 							break;
@@ -299,10 +298,10 @@ namespace fw
 			//binding blobs
 			for (int i = 1; i <= iParamsCount; i++)
 			{
-				const SQLParam& pParamToBind = pSQLObject->getParamToBind(i);
-				if (pParamToBind.isValid())
-					sqlite3_bind_blob(pStmt, i, (void*)pParamToBind.getBLOBBuffer().getBuffer(),
-						pParamToBind.getBLOBBuffer().getLength(), SQLITE_STATIC);
+				const SQLParam* pParamToBind = pSQLObject->getParamToBind(i);
+				if (pParamToBind->isValid())
+					sqlite3_bind_blob(pStmt, i, (void*)pParamToBind->getBLOBBuffer().getBuffer(),
+						pParamToBind->getBLOBBuffer().getLength(), SQLITE_STATIC);
 				else
 					throw DBException(_T("Param to bind is invalid."));
 			}

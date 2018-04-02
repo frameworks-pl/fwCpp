@@ -119,6 +119,8 @@ copy /y $(LIBS)\sqlite3\$(ConfigurationName)\sqlite3.dll $(OutDir)</Command>
     <ClCompile Include="tests\fw\core\nullablevar_tests.cpp" />
     <ClCompile Include="tests\fw\crypt\sha256_tests.cpp" />
     <ClCompile Include="tests\fw\db\dbserializer_tests.cpp" />
+    <ClCompile Include="tests\fw\db\encryptedsqlparam_tests.cpp" />
+    <ClCompile Include="tests\fw\db\sqlobject_tests.cpp" />
     <ClCompile Include="tests\fw\math\point3d_tests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

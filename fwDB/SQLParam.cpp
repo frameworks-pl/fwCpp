@@ -71,7 +71,7 @@ namespace fw
 		bool SQLParam::getSQLFormattedValue(CString& pFormattedValue) const
 		{
 
-			bool bHasParam = false;
+ 			bool bHasParam = false;
 			switch (m_eParamType)
 			{
 			case PARAM_INTEGER:
@@ -102,6 +102,7 @@ namespace fw
 			return invalidParam;
 
 		}
+
 		bool SQLParam::isValid() const
 		{
 			if (PARAM_UNKNOWN == m_eParamType)
@@ -180,13 +181,22 @@ namespace fw
 		}
 
 
-		void SQLParam::updateFromString(const CString& pStringValue)
+		void SQLParam::updateFromString(const std::string& pStringValue)
 		{
 			if (PARAM_STRING != m_eParamType)
 				throw DBException(_T("Trying to initialize non-STRING param from a string value."));
+			CString s = fw::core::TextConv::UTF82Unicode(pStringValue.c_str());
+			*m_pStringValue = s;
 
-			*m_pStringValue = pStringValue;
+		}
 
+
+		SQLParam* SQLParam::clone() const
+		{
+			SQLParam* pClone = new SQLParam();
+			*pClone = *this;
+
+			return pClone;
 		}
 
 

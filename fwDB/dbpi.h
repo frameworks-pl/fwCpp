@@ -21,6 +21,7 @@
 #include "MaxID.h"
 #include "MaxIDDataSet.h"
 #include "SQLParam.h"
+#include "EncryptedSQLParam.h"
 #include "SQLXMLDataItem.h"
 #include "dbtoolkit.h"
 

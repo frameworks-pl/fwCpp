@@ -20,7 +20,7 @@ namespace fw
 			//we want the id to be valid from the very beginning
 			m_iUniqueID++;
 
-			addParam(SQLParam(_T("data"), &m_sql_maxid_data));
+			addParam(new SQLParam(_T("data"), &m_sql_maxid_data));
 
 		}
 
@@ -33,7 +33,7 @@ namespace fw
 			//we want the id to be valid from the very beginning
 			m_iUniqueID++;
 
-			addParam(SQLParam(_T("data"), &m_sql_maxid_data));
+			addParam(new SQLParam(_T("data"), &m_sql_maxid_data));
 
 
 		}

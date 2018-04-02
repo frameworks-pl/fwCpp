@@ -4,6 +4,8 @@
 //#define new DEBUG_NEW
 #endif
 
+#define BIND_SQLOBJECT_PARAMS addParam(new db::SQLParam(m_sSQLID_FieldName, &m_SQLID));
+
 namespace fw
 {
 	namespace db
@@ -19,8 +21,23 @@ namespace fw
 			m_SQLID = INVALID_SQL_ID;
 
 			//default params that should always be there...
-			addParam(db::SQLParam(m_sSQLID_FieldName, &m_SQLID));
+			BIND_SQLOBJECT_PARAMS
+		}
 
+
+		SQLObject::~SQLObject()
+		{
+			deleteSQLParams();
+		}
+
+		void SQLObject::deleteSQLParams()
+		{
+			ParamMap::iterator it;
+			for (it = m_ParamMap.begin(); it != m_ParamMap.end(); it++)
+			{
+				delete it->second;
+			}
+			m_ParamMap.clear();
 		}
 
 
@@ -33,6 +50,11 @@ namespace fw
 		{
 			m_eState = pObject.m_eState;
 			m_SQLID = pObject.m_SQLID;
+
+			deleteSQLParams();
+			m_ObjectsToBind.clear();
+			BIND_SQLOBJECT_PARAMS
+			
 
 			return *this;
 
@@ -107,18 +129,18 @@ namespace fw
 		}
 
 
-		void SQLObject::addParam(const SQLParam& pParam)
+		void SQLObject::addParam(SQLParam* pParam)
 		{
-			if (pParam.getColumnName().IsEmpty())
+			if (pParam->getColumnName().IsEmpty())
 				throw DBException(_T("Cannot add param to the collection - column name is empty."));
 
 
 			//make sure there is no such column name already in the map
-			ParamMap::iterator it = m_ParamMap.find(pParam.getColumnName());
+			ParamMap::iterator it = m_ParamMap.find(pParam->getColumnName());
 			if (it != m_ParamMap.end())
 				throw DBException(_T("Cannot add param to the colection - the param with the same column name is already there."));
 
-			m_ParamMap.insert(ParamMap::value_type(pParam.getColumnName(), pParam));
+			m_ParamMap.insert(ParamMap::value_type(pParam->getColumnName(), pParam));
 
 
 		}
@@ -132,7 +154,9 @@ namespace fw
 			ParamMap::iterator it = m_ParamMap.find(pName);
 			if (it != m_ParamMap.end())
 			{
+				SQLParam* pParamToDelete = it->second;
 				m_ParamMap.erase(it);
+				delete pParamToDelete;
 				return true;
 			}
 
@@ -164,11 +188,11 @@ namespace fw
 					for (it = m_ParamMap.begin(); it != m_ParamMap.end(); it++)
 					{
 						if (sColNames.IsEmpty())
-							sColNames = it->second.getColumnName();
+							sColNames = it->second->getColumnName();
 						else
-							sColNames += _T(",") + it->second.getColumnName();
+							sColNames += _T(",") + it->second->getColumnName();
 
-						bool bParamValue = it->second.getSQLFormattedValue(sFormattedValue);
+						bool bParamValue = it->second->getSQLFormattedValue(sFormattedValue);
 						if (bParamValue)
 						{
 							iBindsCnt++;
@@ -193,14 +217,14 @@ namespace fw
 					{
 						CString sSinglePair;
 						CString sFormattedValue;
-						bool bParamValue = it->second.getSQLFormattedValue(sFormattedValue);
+						bool bParamValue = it->second->getSQLFormattedValue(sFormattedValue);
 						if (bParamValue)
 						{
 							iBindsCnt++;
 							m_ObjectsToBind.insert(ParamVarsMap::value_type(iBindsCnt, it->second));
 						}
 
-						sSinglePair.Format(_T("%s=%s"), it->second.getColumnName(), sFormattedValue);
+						sSinglePair.Format(_T("%s=%s"), it->second->getColumnName(), sFormattedValue);
 						if (sColVals.IsEmpty())
 							sColVals = sSinglePair;
 						else
@@ -230,7 +254,7 @@ namespace fw
 					for (it = m_ParamMap.begin(); it != m_ParamMap.end(); it++)
 					{
 						CString sFormattedValue;
-						bool bParamValue = it->second.getSQLFormattedValue(sFormattedValue);
+						bool bParamValue = it->second->getSQLFormattedValue(sFormattedValue);
 						if (bParamValue)
 						{
 							iBindsCnt++;
@@ -238,9 +262,9 @@ namespace fw
 						}
 
 						if (sColNames.IsEmpty())
-							sColNames = it->second.getColumnName();
+							sColNames = it->second->getColumnName();
 						else
-							sColNames += _T(",") + it->second.getColumnName();
+							sColNames += _T(",") + it->second->getColumnName();
 					}
 					pQuery.Format(_T("Select %s FROM %s"), sColNames, getTableName());
 				}
@@ -255,7 +279,7 @@ namespace fw
 		}
 
 
-		const SQLParam& SQLObject::getParamToBind(int iIndex)
+		const SQLParam* SQLObject::getParamToBind(int iIndex)
 		{
 			ParamVarsMap::iterator it = m_ObjectsToBind.find(iIndex);
 			if (it != m_ObjectsToBind.end())
@@ -263,7 +287,7 @@ namespace fw
 				return it->second;
 			}
 
-			return SQLParam::invalid();
+			return &SQLParam::invalid();
 
 
 		}
@@ -275,7 +299,7 @@ namespace fw
 			ParamMap::iterator it = m_ParamMap.find(pColName);
 			if (it != m_ParamMap.end())
 			{
-				it->second.updateFromBLOB(pBLOB);
+				it->second->updateFromBLOB(pBLOB);
 			}
 			else
 			{
@@ -292,7 +316,7 @@ namespace fw
 			ParamMap::iterator it = m_ParamMap.find(pColName);
 			if (it != m_ParamMap.end())
 			{
-				it->second.updateFromInt(iValue);
+				it->second->updateFromInt(iValue);
 			}
 			else
 			{
@@ -304,13 +328,13 @@ namespace fw
 		}
 
 
-		void SQLObject::updateFromString(const CString& pColName, const CString sValue)
+		void SQLObject::updateFromString(const CString& pColName, const std::string& sValue)
 		{
 
 			ParamMap::iterator it = m_ParamMap.find(pColName);
 			if (it != m_ParamMap.end())
 			{
-				it->second.updateFromString(sValue);
+				it->second->updateFromString(sValue);
 			}
 			else
 			{

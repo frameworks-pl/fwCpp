@@ -41,11 +41,13 @@ namespace fw
 			//constructs blob pointer sql param
 			SQLParam(const CString& pColName, BLOBItem* pBLOBItem);
 
+			virtual ~SQLParam() { }
+
 			const CString& getColumnName() const { return m_sColumnName; }
 
 			//puts formatted value into pFormattedValue, returns true
 			//if the value is actually a param to be bound
-			bool getSQLFormattedValue(CString& pFormattedValue) const;
+			virtual bool getSQLFormattedValue(CString& pFormattedValue) const;
 
 			static const SQLParam& invalid();
 			bool isValid() const;
@@ -61,8 +63,10 @@ namespace fw
 			void updateFromInt(int pIntValue);
 
 			//initializes the param from provided string, throws exception if this is not a string param
-			void updateFromString(const CString& pStringValue);
+			virtual void updateFromString(const std::string& pStringValue);
 
+			//makes copy of itself and resturns it as a new object
+			virtual SQLParam* clone() const;
 
 
 		protected:
@@ -89,8 +93,8 @@ namespace fw
 
 		}; //class
 
-		typedef std::map<CString /*Column name*/, SQLParam> ParamMap;
-		typedef std::map<int, SQLParam> ParamVarsMap;
+		typedef std::map<CString /*Column name*/, SQLParam*> ParamMap;
+		typedef std::map<int, SQLParam*> ParamVarsMap;
 
 
 

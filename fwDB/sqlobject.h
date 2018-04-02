@@ -43,7 +43,7 @@ namespace fw
 			static const CString m_sSQLID_FieldName;
 
 			SQLObject();
-			virtual ~SQLObject() { }
+			virtual ~SQLObject();
 
 			//need to define custom copy constructor due to overriding CObject
 			//(see C2558 for details)
@@ -84,7 +84,7 @@ namespace fw
 			StateEnum getState() const { return m_eState; }
 
 			//adds new param to the object
-			void addParam(const SQLParam& pParam);
+			void addParam(SQLParam* pParam);
 
 			//removes param identified by the column name
 			//returns true if the param has been removed as expected
@@ -96,13 +96,12 @@ namespace fw
 
 			//returns the n-th param to be bound to the compiled sql query
 			//if there is no param with such index, returns false
-			const SQLParam& getParamToBind(int iIndex);
+			const SQLParam* getParamToBind(int iIndex);
 
 
 			void updateFromBLOB(const CString& pColName, const fw::core::ByteBuffer& pBLOB);
 			void updateFromInt(const CString& pColName, int iValue);
-			void updateFromString(const CString& pColName, const CString sValue);
-
+			void updateFromString(const CString& pColName, const std::string& sValue);
 
 		protected:
 
@@ -118,6 +117,9 @@ namespace fw
 
 			//serializes the object into a query that can be run on SQL database
 			CString serialize();
+
+			//deletes all current params
+			void deleteSQLParams();
 
 
 			//state of the object
@@ -135,9 +137,6 @@ namespace fw
 
 			//maps object states into strings
 			static std::map<int, CString> m_StateToStringMap;
-
-
-
 
 		};
 

@@ -51,7 +51,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)sqlite3;$(SolutionDir)fwCommon;$(SolutionDir)xmlparser;$(SolutionDir)\fwCrypt;$(LIBS)\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sqlite3;$(SolutionDir)fwCommon;$(SolutionDir)xmlparser;$(SolutionDir)fwCrypt;$(LIBS)\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_AFXEXT;FWDB;TIXML_USE_STL;USE_UNICODE_XML;_USING_V110_SDK71_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -93,7 +93,7 @@ copy /y $(ProjectDir)*.h $(LIBS)\frameworks\fwDB\include</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)sqlite3;$(SolutionDir)fwCommon;$(SolutionDir)xmlparser;$(SolutionDir)\fwCrypt;$(LIBS)\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sqlite3;$(SolutionDir)fwCommon;$(SolutionDir)xmlparser;$(SolutionDir)fwCrypt;$(LIBS)\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_AFXEXT;FWDB;TIXML_USE_STL;USE_UNICODE_XML;_USING_V110_SDK71_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -137,6 +137,7 @@ copy /y $(ProjectDir)*.h $(LIBS)\frameworks\fwDB\include</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EncryptedSQLParam.cpp" />
     <ClCompile Include="sqlt3_connection.cpp" />
     <ClCompile Include="BlobCollection.cpp" />
     <ClCompile Include="dbexception.cpp" />
@@ -157,6 +158,7 @@ copy /y $(ProjectDir)*.h $(LIBS)\frameworks\fwDB\include</Command>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EncryptedSQLParam.h" />
     <ClInclude Include="sqlt3_connection.h" />
     <ClInclude Include="BlobCollection.h" />
     <ClInclude Include="dbexception.h" />
