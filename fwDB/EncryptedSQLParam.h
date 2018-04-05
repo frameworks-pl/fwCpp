@@ -12,23 +12,23 @@ namespace fw
 		{
 			public:
 				//constructs integer sql param
-				EncryptedSQLParam(const CString& pColName, int* pIntValue, fw::crypt::EncDec* pCipher);
+				EncryptedSQLParam(const CString& pColName, int* pIntValue, const fw::crypt::EncDec* pCipher);
 
 				//constructs string sql param
-				EncryptedSQLParam(const CString& pColName, CString* pStringValue, fw::crypt::EncDec* pCipher);
+				EncryptedSQLParam(const CString& pColName, CString* pStringValue, const fw::crypt::EncDec* pCipher);
 
 				//constructs blob sql param
-				EncryptedSQLParam(const CString& pColName, fw::core::ByteBuffer* pByteBuffer, fw::crypt::EncDec* pCipher);
+				EncryptedSQLParam(const CString& pColName, fw::core::ByteBuffer* pByteBuffer, const fw::crypt::EncDec* pCipher);
 
 				//constructs blob pointer sql param
-				EncryptedSQLParam(const CString& pColName, BLOBItem* pBLOBItem, fw::crypt::EncDec* pCipher);
+				EncryptedSQLParam(const CString& pColName, BLOBItem* pBLOBItem, const fw::crypt::EncDec* pCipher);
 
 				bool getSQLFormattedValue(CString& pFormattedValue) const;
 				void updateFromString(const std::string& pStringValue);
 
 			protected:
 
-				fw::crypt::EncDec* m_pCipher;
+				const fw::crypt::EncDec* m_pCipher;
 		};
 
 	}

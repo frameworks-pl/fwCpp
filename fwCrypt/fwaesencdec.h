@@ -16,8 +16,8 @@ namespace fw
     class AESEncDec : public EncDec {
     
       public:
-        fw::core::ByteBuffer encrypt(const BYTE* pData, int pLen);
-        fw::core::ByteBuffer decrypt(const BYTE* pData, int pLen);
+        fw::core::ByteBuffer encrypt(const BYTE* pData, int pLen) const;
+        fw::core::ByteBuffer decrypt(const BYTE* pData, int pLen) const;
     
         /** 
             The AES PHM algorithm generates key from the password 

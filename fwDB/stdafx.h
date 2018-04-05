@@ -28,6 +28,10 @@
 
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS	// some CString constructors will be explicit
 
+#ifdef VISUAL_LEAK_DECTOR
+#include <vld.h>
+#endif //VISUAL_LEAK_DECTOR
+
 #include <afxwin.h>         // MFC core and standard components
 #include <afxext.h>         // MFC extensions
 
@@ -66,9 +70,6 @@
 #include <fwxmlnode.h>
 #include <xmlParser.h>
 #include "dbpi.h"
-
-
-
 
 extern const std::string sqlBEGIN_TRANSACTION;
 extern const std::string sqlCOMMIT;

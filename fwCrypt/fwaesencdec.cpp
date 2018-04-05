@@ -15,7 +15,8 @@ namespace fw
     namespace crypt {
     
     fw::core::ByteBuffer
-    AESEncDec::encrypt(const BYTE* pData, int pLen) {
+    AESEncDec::encrypt(const BYTE* pData, int pLen) const
+	{
     
       fw::core::ByteBuffer output;
       try {
@@ -39,7 +40,8 @@ namespace fw
     
     
     fw::core::ByteBuffer
-    AESEncDec::decrypt(const BYTE* pData, int pLen) {
+    AESEncDec::decrypt(const BYTE* pData, int pLen) const
+	{
     
       fw::core::ByteBuffer output;
       try {

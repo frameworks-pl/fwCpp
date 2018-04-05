@@ -7,26 +7,26 @@ namespace fw
 	namespace db
 	{
 		//constructs integer sql param
-		EncryptedSQLParam::EncryptedSQLParam(const CString& pColName, int* pIntValue, fw::crypt::EncDec* pCipher)
+		EncryptedSQLParam::EncryptedSQLParam(const CString& pColName, int* pIntValue, const fw::crypt::EncDec* pCipher)
 			: SQLParam(pColName, pIntValue), m_pCipher(pCipher)
 		{
 		}
 
 		//constructs string sql param
-		EncryptedSQLParam::EncryptedSQLParam(const CString& pColName, CString* pStringValue, fw::crypt::EncDec* pCipher)
+		EncryptedSQLParam::EncryptedSQLParam(const CString& pColName, CString* pStringValue, const fw::crypt::EncDec* pCipher)
 			: SQLParam(pColName, pStringValue), m_pCipher(pCipher)
 		{
 
 		}
 
 		//constructs blob sql param
-		EncryptedSQLParam::EncryptedSQLParam(const CString& pColName, fw::core::ByteBuffer* pByteBuffer, fw::crypt::EncDec* pCipher)
+		EncryptedSQLParam::EncryptedSQLParam(const CString& pColName, fw::core::ByteBuffer* pByteBuffer, const fw::crypt::EncDec* pCipher)
 			: SQLParam(pColName, pByteBuffer), m_pCipher(pCipher)
 		{
 		}
 
 		//constructs blob pointer sql param
-		EncryptedSQLParam::EncryptedSQLParam(const CString& pColName, BLOBItem* pBLOBItem, fw::crypt::EncDec* pCipher)
+		EncryptedSQLParam::EncryptedSQLParam(const CString& pColName, BLOBItem* pBLOBItem, const fw::crypt::EncDec* pCipher)
 			: SQLParam(pColName, pBLOBItem), m_pCipher(pCipher)
 		{
 		}
@@ -46,10 +46,12 @@ namespace fw
 					CString b64_encoded = fw::crypt::SHA256::b64encode(enc_message.getBuffer(), enc_message.getLength());
 					pFormattedValue.Format(_T("'%s'"), b64_encoded);
 				}
-					break;
+				break;
 				default:
 					throw db::DBException(_T("Attempting to use encrypted param for unsupported value type."));
 			}
+
+			return bHasParam;
 		}
 
 		void EncryptedSQLParam::updateFromString(const std::string& pStringValue)

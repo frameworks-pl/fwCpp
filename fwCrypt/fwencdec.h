@@ -52,12 +52,12 @@ namespace fw {
         /**
           @brief Performs encryption on the specified buffer of data.
        */
-        virtual fw::core::ByteBuffer encrypt(const BYTE* pData, int pLen) = 0;
+        virtual fw::core::ByteBuffer encrypt(const BYTE* pData, int pLen) const = 0;
     
         /**
           @brief Performs decryption of the specified buffer of data.
         */
-        virtual fw::core::ByteBuffer decrypt(const BYTE* pData, int pLen) = 0;
+        virtual fw::core::ByteBuffer decrypt(const BYTE* pData, int pLen) const = 0;
     
       protected:
     
