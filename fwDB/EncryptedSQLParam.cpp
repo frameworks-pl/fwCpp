@@ -40,12 +40,16 @@ namespace fw
 				{
 					//	std::string enc_message_utf8 = Unicode2UTF8(pChunk);
 					//	sicommon::SIByteBuffer enc_message = mAES->encrypt((BYTE*)enc_message_utf8.c_str(), (int)enc_message_utf8.size());
-
-					std::string message_utf8 = fw::core::TextConv::Unicode2UTF8(*m_pStringValue);
-					fw::core::ByteBuffer enc_message = m_pCipher->encrypt((BYTE*)message_utf8.c_str(), (int)message_utf8.size());
-					CString b64_encoded = fw::crypt::SHA256::b64encode(enc_message.getBuffer(), enc_message.getLength());
+					CString b64_encoded;
+					if (m_pStringValue && m_pStringValue->IsEmpty() == false)
+					{
+						std::string message_utf8 = fw::core::TextConv::Unicode2UTF8(*m_pStringValue);
+						fw::core::ByteBuffer enc_message = m_pCipher->encrypt((BYTE*)message_utf8.c_str(), (int)message_utf8.size());
+						b64_encoded = fw::crypt::SHA256::b64encode(enc_message.getBuffer(), enc_message.getLength());
+					}
 					pFormattedValue.Format(_T("'%s'"), b64_encoded);
 				}
+
 				break;
 				default:
 					throw db::DBException(_T("Attempting to use encrypted param for unsupported value type."));
@@ -59,11 +63,14 @@ namespace fw
 			if (PARAM_STRING != m_eParamType)
 				throw DBException(_T("Trying to initialize non-STRING param from a string value."));
 
-			CString b64_encoded = fw::core::TextConv::UTF82Unicode(pStringValue.c_str());
-			fw::core::ByteBuffer enc_message =  fw::crypt::SHA256::b64decode(b64_encoded);
-			fw::core::ByteBuffer dec_message = m_pCipher->decrypt(enc_message.getBuffer(), enc_message.getLength());			
-			std::string dec_message_utf8((const char *)dec_message.getBuffer(), dec_message.getLength());
-			*m_pStringValue = fw::core::TextConv::UTF82Unicode(dec_message_utf8.c_str());
+			if (pStringValue.empty() == false)
+			{
+				CString b64_encoded = fw::core::TextConv::UTF82Unicode(pStringValue.c_str());
+				fw::core::ByteBuffer enc_message = fw::crypt::SHA256::b64decode(b64_encoded);
+				fw::core::ByteBuffer dec_message = m_pCipher->decrypt(enc_message.getBuffer(), enc_message.getLength());
+				std::string dec_message_utf8((const char *)dec_message.getBuffer(), dec_message.getLength());
+				*m_pStringValue = fw::core::TextConv::UTF82Unicode(dec_message_utf8.c_str());
+			}
 
 		}
 	}

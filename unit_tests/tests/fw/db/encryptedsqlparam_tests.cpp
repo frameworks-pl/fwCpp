@@ -78,3 +78,26 @@ TEST(SQLEncryptedParam, encryptDecryptTest)
 	ASSERT_EQ(_T("Value to encrypt"), sValue);
 
 }
+
+
+TEST(SQLEncryptedParam, encryptEmptyValue)
+{
+	CString sPassword = _T("password");
+	std::string utf8Password = fw::core::TextConv::Unicode2UTF8(sPassword);
+	fw::crypt::AESEncDec* aes = new fw::crypt::AESEncDec();
+	aes->init((BYTE*)utf8Password.c_str(), utf8Password.size());
+
+	CString sValue = _T("");
+
+	fw::db::EncryptedSQLParam encryptedSQLParam(_T("column"), &sValue, aes);
+
+	CString sEncryptedValue;
+	encryptedSQLParam.getSQLFormattedValue(sEncryptedValue);
+	sValue = _T("");
+
+	CString s = sEncryptedValue.Mid(1, sEncryptedValue.GetLength() - 2);
+	std::string stdEncryptedString = fw::core::TextConv::Unicode2UTF8(s);
+
+	encryptedSQLParam.updateFromString(stdEncryptedString);
+	ASSERT_EQ(_T(""), sValue);
+}
