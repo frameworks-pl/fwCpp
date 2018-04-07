@@ -82,6 +82,9 @@
     <ClCompile Include="src\fw\math\fwpoint3d.cpp">
       <Filter>src\fw\math</Filter>
     </ClCompile>
+    <ClCompile Include="src\fw\core\fwcsv.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\fwcommon.h">
@@ -146,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="src\fw\math\fwpoint3d.h">
       <Filter>src\fw\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwcsv.h">
+      <Filter>src\fw\core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

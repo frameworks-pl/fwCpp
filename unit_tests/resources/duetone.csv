@@ -1,0 +1,3 @@
+ID      Age   Threshold   SD    ThresholdEx   SDEx    Test name   Subtest name   Conf_T	Conf_LR   Conf_Noise	CSF version  Bells version  Sound Card	Calibration   Protected	 Max resp time [ms]   Randomization  Rejected	Aver AvgNoise  Max MaxNoise	Aver FilteredNoise	
+XYZ	-1	25,0      0,0	25,0          0,0     DuoTone       500Hz        AC     B         Qt            ACAV1        6.5.4	    Realtek     Notebook      No         2900                 FULL        0          0              0                0	
+XYZ	-1	30,0      5,0	30,0          5,0     DuoTone       6KHz         AC     B         Qt            ACAV1        6.5.4	    Realtek     Notebook      No         2200	              FULL        0          0              0                0
