@@ -11,6 +11,7 @@ namespace fw
 
 		void CSV::Load(const CString& pFilePath)
 		{
+			//clear existing content
 			m_Content.clear();
 
 			FILE* fStream;
@@ -22,26 +23,42 @@ namespace fw
 				while (File.ReadString(sLine))
 				{
 					m_sResultFileContent.Append(sLine);
-					int iCurPos = 0;
-					CString sCurrToken = sLine.Tokenize(CString(m_cSeparator), iCurPos);
-					std::vector<CString> csvValuesOneLine;
-					while (sCurrToken != _T(""))
-					{
-						csvValuesOneLine.push_back(sCurrToken);
-						sCurrToken = sLine.Tokenize(CString(m_cSeparator), iCurPos);						
-					}
-
+					std::vector<CString> csvValuesOneLine = parseLine(sLine);
 					m_Content.push_back(csvValuesOneLine);
 				}
 			}
 			fclose(fStream);
 		}
 
-
 		void CSV::fromString(const CString& csv)
 		{
-			
+			//clear existing content
+			m_Content.clear();
 
+			int iLinePos = 0;
+			CString sCurrLine = csv.Tokenize(CString(_T("\r\n")), iLinePos);
+			while (sCurrLine.IsEmpty() == FALSE)
+			{
+				std::vector<CString> csvValuesOneLine = parseLine(sCurrLine);
+
+				//csvValuesOneLine.push_back(sCurrToken);
+				sCurrLine = csv.Tokenize(CString(_T("\r\n")), iLinePos);
+				m_Content.push_back(csvValuesOneLine);
+			}
+		}
+
+		std::vector<CString> CSV::parseLine(const CString& sLine)
+		{
+			std::vector<CString> csvValuesOneLine;
+			int iCurPos = 0;
+			CString sCurrToken = sLine.Tokenize(CString(m_cSeparator), iCurPos);
+			while (sCurrToken.IsEmpty() == FALSE)
+			{
+				csvValuesOneLine.push_back(sCurrToken);
+				sCurrToken = sLine.Tokenize(CString(m_cSeparator), iCurPos);
+			}
+
+			return csvValuesOneLine;
 		}
 
 

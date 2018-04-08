@@ -33,6 +33,8 @@ namespace fw
 
 			protected:
 
+				std::vector<CString> parseLine(const CString& sLine);
+
 				static std::vector<CString> m_EmptyVector;
 
 				//CSV file has header

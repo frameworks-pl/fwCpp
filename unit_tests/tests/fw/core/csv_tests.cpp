@@ -57,4 +57,9 @@ TEST_F(CSVTest, filterFileTests)
 
 	fw::core::CSV csv;
 	csv.fromString(content);
+	int thresholdIdx = csv.ColumnNameToIndex(_T("Threshold"));
+	int sdIdx = csv.ColumnNameToIndex(_T("SD"));
+
+	ASSERT_EQ(2, thresholdIdx);
+	ASSERT_EQ(3, sdIdx);
 }
