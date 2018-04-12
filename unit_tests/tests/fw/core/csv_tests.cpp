@@ -5,6 +5,7 @@
 #include <src/fw/core/fwapputils.h>
 #include <src/fw/core/fwfileutils.h>
 #include <src/fw/core/fwcsv.h>
+#include <src/fw/core/fwtextconv.h>
 
 
 
@@ -50,7 +51,9 @@ TEST_F(CSVTest, filterFileTests)
 		CString sLine;
 		while (File.ReadString(sLine))
 		{
+			fw::core::TextConv::StripBreaks(sLine);
 			content.Append(sLine);
+			content.Append(_T("\n"));
 		}
 	}
 	fclose(fStream);
@@ -62,4 +65,5 @@ TEST_F(CSVTest, filterFileTests)
 
 	ASSERT_EQ(2, thresholdIdx);
 	ASSERT_EQ(3, sdIdx);
+	ASSERT_EQ(3, csv.GetContent().size());
 }
