@@ -38,6 +38,22 @@ namespace fw
 
 		}
 
+		MaxID::MaxID(const MaxID& pObject)
+		{
+			*this = pObject;
+		}
+
+		const MaxID& MaxID::operator=(const MaxID& pObject)
+		{
+			parent::operator=(pObject);
+
+			m_iUniqueID = pObject.m_iUniqueID;
+			m_sName = pObject.m_sName;
+			m_sql_maxid_data = pObject.m_sql_maxid_data;
+
+			return *this;
+		}
+
 
 		Identifier MaxID::getNextID()
 		{

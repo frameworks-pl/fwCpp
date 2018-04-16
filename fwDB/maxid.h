@@ -14,8 +14,12 @@ namespace fw
 			DECLARE_DYNCREATE(MaxID)
 
 		public:
+			typedef fw::db::SQLXMLDataItem parent;
 			MaxID();
 			MaxID(const CString& pMaxIDName);
+			MaxID(const MaxID& pObject);
+
+			const MaxID& operator=(const MaxID& pObject);
 
 			//use this method to assign different table name for max ids than "max_ids"
 			static void initMaxIDS(const CString& pTableName);
