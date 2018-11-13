@@ -173,6 +173,7 @@ echo f | xcopy /y /e "$(SolutionDir)$(ProjectName)\src" "$(LIBS)\frameworks\$(Pr
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\fw\core\fwapputils.cpp" />
+    <ClCompile Include="src\fw\core\fwbinarytree.cpp" />
     <ClCompile Include="src\fw\core\fwbytebuffer.cpp" />
     <ClCompile Include="src\fw\core\fwcsv.cpp" />
     <ClCompile Include="src\fw\core\fwdatetime.cpp" />
@@ -198,6 +199,7 @@ echo f | xcopy /y /e "$(SolutionDir)$(ProjectName)\src" "$(LIBS)\frameworks\$(Pr
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\fw\core\fwapputils.h" />
+    <ClInclude Include="src\fw\core\fwbinarytree.h" />
     <ClInclude Include="src\fw\core\fwbytebuffer.h" />
     <ClInclude Include="src\fw\core\fwcore.h" />
     <ClInclude Include="src\fw\core\fwcsv.h" />

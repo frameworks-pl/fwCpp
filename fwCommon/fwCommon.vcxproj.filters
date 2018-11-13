@@ -85,6 +85,9 @@
     <ClCompile Include="src\fw\core\fwcsv.cpp">
       <Filter>src\fw\core</Filter>
     </ClCompile>
+    <ClCompile Include="src\fw\core\fwbinarytree.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\fwcommon.h">
@@ -151,6 +154,9 @@
       <Filter>src\fw\math</Filter>
     </ClInclude>
     <ClInclude Include="src\fw\core\fwcsv.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwbinarytree.h">
       <Filter>src\fw\core</Filter>
     </ClInclude>
   </ItemGroup>
