@@ -17,7 +17,7 @@ class Node : public fw::core::BTreeNode
 				return pNode->getValue() > value;
 			}
 
-			false;
+			return false;
 		}
 		int getKey() const { return key; }
 		double getValue() const { return value;  }
