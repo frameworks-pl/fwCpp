@@ -54,7 +54,7 @@ namespace fw
 			}
 		}
 
-		const BTreeNode* BTreeNode::findParent(const BTreeNode* needle) const
+		BTreeNode* BTreeNode::findParent(const BTreeNode* needle)
 		{
 
 			if (isGreater(needle))

@@ -18,7 +18,7 @@ namespace fw
 				//returns a node that is closest lower boundory for the new value 
 				//for example if we search for value 42 and there is node 41, it should be returned as result
 				//--->41<------|42|--------------80
-				const BTreeNode* findParent(const BTreeNode* needle) const;
+				BTreeNode* findParent(const BTreeNode* needle);
 
 				BTreeNode* getLeft() { return left; }
 				BTreeNode* getRight() { return right; }
