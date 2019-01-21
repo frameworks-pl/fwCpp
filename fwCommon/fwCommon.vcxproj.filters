@@ -91,6 +91,9 @@
     <ClCompile Include="src\fw\core\fwunits.cpp">
       <Filter>src\fw\core</Filter>
     </ClCompile>
+    <ClCompile Include="src\fw\core\fwregex.cpp">
+      <Filter>src\fw\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\fwcommon.h">
@@ -163,6 +166,9 @@
       <Filter>src\fw\core</Filter>
     </ClInclude>
     <ClInclude Include="src\fw\core\fwunits.h">
+      <Filter>src\fw\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fw\core\fwregex.h">
       <Filter>src\fw\core</Filter>
     </ClInclude>
   </ItemGroup>

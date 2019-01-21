@@ -184,6 +184,7 @@ echo f | xcopy /y /e "$(SolutionDir)$(ProjectName)\src" "$(LIBS)\frameworks\$(Pr
     <ClCompile Include="src\fw\core\fwfileutils.cpp" />
     <ClCompile Include="src\fw\core\fwgenericnotifier.cpp" />
     <ClCompile Include="src\fw\core\fwnumbers.cpp" />
+    <ClCompile Include="src\fw\core\fwregex.cpp" />
     <ClCompile Include="src\fw\core\fwtextconv.cpp" />
     <ClCompile Include="src\fw\core\fwthread.cpp" />
     <ClCompile Include="src\fw\core\fwunits.cpp" />
@@ -212,6 +213,7 @@ echo f | xcopy /y /e "$(SolutionDir)$(ProjectName)\src" "$(LIBS)\frameworks\$(Pr
     <ClInclude Include="src\fw\core\fwfileutils.h" />
     <ClInclude Include="src\fw\core\fwgenericnotifier.h" />
     <ClInclude Include="src\fw\core\fwnumbers.h" />
+    <ClInclude Include="src\fw\core\fwregex.h" />
     <ClInclude Include="src\fw\core\fwtextconv.h" />
     <ClInclude Include="src\fw\core\fwthread.h" />
     <ClInclude Include="src\fw\core\fwunits.h" />
